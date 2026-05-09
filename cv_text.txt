@@ -1,0 +1,292 @@
+PERSONAL INFORMATION
+Malik Sheraz Maqsood Ahmed
+[Full Stack Web Developer]
+  
+1433195196215009525201295002724150318000000 8E, Malik Saeed St, Begum Kot, Shahdara, Lahore. +923481655055      sherii55055@gmail.com https://wa.me/+923481655055  
+
+Github | DOB: 22/11/1998 | Nationality: Pakistan
+
+Principal Full-Stack Engineer – Laravel, Nest, PostgreSQL, GIS PlatformsEnterprise & Government-Scale Systems | GIS Platforms | CI/CD & Cloud Deployments
+
+WORK EXPERIENCE
+ 
+
+Assistant Director Computer Programming
+(01-02-2025 – current)
+
+
+
+GIS Lab, Punjab Forest Department
+(under the Secretariat of Punjab Forest & Wildlife Department)
+ At the GIS Lab, Punjab Forest Department, I architected, developed, and deployed multiple full-scale, GIS-enabled web platforms designed to support government-scale forestry operations, monitoring, and decision-making. These systems enable interactive visualization, management, and analysis of spatial and non-spatial data through modern web technologies, and are actively used in production by multiple administrative and field-level stakeholders.
+I delivered end-to-end solutions including the Complaint Management System (React + Node.js) and the Asset Management System (Laravel), both tailored to real-world operational workflows such as incident reporting, asset lifecycle management, inter-departmental coordination, and internal communications. Across these platforms, I implemented web-level GIS capabilities such as spatial data storage and processing, interactive map rendering, boundary and layer overlays, QR-based geospatial tagging, and role-based access across hierarchical government structures, ensuring secure and scalable enterprise deployments.
+Asset Management System
+To digitize asset tracking and inventory management for IT and media-related purchases and consumables like paper, toner, and stationery.
+Key Features:
+Role-based access (Admins, Employees, Supply Managers, Stock Manager)
+Asset assignment, consumable requests, and low-stock alerts
+QR code generation for all physical assets
+Supplier and procurement records
+
+Deployment:
+Admin Panel: https://ams.gisforestry.com
+Technologies Used:
+Backend: Laravel 11 (PHP 8.3), RESTful APIs
+Frontend: Blade Templates, Bootstrap 5, jQuery
+Database: MySQL
+Environment: ddev, Ubuntu, WSL
+Version Control: Git, GitHub
+
+Complaint Management System       To streamline and digitize the complaint workflow for incidents like forest fires, illegal logging, and encroachments with real-time tracking and multi-role access.
+Key Features:
+Admin panel for Call Room Operators, GIS Lab, Secretariat, Administrative 
+Department, Conservator of forest, Chief Conservator of Forest and DFOs.
+Complaint routing, resolution tracking, and real-time status updates.
+WhatsApp API integration to notify CCF, Conservators, and DFOs.
+Public complaint form with category selection and media upload.
+Deployment:
+Admin Panel: https://cms.gisforestry.com
+Backend API: https://be.cms.gisforestry.com
+Public Form: https://cms.gisforestry.com/public_form
+Technologies Used:
+Frontend: React.js, Bootstrap 5, HTML5, JavaScript (ES6)
+Backend: Node.js, Express.js
+Database: MongoDB, JSON-based storage for prototypes
+Hosting/Deployment: AWS 
+APIs & Integrations: WhatsApp Cloud API
+Dev Tools: Git, GitHub
+
+
+Pakistan Plantation Management System
+         A nationwide GIS platform enabling citizens and government departments to record tree plantation activities with GPS precision and photographic evidence, creating a transparent and centralized plantation database to support environmental policy and monitoring initiatives.
+   Deployment: ppms.gisforestry.com Linear Tree Enumeration System (LTE)
+         A modern, GIS-driven web platform developed to enumerate, track, and analyze linear tree plantations along roads, canals, and forest boundaries. The system leverages PostgreSQL with spatial extensions, a NestJS-based backend, and a Next.js frontend to deliver high-performance spatial queries, structured data collection, and interactive geospatial visualization for large-scale forestry datasets.
+Deployment: https://punjabtreeenumeration.comTechnology Stack: Next.js, NestJS, PostgreSQL 
+ Additional GIS Platforms & Spatial Systems
+          In addition to the above, I modernized and streamlined legacy PostgreSQL-based GIS datasets into web-accessible administrative panels, delivering multiple spatial monitoring systems including fire management, nursery tracking, and district-level forest change analysis. These platforms utilize Leaflet-based boundary mapping, layer overlays, QR-coded plantation markers, and spatial analytics dashboards to support data-driven forestry management.
+   
+Deployments:
+Pakistan Plantation Management System: https://ppms.gisforestry.com
+Fire Management System: https://ffms.gisforestry.com
+Nursery Management System: https://nursery.gisforestry.com
+Forest Change Analysis: https://fca.gisforestry.com 
+Project Monitoring and Evaluation system: https://pme.punjabeforest.com
+
+
+Senior Laravel-PHP Developer
+(01-11-2024 – 30-03-2025)
+
+Carbonic IT Solutions, Islamabad
+(Full Time Remote Job)
+
+In my role as a Web Application Developer at Carbonic IT Solutions, I maintain and enhance a suite of interconnected products that are essential to the company's operations, including:
+Global Shopaholics Portal (portal.globalshopaholics.com)
+Global Shopaholics Website (globalshopaholics.com)
+Ship6 (ship6.com)
+These platforms facilitate international shipping, package forwarding, and e-commerce logistics, ensuring seamless customer experiences and operational efficiency.
+My responsibilities include:
+Developing new modules and enhancing existing features to improve system functionality and performance.
+Conducting speed and code optimizations to ensure high-performance applications.
+Addressing and resolving technical issues to maintain system stability and reliability.
+Collaborating closely with the Product Manager to manage and execute tasks through Jira.
+Implementing and deploying code changes via SSH to production servers.
+Ensuring seamless CI/CD workflows for smooth feature rollouts.
+Frameworks & Libraries
+Laravel, Vue.js, Bootstrap, jQuery
+Languages & Core Technologies
+PHP (Core, 7.x and 8.x), HTML5, CSS3, JavaScript, AJAX, SQL
+Databases
+MySQL
+Beyond development, I actively work on improving system performance, security, and scalability while ensuring best coding practices and architectural enhancements.
+
+Mid-Level Software Developer
+(15-02-2023 – 13-12-2023)
+Senior Software Developer
+(14-12-2023 -- 30-11-2024)
+
+Combined Military Hospital Medical College, Lahore
+(CMHLMC)
+
+In my role as a Web Application Developer at CMH Lahore Medical College, I manage and enhance a suite of interconnected portals essential to the institution's operations, including HR, employee, and student management systems. These portals streamline administrative and academic functions across HR, student, employee, and hostel management, enabling processes like recruitment, onboarding, performance evaluations, attendance tracking, and academic result management. Additionally, I contributed to the Hostel Admission Portal for entry test management, optimizing its functionality to support a smooth admission process.
+Beyond development, I’ve implemented Continuous Integration and Continuous Deployment (CI/CD) pipelines using GitHub Actions, automating critical tasks to improve efficiency. I’ve also made significant contributions to server configurations and settings in DirectAdmin, enhancing portal performance and stability. My approach prioritizes secure, scalable, and user-friendly solutions, while I actively collaborate with cross-functional teams to refine these portals based on ongoing feedback. This experience has strengthened my technical expertise and adaptability, enabling me to contribute effectively to CMH’s operational and educational excellence.Frameworks & Libraries
+Laravel (Core Features, MVC Architecture, Eloquent ORM, Migrations, Relationships, Events & Listeners, Queues & Jobs, API Development, Task Scheduling, Middleware, Blade Templating, Authorization & Policies, Localization, Testing, Package Development)
+Vue.js, CodeIgniter, Bootstrap, jQuery
+Languages & Core Technologies
+PHP (Core, 7.x and 8.x), HTML5, CSS3, JavaScript, AJAX, SQL
+Databases
+MySQL, MariaDB, MS SQL Server Express
+CI/CD & Automation
+GitHub Actions (for CI/CD pipelines), FTP Deploy by Simkirkland for auto deploy, 
+Web Development & UI/UX
+Responsive UI Design, Cross-Browser Compatibility, Web App Development, Web Design, CMS Systems
+Hardware Integration
+Knowledge of attendance machines provided by ZKTeco (ZKT), including setup, configuration, and integration with web applications
+Team Leadership
+Experienced in managing and guiding the development team in the absence of the team lead, ensuring project continuity, task delegation, and adherence to project timelines
+Authentication, Authorization, & Security
+Authentication, Authorizations, Roles & Permissions, Policies, Middleware
+Development Methodologies & Best Practices
+Agile Development Methodologies, Kanban, Standard Programming Approaches
+Operating Systems & DevOps Tools
+Linux, DirectAdmin, Github Actions
+
+
+Portals & Systems Managed
+Student Management Portalhttps://student.cmhlmc.com
+Admission Portalhttps://admissions.cmhlmc.com
+HR Management Portalhttps://hr.cmhlmc.com
+Employee, Faculty, and HOD Management Portalhttps://employee.cmhlmc.com
+Student Management Systemhttps://smp.cmhlmc.com
+Library Management Portalhttps://library.cmhlmc.com
+FCPS Induction System & Portalhttps://hireme.cmhlmc.com
+House Officers Induction System & Portalhttps://house-officers.cmhlmc.com
+Hostel Management Systemhttps://hostel.cmhlmc.com
+Evaluation Portalhttps://evaluation.cmhlmc.com
+Portal for VP Academicshttps://vpa.cmhlmc.com[Note: As of 2025, all products have been outsourced, and the links may no longer be active.]
+
+Application Developer 
+(01-11-2021 – 10-02-2023)
+
+
+
+
+
+Stars Developers, Lahore  
+
+After joining the organization, I initially contributed to mobile and desktop application development using JAVA and C#, but as project demands evolved, I strategically transitioned into web application development, where I focused on building scalable backend-driven systems using Laravel (PHP). This shift marked the foundation of my specialization in web technologies, allowing me to leverage my prior experience in application logic, databases, and system workflows while delivering robust, maintainable web solutions aligned with real-world business requirements Technologies: Laravel, PHP, MySQL, HTML, CSS, JavaScript, Bootstrap, Blade, jQuery.
+
+
+FREELANCE EXPERIENCE
+ 
+
+Desktop Development 
+(2018 - 2019)
+Multi-Platform Desktop applications developer
+
+With the help of freelancing market places and local level project I was able to polish my skills in desktop application development The Skills that I mastered are
+
+Window form Applications
+MS SQL server
+MS SQL Server LAN and WAN configurations
+Electron.js app development
+Node.js for desktop development
+Application development using C#
+Cross Platform Application Development
+WinForms
+Desktop Application with HTML, CSS and JavaScript
+Electron (Node) - React (Blueprint.js) App Development
+
+
+Platforms / Products: Linux, MacOS, Windows / Institute Management System, Notes Taking Application with multi-OS compatibility, Restaurant Management System, Point of Sale etc all of them are being used in local market as well as by some of our international clients.
+
+Android Development 
+(2019 - 2020)
+
+Android Apps developer
+
+In response to market demand, I began learning Android application development, recognizing the rapid growth of the mobile market. During this time, the number of Android OS users significantly increased, prompting me to focus on Android development. The skills I mastered while learning mobile development include:
+
+Android Applications 
+Firebase
+MySQL
+SQLite
+Java
+
+Platforms / Products: Android, Mobile App for Institute Management System, News Apps, E-commerce Application, Social media Apps etc
+
+
+Web Development 
+(2020 - current)
+Website and Web applications developer 
+
+
+It is evident that the proliferation of Android has significantly increased the number of mobile users worldwide. However, I recognized a gap in my skill set that did not meet the needs of many of my clients, particularly in web development. With advancements in technology, businesses today are increasingly seeking websites and web applications. The internet's ubiquitous availability allows for easier access to web apps compared to desktop software, leading many of my clients to request conversions of their old desktop projects into web applications. This motivated me to embark on my journey in web development, complementing my existing skills in mobile and desktop development. Throughout this journey, I have learned a variety of new skills, including:
+Laravel Framework
+Node.js
+React.js
+Vue.js
+PHP Core
+HTML, CSS and JavaScript
+Responsive UI Designing
+Concepts of Authentications
+Cross Browser Web Development
+MySQL
+Web Design
+Web App Development
+CMS Systems
+Standard programming Approaches
+
+Platforms / Products: Safari, Chrome, Opera, Firefox, Edge and all mobile browsers / Organization
+
+Sportseuropa – Management of teams and their sports ActivityIt’s a team registration system for a company where different kind of Olympic level games are being performed their management and subscription history📍 Italy – https://sporteuropa-online.com/ -- 2021-2025
+Spotseuropa Score App – Management of score, judges championshipsScoring system for judges, and management system for the president to manage championships between teams📍 Italy – https://scores.gymacademy-online.com/auth/login -- 2025
+Tradogram – Business & Spend Management PlatformDeveloped a complete procurement and spend management system for enterprise users.📍 Canada – 2021
+DeepTime – Employee Time Tracking ApplicationDesigned and built a time tracking platform for employees and managers to monitor work hours and productivity.📍 USA – www.deeptime-digital.com – 2020
+GyaniGuide – Blogging Platform with Admin PanelDeveloped a full-featured content management and blogging system with user-friendly admin tools.📍 India – www.gyaniguide.com – 2020
+Broker Smarter – Workflow Management ApplicationBuilt a business workflow management app tailored for brokers to optimize task flow and operations.📍 USA – www.broker-smarter.com – 2020
+Jotly.ai – AI-Based Web ApplicationDeveloped a full-stack AI-powered application offering image generation, voiceovers, chat, and more.📍 Canada – https://jotly.ai – 2025
+
+
+EDUCATION HISTORY
+ 
+
+Graduation (2017 - 2021)
+Batchelors in Computer Sciences
+
+Completed my degree at Lahore College of Arts, Science and Technology which is affiliated with Government College University Faisalabad GCUF 
+
+In this course I covered all the important subjects like Object Oriented Programming OOP, Data Structure and Algorithm DSA, Design and Analysis of Algorithm DAA, Operating System OS and Compiler Constructions. These all are the necessary subjects to clear the concepts of a Computer Scientist which also improved my programming approaches and methodologies.
+Subjects like Database Systems, Distributed Database Systems, Parallel and Distributed Computing which were able to enhance my skills in managing databases like SQL 
+Other Subjects Like Computer Network, Software Engineering, Artificial Intelligence, Computer Graphics, Fundamentals of Data Mining gave me deep viewpoints of other Computer Science Fields that also helped me in practical life like by studying and implementing the techniques of Computer Networks in Institute Management System.
+And the subjects like Mobile Application Development and Web Application Development were able me to get touched with the current market.
+
+Inter (2015 - 2017)
+Intermediate in Computer Sciences
+
+
+Completed from Government Islamia College Civil Lines Lahore (BISE Lahore) 
+
+This Degree helped me to clear my all basics about programming and computing systems.
+
+Matriculation (2013 - 2015)
+Matric with Computer Sciences
+
+
+Completed from Paradise High School Shahdara Lahore (BISE Lahore) 
+
+Able to make basic foundation concepts of Computer and Programming
+
+ADDITIONAL INFORMATION
+ 
+
+Mother tongue(s)
+Urdu, Punjabi
+
+
+
+UNDERSTANDING 
+SPEAKING 
+WRITING 
+
+Listening 
+Reading 
+Spoken interaction 
+Spoken production 
+
+English
+C1/2
+C1/2
+B1/2
+B1/2
+C1/2
+
+240 ECTS Batchelors in Computer Science with all subjects in medium in English
+
+Levels: A1/2: Basic user - B1/2: Independent user - C1/2 Proficient user
+Common European Framework of Reference for Languages
+
+Additional Technical Exposure
+In addition to my core full-stack and GIS expertise, I have hands-on exposure to cross-platform desktop application development using Electron.js, along with working knowledge of C# WinForms–based desktop applications. I also possess foundational experience with embedded systems, including basic interaction with Arduino boards and sensors, and familiarity with C and C++ for low-level system and hardware integration tasks.
+
+Driving licence
+Motorcar/jeep | Motorbike 
