@@ -453,3 +453,88 @@ section { position: relative; padding: 110px 0; }
   .p-info-grid { grid-template-columns: 1fr; }
   .v-playbtn .ring { width: 70px; height: 70px; }
 }
+
+/* ============================================================
+   ADDENDUM 2 — AI Developer Profile + Tech Arsenal
+   ============================================================ */
+
+/* ---- Profile layout ---- */
+.profile-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items: stretch; }
+@media (max-width: 920px) { .profile-grid { grid-template-columns: 1fr; } }
+
+/* SYSTEM STATUS terminal readout */
+.sys-term { font-family: var(--mono); }
+.sys-term .scan-title { text-align: center; color: var(--cy); letter-spacing: 0.3em; font-size: 12px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--line); }
+.sys-readout { display: grid; gap: 9px; font-size: 13px; }
+.sys-line { display: flex; gap: 10px; opacity: 0; transform: translateX(-10px); transition: opacity 0.4s var(--ease-hud), transform 0.4s var(--ease-hud); }
+.sys-line.in { opacity: 1; transform: none; }
+.sys-line .k { color: var(--fg-dim); min-width: 190px; }
+.sys-line .k::before { content: "› "; color: var(--cy); }
+.sys-line .v { color: var(--fg); font-weight: 500; }
+.sys-line .v.on { color: var(--green); }
+.sys-line .v.max { color: var(--gold); }
+.sys-line .v.fire { color: var(--cy); }
+.sys-line .v.obj { color: var(--gold); text-shadow: var(--glow-gold); }
+.sys-caret { display: inline-block; width: 8px; height: 15px; background: var(--cy); margin-left: 4px; vertical-align: middle; animation: blink 1s step-end infinite; }
+
+/* live status ticker */
+.live-status { margin-top: 22px; border-top: 1px dashed var(--line); padding-top: 18px; }
+.live-status .ls-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; color: var(--fg-dim); margin-bottom: 10px; }
+.live-status .ls-line { font-family: var(--mono); font-size: 15px; color: var(--cy); display: flex; align-items: center; gap: 12px; min-height: 24px; }
+.live-status .ls-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: blink 1.4s infinite; flex: none; }
+.live-status .ls-line .cur { display: inline-block; width: 9px; height: 17px; background: var(--cy); margin-left: 2px; animation: blink 1s step-end infinite; }
+
+/* Who am I */
+.whoami h3 { color: var(--cy); font-family: var(--mono); font-size: 13px; letter-spacing: 0.2em; margin-bottom: 16px; text-transform: uppercase; }
+.whoami p { color: var(--fg-muted); font-size: 1.04rem; margin-bottom: 14px; }
+.whoami p b { color: var(--fg); }
+.whoami .coffee { color: var(--gold); }
+
+/* capability strip */
+.cap-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; margin-top: 30px; }
+.cap-strip .cap { border: 1px solid var(--line); border-radius: 4px; padding: 14px; font-family: var(--mono); font-size: 12px; color: var(--fg-muted); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s var(--ease-hud); }
+.cap-strip .cap:hover { border-color: var(--line-strong); transform: translateY(-3px); box-shadow: var(--glow-cy); }
+.cap-strip .cap b { color: var(--cy); display: block; font-size: 22px; margin-bottom: 4px; }
+
+/* Philosophy quote */
+.philo { margin-top: 18px; }
+.philo .quote { font-size: clamp(1.3rem, 2.6vw, 1.9rem); font-weight: 600; color: var(--fg); line-height: 1.3; }
+.philo .quote .text-cy { color: var(--cy); }
+.philo .lines { display: grid; gap: 8px; margin-top: 18px; font-family: var(--mono); font-size: 13px; color: var(--fg-muted); }
+.philo .lines div::before { content: "// "; color: var(--cy); }
+
+/* Core mindset grid */
+.mindset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
+.mindset { display: flex; align-items: center; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg-panel); backdrop-filter: blur(10px); transition: border-color 0.3s, transform 0.3s var(--ease-hud), box-shadow 0.3s; }
+.mindset:hover { border-color: var(--line-strong); transform: translateY(-4px); box-shadow: var(--glow-cy); }
+.mindset .bolt { font-size: 22px; color: var(--gold); filter: drop-shadow(var(--glow-gold)); flex: none; }
+.mindset span { color: var(--fg); font-weight: 600; font-size: 0.98rem; }
+
+/* Availability banner */
+.avail-banner { margin-top: 36px; position: relative; border: 1px solid var(--line-strong); border-radius: 6px; padding: 26px 30px; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; background: linear-gradient(90deg, rgba(56,224,255,0.06), rgba(255,196,107,0.05)); box-shadow: var(--glow-cy-lg); }
+.avail-banner::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 40px, rgba(56,224,255,0.04) 40px 41px); pointer-events: none; }
+.avail-banner .ab-status { font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--green); display: flex; align-items: center; gap: 10px; }
+.avail-banner .ab-status i { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: blink 1.4s infinite; }
+.avail-banner .ab-cta { font-size: clamp(1.2rem, 2.4vw, 1.8rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.avail-banner .ab-cta .text-cy { color: var(--cy); text-shadow: var(--glow-cy); }
+.avail-banner .ab-go { position: relative; z-index: 1; }
+
+/* ---- Tech Arsenal ---- */
+.arsenal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 14px; }
+.logo-tile { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 22px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-panel); backdrop-filter: blur(8px); transition: transform 0.3s var(--ease-hud), border-color 0.3s, box-shadow 0.3s; cursor: default; overflow: hidden; }
+.logo-tile::after { content: ""; position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 30%, rgba(56,224,255,0.14), transparent 60%); transition: opacity 0.3s; pointer-events: none; }
+.logo-tile:hover { transform: translateY(-6px); border-color: var(--line-strong); box-shadow: var(--glow-cy); }
+.logo-tile:hover::after { opacity: 1; }
+.logo-tile img { width: 44px; height: 44px; object-fit: contain; filter: grayscale(0.25); transition: filter 0.3s, transform 0.3s var(--ease-hud); }
+.logo-tile:hover img { filter: none; transform: scale(1.12); }
+.logo-tile.inv img { filter: brightness(0) invert(1); opacity: 0.85; }
+.logo-tile.inv:hover img { filter: brightness(0) invert(1); opacity: 1; }
+.logo-tile .logo-name { font-family: var(--mono); font-size: 11px; color: var(--fg-muted); letter-spacing: 0.04em; text-align: center; }
+.logo-tile:hover .logo-name { color: var(--cy); }
+
+@media (max-width: 640px) {
+  .arsenal-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+  .logo-tile { padding: 16px 8px; }
+  .logo-tile img { width: 36px; height: 36px; }
+  .sys-line .k { min-width: 130px; }
+}

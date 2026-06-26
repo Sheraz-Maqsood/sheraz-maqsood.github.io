@@ -538,6 +538,42 @@
     }
   }
 
+  /* ========== 16b. AI DEVELOPER PROFILE (typed readout + live ticker) ========== */
+  function initManifesto() {
+    var term = $("#sys-readout");
+    if (term) {
+      var lines = $$(".sys-line", term);
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        lines.forEach(function (l) { l.classList.add("in"); });
+      } else {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return; io.disconnect();
+            lines.forEach(function (ln, i) { setTimeout(function () { ln.classList.add("in"); }, i * 200); });
+          });
+        }, { threshold: 0.3 });
+        io.observe(term);
+      }
+    }
+    var live = $("#live-status-text");
+    if (live) {
+      var acts = ["Programming...", "Designing system architecture...", "Solving complex problems...",
+        "Building scalable solutions...", "Optimizing performance...", "Learning something new...",
+        "Exploring Linux...", "Managing servers...", "Deploying applications...",
+        "Automating infrastructure...", "Debugging until it works...", "Making it faster..."];
+      if (reduceMotion) { live.textContent = acts[0]; return; }
+      var ai = 0, ci = 0, del = false;
+      (function tick() {
+        var w = acts[ai];
+        live.textContent = w.slice(0, ci);
+        if (!del && ci < w.length) { ci++; setTimeout(tick, 42); }
+        else if (!del && ci === w.length) { del = true; setTimeout(tick, 1100); }
+        else if (del && ci > 0) { ci--; setTimeout(tick, 22); }
+        else { del = false; ai = (ai + 1) % acts.length; setTimeout(tick, 240); }
+      })();
+    }
+  }
+
   /* ========== 16. MISC ========== */
   function initMisc() {
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
@@ -547,7 +583,7 @@
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
                 initTyper, initOrbit, initGalaxy, initProjects, initContact, initSound,
-                initAssistant, initEasterEggs, initMisc];
+                initAssistant, initEasterEggs, initManifesto, initMisc];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
   }
 
