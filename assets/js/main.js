@@ -264,7 +264,7 @@
   function initTyper() {
     var el = $("#role-type");
     if (!el) return;
-    var roles = ["Principal Full-Stack Engineer", "Cloud & DevOps Architect", "Laravel · NestJS Specialist", "React · Next.js Engineer", "GIS / Geospatial Systems"];
+    var roles = ["Principal Full-Stack Engineer", "Cloud & DevOps Architect", "Laravel · NestJS Specialist", "React · Next.js Engineer", "GIS / Geospatial Systems", "Quantum Programming — ready to qBit", "I love programming — ready to start now"];
     if (reduceMotion) { el.textContent = roles[0]; return; }
     var r = 0, c = 0, del = false;
     (function tick() {
@@ -366,7 +366,7 @@
   /* ========== 11. PROJECT NAV ========== */
   function initProjects() {
     $$(".proj[data-href]").forEach(function (p) {
-      var go = function () { play("select"); window.open(p.getAttribute("data-href"), "_blank", "noopener"); };
+      var go = function () { play("select"); var href = p.getAttribute("data-href"); if (/^https?:/i.test(href)) window.open(href, "_blank", "noopener"); else window.location.href = href; };
       p.addEventListener("click", go);
       p.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });

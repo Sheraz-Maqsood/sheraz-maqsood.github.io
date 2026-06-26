@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Dossier — Sheraz // ARC OS</title>
+  <meta name="description" content="Project dossier — video proof, screenshots and documentation. ARC OS portfolio of Malik Sheraz Maqsood Ahmed.">
+  <meta name="theme-color" content="#02040a">
+  <meta property="og:title" content="Project Dossier — Sheraz // ARC OS">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <canvas id="webgl-bg" aria-hidden="true"></canvas>
+  <div class="bg-aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+  <div class="fx-overlay" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <div class="cursor-reticle" aria-hidden="true">
+    <div class="ring"></div><div class="dot"></div>
+    <div class="tick t1"></div><div class="tick t2"></div><div class="tick t3"></div><div class="tick t4"></div>
+  </div>
+
+  <header class="hud-header scrolled" id="header">
+    <div class="wrap">
+      <a href="index.html" class="brand" aria-label="ARC OS home">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="#38e0ff" stroke-width="1.5"/></svg>
+          <span>S</span>
+        </span>
+        <span>SHERAZ<small>ARC // FULL-STACK OS</small></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <a href="index.html#projects" class="btn btn-primary header-cta">&larr; All Systems</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="index.html#about"><span class="idx">01</span>About</a>
+    <a href="index.html#skills"><span class="idx">02</span>Skills</a>
+    <a href="index.html#experience"><span class="idx">03</span>Experience</a>
+    <a href="index.html#projects"><span class="idx">04</span>Projects</a>
+    <a href="index.html#contact"><span class="idx">05</span>Contact</a>
+  </div>
+
+  <main id="main">
+
+    <section class="wrap p-hero" data-reveal aria-label="Project header">
+      <a href="index.html#projects" class="back-link">&larr; Return to ARC OS · Projects</a>
+      <span class="eyebrow" id="p-code">DOSSIER</span>
+      <h1 id="p-title">Project</h1>
+      <p class="p-tagline" id="p-tagline"></p>
+      <div class="p-meta" id="p-meta"></div>
+      <div class="p-actions" id="p-actions"></div>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Video proof">
+      <div class="p-section-label">Primary proof &middot; Video demonstration</div>
+      <div class="video-stage" id="video-stage"></div>
+      <p class="muted" style="font-family:var(--mono); font-size:12px; margin-top:12px;">// In Pakistan, deployments and domains can go offline — the recorded demo is the permanent proof of this work.</p>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Overview">
+      <div class="p-section-label">Mission overview</div>
+      <div class="p-info-grid">
+        <div class="panel hud-frame">
+          <span class="corner-id">OVERVIEW</span>
+          <p class="muted" id="p-overview" style="font-size:1.05rem;"></p>
+          <div class="p-stack-tags" id="p-stack" style="margin-top:20px;"></div>
+        </div>
+        <div class="panel hud-frame">
+          <span class="corner-id">HIGHLIGHTS</span>
+          <ul id="p-highlights"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Screenshots">
+      <div class="p-section-label">Visual log &middot; Screenshots</div>
+      <div class="shot-grid" id="shot-grid"></div>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Documentation">
+      <div class="p-section-label">Archive &middot; Documentation</div>
+      <div class="panel hud-frame doc-card" id="doc-card"></div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; <span id="year"></span> Malik Sheraz Maqsood Ahmed &middot; ARC OS v2.0</span>
+      <span><a href="index.html#projects">&larr; Back to all systems</a></span>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
+    <img id="lb-img" alt="Screenshot full view">
+  </div>
+
+  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle UI sound" aria-pressed="false">
+    <svg class="off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg class="on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>
+  </button>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/project.js"></script>
+</body>
+</html>
