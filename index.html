@@ -1,499 +1,424 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malik Sheraz Maqsood Ahmed | Principal Full-Stack Engineer</title>
-  <meta name="description" content="Portfolio of Malik Sheraz Maqsood Ahmed, Principal Full-Stack Engineer specializing in Laravel, NestJS, PostgreSQL, and GIS-enabled platforms.">
-  <meta name="theme-color" content="#050506">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bg: { deep: '#020203', base: '#050506', elevated: '#0a0a0c' },
-            surface: { DEFAULT: 'rgba(255,255,255,0.05)', hover: 'rgba(255,255,255,0.08)' },
-            fg: { DEFAULT: '#EDEDEF', muted: '#8A8F98', subtle: 'rgba(255,255,255,0.60)' },
-            accent: { DEFAULT: '#5E6AD2', bright: '#6872D9', glow: 'rgba(94,106,210,0.3)' },
-            border: { default: 'rgba(255,255,255,0.06)', hover: 'rgba(255,255,255,0.10)' }
-          },
-          fontFamily: {
-            sans: ['Inter', 'Geist Sans', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
-          },
-          animation: {
-            'float': 'float 10s ease-in-out infinite',
-            'float-delayed': 'float 12s ease-in-out 5s infinite',
-            'float-fast': 'float 8s ease-in-out 2s infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-              '50%': { transform: 'translateY(-20px) rotate(2deg)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <title>Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer</title>
+  <meta name="description" content="ARC OS — the futuristic HUD portfolio of Malik Sheraz Maqsood Ahmed, Principal Full-Stack &amp; GIS Engineer. Laravel, NestJS, React, Next.js, PostgreSQL, and government-scale geospatial platforms.">
+  <meta name="author" content="Malik Sheraz Maqsood Ahmed">
+  <meta name="theme-color" content="#02040a">
+  <link rel="canonical" href="https://sheraz.is-a.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
+  <meta property="og:description" content="A JARVIS-class HUD portfolio. Government-scale, GIS-enabled platforms built with Laravel, NestJS, React &amp; PostgreSQL.">
+  <meta property="og:url" content="https://sheraz.is-a.dev/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
+  <meta name="twitter:description" content="A JARVIS-class HUD portfolio. Government-scale, GIS-enabled platforms.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Malik Sheraz Maqsood Ahmed",
+    "jobTitle": "Principal Full-Stack & GIS Engineer",
+    "url": "https://sheraz.is-a.dev/",
+    "email": "mailto:sherii55055@gmail.com",
+    "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressCountry": "Pakistan" },
+    "knowsAbout": ["Laravel", "NestJS", "React", "Next.js", "Node.js", "PostgreSQL", "GIS", "Leaflet", "CI/CD", "AWS"],
+    "alumniOf": "GC University Faisalabad (LACAS)",
+    "sameAs": ["https://wa.me/+923481655055"]
+  }
+  </script>
 </head>
-<body class="bg-[#050506] text-[#EDEDEF] font-sans antialiased selection:bg-[#5E6AD2]/30 selection:text-white relative min-h-screen overflow-x-hidden">
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- Background Layers -->
-  <div class="bg-layer-base"></div>
-  <div class="bg-layer-noise"></div>
-  <div class="bg-layer-grid"></div>
-  
-  <!-- Animated Background Blobs -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none z-[-3]">
-    <div class="absolute top-[-10%] left-[20%] w-[900px] h-[900px] rounded-full bg-[#5E6AD2]/20 blur-[150px] animate-float mix-blend-screen"></div>
-    <div class="absolute top-[30%] left-[-10%] w-[600px] h-[800px] rounded-full bg-purple-600/10 blur-[120px] animate-float-delayed mix-blend-screen"></div>
-    <div class="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-indigo-600/15 blur-[120px] animate-float-fast mix-blend-screen"></div>
+  <canvas id="webgl-bg" aria-hidden="true"></canvas>
+  <div class="bg-aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+  <div class="fx-overlay" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <div class="cursor-reticle" aria-hidden="true">
+    <div class="ring"></div><div class="dot"></div>
+    <div class="tick t1"></div><div class="tick t2"></div><div class="tick t3"></div><div class="tick t4"></div>
   </div>
 
-  <!-- Header -->
-  <header class="site-header fixed top-0 left-0 right-0 z-50 px-6 py-4 border-b border-transparent transition-all duration-300">
-    <div class="max-w-[1200px] mx-auto flex items-center justify-between">
-      <a href="#top" class="font-semibold text-lg tracking-tight text-white flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#5E6AD2] to-purple-600 flex items-center justify-center shadow-accent">
-          <span class="text-white font-bold leading-none">S</span>
-        </div>
-        Sheraz
-      </a>
-      
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-8">
-        <a href="#about" class="text-sm font-medium text-fg-muted hover:text-white transition-colors">About</a>
-        <a href="#experience" class="text-sm font-medium text-fg-muted hover:text-white transition-colors">Experience</a>
-        <a href="#projects" class="text-sm font-medium text-fg-muted hover:text-white transition-colors">Projects</a>
-        <a href="#education" class="text-sm font-medium text-fg-muted hover:text-white transition-colors">Education</a>
-        <a href="#contact" class="text-sm font-medium text-fg-muted hover:text-white transition-colors">Contact</a>
-        <a href="assets/files/sheraz-cv.pdf" target="_blank" class="btn-primary text-sm py-2 px-4 shadow-accent">Resume</a>
-      </nav>
+  <div id="boot" role="status" aria-label="System booting">
+    <div class="boot-core" aria-hidden="true">
+      <svg viewBox="0 0 160 160">
+        <circle cx="80" cy="80" r="74" fill="none" stroke="rgba(56,224,255,0.15)" stroke-width="1"/>
+        <g class="spin"><circle cx="80" cy="80" r="60" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="20 14" opacity="0.7"/></g>
+        <g class="spin-r"><circle cx="80" cy="80" r="44" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="6 10" opacity="0.6"/></g>
+        <circle cx="80" cy="80" r="22" fill="none" stroke="#38e0ff" stroke-width="2"/>
+        <circle cx="80" cy="80" r="8" fill="#38e0ff"/>
+      </svg>
+    </div>
+    <div class="boot-log" id="boot-log" aria-hidden="true"></div>
+    <div class="boot-bar" aria-hidden="true"><i id="boot-bar-fill"></i></div>
+    <button class="boot-skip" id="boot-skip">SKIP INITIALIZATION &rsaquo;</button>
+  </div>
 
-      <!-- Mobile Nav Toggle -->
-      <button id="mobile-menu-btn" class="md:hidden text-fg-muted hover:text-white p-2">
-        <svg class="menu-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        <svg class="close-icon w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-      </button>
+  <header class="hud-header" id="header">
+    <div class="wrap">
+      <a href="#top" class="brand" aria-label="ARC OS home">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="#38e0ff" stroke-width="1.5"/></svg>
+          <span>S</span>
+        </span>
+        <span>SHERAZ<small>ARC // FULL-STACK OS</small></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="assets/files/sheraz-cv.pdf" target="_blank" rel="noopener" class="btn btn-primary header-cta">Resume &darr;</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" class="mobile-menu hidden fixed inset-0 z-40 bg-[#050506]/95 backdrop-blur-xl flex flex-col pt-24 px-6 pb-6">
-    <nav class="flex flex-col gap-6 text-xl font-medium">
-      <a href="#about" class="text-fg hover:text-white py-2 border-b border-white/5">About</a>
-      <a href="#experience" class="text-fg hover:text-white py-2 border-b border-white/5">Experience</a>
-      <a href="#projects" class="text-fg hover:text-white py-2 border-b border-white/5">Projects</a>
-      <a href="#education" class="text-fg hover:text-white py-2 border-b border-white/5">Education</a>
-      <a href="#contact" class="text-fg hover:text-white py-2 border-b border-white/5">Contact</a>
-    </nav>
-    <div class="mt-auto">
-      <a href="assets/files/sheraz-cv.pdf" target="_blank" class="btn-primary flex justify-center w-full py-4 text-lg">Download Resume</a>
-    </div>
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="#about"><span class="idx">01</span>About</a>
+    <a href="#skills"><span class="idx">02</span>Skills</a>
+    <a href="#experience"><span class="idx">03</span>Experience</a>
+    <a href="#projects"><span class="idx">04</span>Projects</a>
+    <a href="#contact"><span class="idx">05</span>Contact</a>
+    <a href="assets/files/sheraz-cv.pdf" target="_blank" rel="noopener"><span class="idx">06</span>Resume &darr;</a>
   </div>
 
-  <!-- Main Content -->
-  <main id="top" class="max-w-[1200px] mx-auto px-6 pt-32 pb-24">
-    
-    <!-- Hero Section -->
-    <section class="min-h-[80vh] flex flex-col justify-center py-20 relative">
-      <div class="hero-parallax max-w-4xl origin-top" data-reveal>
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#5E6AD2]/30 bg-[#5E6AD2]/10 text-[#5E6AD2] text-xs font-mono font-medium tracking-wide mb-8">
-          <span class="w-2 h-2 rounded-full bg-[#5E6AD2] animate-pulse"></span>
-          Principal Full-Stack Engineer
-        </div>
-        
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-[-0.03em] leading-tight mb-6">
-          <span class="text-gradient block">Malik Sheraz</span>
-          <span class="text-gradient-accent block">Maqsood Ahmed.</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl text-fg-muted max-w-2xl leading-relaxed mb-10">
-          I design and ship <span class="text-fg">Enterprise & Government-Scale Systems</span>, specializing in <span class="text-fg">Laravel, NestJS, PostgreSQL</span>, and <span class="text-fg">GIS Platforms</span> with CI/CD & Cloud Deployments.
-        </p>
-        
-        <div class="flex flex-wrap gap-4 items-center mb-16">
-          <a href="#projects" class="btn-primary text-base px-6 py-3">Explore Work</a>
-          <a href="assets/files/sheraz-cv.pdf" target="_blank" class="btn-secondary text-base px-6 py-3 flex items-center gap-2">
-            <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            Download CV
-          </a>
-          <a href="https://wa.me/+923481655055" target="_blank" rel="noreferrer" class="btn-secondary text-base px-6 py-3 flex items-center gap-2">
-            <svg class="w-5 h-5 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-white/[0.06] w-full">
-          <div>
-            <div class="text-4xl font-semibold text-white mb-2 text-gradient">2018</div>
-            <div class="text-sm font-medium text-fg-muted">Started coding professionally</div>
-          </div>
-          <div>
-            <div class="text-4xl font-semibold text-white mb-2 text-gradient">15+</div>
-            <div class="text-sm font-medium text-fg-muted">Production portals & apps</div>
-          </div>
-          <div class="col-span-2 md:col-span-2">
-            <div class="text-4xl font-semibold text-white mb-2 text-gradient">Gov & Enterprise</div>
-            <div class="text-sm font-medium text-fg-muted">Public sector & SaaS architectural experience</div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <main id="main">
+    <span id="top"></span>
 
-    <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-16"></div>
-
-    <!-- About Section -->
-    <section id="about" class="py-24" data-reveal>
-      <div class="flex flex-col lg:flex-row gap-16 items-start">
-        <div class="lg:w-1/3 sticky top-32">
-          <div class="text-xs font-mono text-[#5E6AD2] tracking-widest uppercase mb-4">About</div>
-          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">Engineering work that scales.</h2>
-        </div>
-        
-        <div class="lg:w-2/3 grid gap-8">
-          <div class="glass-card shadow-premium p-8 md:p-10 spotlight-card">
-            <div class="spotlight-border"></div>
-            <p class="text-lg md:text-xl text-fg-muted leading-relaxed mb-6">
-              I am a Principal Full-Stack Engineer working heavily with <span class="text-white font-medium">Laravel, React, Node.js, NestJS, and GIS platforms</span>. My work spans government, healthcare, and enterprise sectors, focusing on building scalable systems, handling complex workflows, and deploying robust CI/CD pipelines.
-            </p>
-            <p class="text-lg md:text-xl text-fg-muted leading-relaxed">
-              In addition to my core full-stack and GIS expertise, I have hands-on exposure to cross-platform desktop application development using Electron.js and C# WinForms, along with mobile development (Android, Firebase, Java) and foundational experience with embedded systems (Arduino, C/C++).
-            </p>
-          </div>
-          
-          <div class="glass-card shadow-premium p-8 spotlight-card">
-            <div class="spotlight-border"></div>
-            <h3 class="text-xl font-semibold text-white mb-6">Core Technologies</h3>
-            <div class="flex flex-wrap gap-3">
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Laravel</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Node.js</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">React.js</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Next.js</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">NestJS</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Vue.js</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">PHP 8.x</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">PostgreSQL</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">MySQL</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">MongoDB</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Leaflet GIS</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">AWS</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">GitHub Actions</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Linux / DirectAdmin</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Electron.js</span>
-              <span class="px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] text-sm font-medium text-fg">Java & Android</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="py-24" data-reveal>
-      <div class="flex flex-col lg:flex-row gap-16 items-start">
-        <div class="lg:w-1/3 sticky top-32">
-          <div class="text-xs font-mono text-[#5E6AD2] tracking-widest uppercase mb-4">Experience</div>
-          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">Recent roles and impact.</h2>
-        </div>
-        
-        <div class="lg:w-2/3 grid gap-6">
-          <article class="glass-card shadow-premium p-8 spotlight-card transition-all hover:-translate-y-1">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Assistant Director Computer Programming</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">GIS Lab, Punjab Forest Department</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">Feb 2025 - Present</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed mb-6">
-              Architecting, developing, and deploying full-scale, GIS-enabled web platforms supporting government-scale forestry operations, monitoring, and decision-making used in production by multiple administrative and field-level stakeholders.
-            </p>
-            <ul class="space-y-3 text-fg-muted">
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Delivered end-to-end solutions like the Complaint Management System (React + Node.js) and Asset Management System (Laravel) tailored to operational workflows.</li>
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Implemented web-level GIS capabilities: spatial data storage, interactive map rendering, layer overlays, and QR-based geospatial tagging.</li>
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Engineered role-based access control across hierarchical government structures for secure deployments.</li>
-            </ul>
-          </article>
-
-          <article class="glass-card shadow-premium p-8 spotlight-card transition-all hover:-translate-y-1">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Senior Laravel-PHP Developer</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">Carbonic IT Solutions, Islamabad</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">Nov 2024 - Mar 2025</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed mb-6">
-              Maintained and expanded a suite of interconnected logistics products (Global Shopaholics Portal, Ship6) facilitating international shipping and package forwarding.
-            </p>
-            <ul class="space-y-3 text-fg-muted">
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Conducted speed and code optimizations for high-performance applications.</li>
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Executed tasks through Jira and implemented CI/CD workflows via SSH to production servers.</li>
-            </ul>
-          </article>
-
-          <article class="glass-card shadow-premium p-8 spotlight-card transition-all hover:-translate-y-1">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Mid to Senior Software Developer</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">CMH Lahore Medical College</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">Feb 2023 - Nov 2024</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed mb-6">
-              Managed and enhanced a suite of 9 interconnected portals (Student Management, Admissions, HR, Employee, Library, Hostel, FCPS/HO Induction, Evaluation) essential to the institution's operations.
-            </p>
-            <ul class="space-y-3 text-fg-muted">
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Implemented CI/CD pipelines using GitHub Actions, automating critical deployment tasks.</li>
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Managed server configurations and settings in DirectAdmin, enhancing portal stability.</li>
-              <li class="flex gap-3"><span class="text-[#5E6AD2]">✦</span> Hardware Integration: Configured ZKTeco (ZKT) attendance machines with web applications.</li>
-            </ul>
-          </article>
-
-          <article class="glass-card shadow-premium p-8 spotlight-card transition-all hover:-translate-y-1">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Application Developer</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">Stars Developers, Lahore</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">Nov 2021 - Feb 2023</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed mb-2">
-              Contributed to mobile and desktop application development using JAVA and C#, then strategically transitioned to building scalable backend-driven web systems using Laravel (PHP).
-            </p>
-          </article>
-
-          <article class="glass-card shadow-premium p-8 spotlight-card transition-all hover:-translate-y-1">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Freelance Desktop, Android & Web Dev</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">Independent</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">2018 - Present</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed">
-              Delivered complete multi-platform solutions starting from C# WinForms and Electron.js desktop apps, evolving into Android apps with Firebase, and eventually mastering Laravel/Node.js web platforms to meet market demands for accessible cloud software.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section (Asymmetric Bento Grid) -->
-    <section id="projects" class="py-24" data-reveal>
-      <div class="text-center mb-16">
-        <div class="text-xs font-mono text-[#5E6AD2] tracking-widest uppercase mb-4">Projects</div>
-        <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">Selected Platforms</h2>
-        <p class="text-lg text-fg-muted max-w-2xl mx-auto">Enterprise, government, and high-scale freelance products deployed to production.</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-6 auto-rows-[240px] md:auto-rows-[280px] gap-6">
-        
-        <!-- Hero Project (Spans 4 cols, 2 rows) -->
-        <article class="glass-card shadow-premium p-8 spotlight-card col-span-1 md:col-span-4 row-span-2 flex flex-col justify-end relative group overflow-hidden">
-          <div class="spotlight-border"></div>
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050506]/50 to-[#050506] z-0"></div>
-          <div class="relative z-10">
-            <div class="text-xs font-mono text-[#5E6AD2] tracking-widest uppercase mb-3">Gov Tech • Next.js • NestJS • PostgreSQL</div>
-            <h3 class="text-3xl font-semibold text-white mb-3 group-hover:text-[#5E6AD2] transition-colors">Linear Tree Enumeration System (LTE)</h3>
-            <p class="text-lg text-fg-muted leading-relaxed mb-6 max-w-2xl">
-              A modern, GIS-driven web platform developed to enumerate, track, and analyze linear tree plantations along roads, canals, and forest boundaries. Delivers high-performance spatial queries and interactive geospatial visualization for large-scale datasets.
-            </p>
-            <div class="flex items-center justify-between">
-              <a href="https://punjabtreeenumeration.com" target="_blank" rel="noreferrer" class="btn-primary text-sm shadow-accent">View Platform</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Project 2 (Spans 2 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-2 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Complaint Management System</h3>
-            <p class="text-sm text-fg-muted leading-relaxed line-clamp-3">
-              Multi-role routing platform for forest incidents. Features WhatsApp API integration to notify Conservators and DFOs.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">React • Node.js • MongoDB</p>
-            <a href="https://cms.gisforestry.com" target="_blank" rel="noreferrer" class="text-white hover:text-[#5E6AD2] transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 3 (Spans 2 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-2 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Asset Management System</h3>
-            <p class="text-sm text-fg-muted leading-relaxed line-clamp-3">
-              Internal IT/consumables tracking system featuring QR code generation, low-stock alerts, and role-based assignments.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">Laravel 11 • MySQL</p>
-            <a href="https://ams.gisforestry.com" target="_blank" rel="noreferrer" class="text-white hover:text-[#5E6AD2] transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
-          </div>
-        </article>
-        
-        <!-- Project 4 (Spans 3 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-3 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Pakistan Plantation Management System</h3>
-            <p class="text-sm text-fg-muted leading-relaxed">
-              Nationwide GIS platform enabling citizens and departments to record tree plantation activities with GPS precision and photographic evidence to support environmental policy.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">GIS Platform • Public Reporting</p>
-            <a href="https://ppms.gisforestry.com" target="_blank" rel="noreferrer" class="text-white hover:text-[#5E6AD2] transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 5 (Spans 3 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-3 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">GIS Spatial Monitoring Systems</h3>
-            <p class="text-sm text-fg-muted leading-relaxed">
-              A suite of spatial systems including Fire Management, Nursery Tracking, and Forest Change Analysis utilizing Leaflet-based mapping and QR markers.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">Leaflet • PostgreSQL GIS</p>
-          </div>
-        </article>
-
-        <!-- Project 6 (Spans 2 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-2 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Jotly.ai</h3>
-            <p class="text-sm text-fg-muted leading-relaxed">
-              Full-stack AI application offering image generation, voiceovers, and AI chat functionalities.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">AI/SaaS (Canada)</p>
-          </div>
-        </article>
-
-        <!-- Project 7 (Spans 2 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-2 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Sportseuropa Suite</h3>
-            <p class="text-sm text-fg-muted leading-relaxed">
-              Team registration & live scoring apps for Olympic level games, managing judges and championships.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">Sports Management (Italy)</p>
-          </div>
-        </article>
-
-        <!-- Project 8 (Spans 2 cols, 1 row) -->
-        <article class="glass-card shadow-premium p-6 spotlight-card col-span-1 md:col-span-2 row-span-1 flex flex-col justify-between group">
-          <div class="spotlight-border"></div>
-          <div>
-            <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-[#5E6AD2] transition-colors">Global Shopaholics & Ship6</h3>
-            <p class="text-sm text-fg-muted leading-relaxed">
-              Core international shipping, package forwarding, and e-commerce logistics platform infrastructure.
-            </p>
-          </div>
-          <div class="flex items-center justify-between mt-4">
-            <p class="text-xs font-medium text-[#8A8F98]">Logistics SaaS</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="py-24" data-reveal>
-      <div class="flex flex-col lg:flex-row gap-16 items-start">
-        <div class="lg:w-1/3 sticky top-32">
-          <div class="text-xs font-mono text-[#5E6AD2] tracking-widest uppercase mb-4">Education</div>
-          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">Academic foundation.</h2>
-        </div>
-        
-        <div class="lg:w-2/3 grid gap-6">
-          <article class="glass-card shadow-premium p-8 spotlight-card">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Bachelors in Computer Sciences</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">Lahore College of Arts, Science and Technology (GCUF)</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">2017 - 2021</span>
-            </div>
-            <p class="text-fg-muted leading-relaxed">
-              Studied core fundamentals including Data Structures, Algorithms, Distributed Databases, Parallel Computing, and Software Engineering. Built strong foundation for advanced database management and web architecture.
-            </p>
-          </article>
-          
-          <article class="glass-card shadow-premium p-8 spotlight-card">
-            <div class="spotlight-border"></div>
-            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 class="text-2xl font-semibold text-white">Intermediate in Computer Sciences</h3>
-                <p class="text-[#5E6AD2] font-medium mt-1">Government Islamia College Civil Lines Lahore</p>
-              </div>
-              <span class="text-sm font-mono text-fg-muted bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">2015 - 2017</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-32" data-reveal>
-      <div class="glass-card shadow-premium p-10 md:p-16 spotlight-card text-center relative overflow-hidden">
-        <div class="spotlight-border"></div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-[#5E6AD2]/50 to-transparent"></div>
-        
-        <div class="relative z-10 max-w-3xl mx-auto">
-          <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6">Let's talk about your next platform.</h2>
-          <p class="text-lg text-fg-muted leading-relaxed mb-10">
-            Whether you need a Principal Full-Stack Engineer, GIS product guidance, or a robust public-sector system architecture, I'm available for a conversation.
+    <section class="hero wrap" aria-label="Introduction">
+      <div class="hero-grid">
+        <div data-reveal>
+          <div class="hero-status"><span class="pulse"></span> System online &middot; Identity confirmed</div>
+          <h1>
+            <span class="l1">Malik Sheraz</span>
+            <span class="l2 glitch" data-text="Maqsood Ahmed">Maqsood Ahmed</span>
+          </h1>
+          <div class="roles"><span id="role-type"></span><span class="cursor-blink"></span></div>
+          <p class="hero-sub">
+            I architect and ship <b>enterprise &amp; government-scale systems</b> — specializing in
+            <b>Laravel, NestJS, React, Next.js, PostgreSQL</b> and <b>GIS platforms</b> with full CI/CD and cloud deployment.
           </p>
-          
-          <div class="flex flex-wrap justify-center gap-4">
-            <a href="mailto:sherii55055@gmail.com" class="btn-primary text-base px-8 py-3 shadow-accent">Email Me</a>
-            <a href="https://wa.me/+923481655055" target="_blank" rel="noreferrer" class="btn-secondary text-base px-8 py-3">WhatsApp</a>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary magnetic">&#9672; Explore Work</a>
+            <a href="assets/files/sheraz-cv.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Download CV</a>
+            <a href="https://wa.me/+923481655055" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
           </div>
-          
-          <p class="text-fg-muted text-sm mt-8">Based in Lahore, Pakistan • Open to Remote & Relocation</p>
+          <div class="hero-stats">
+            <div class="stat"><div class="n"><span class="text-cy" data-count="2018">0</span></div><div class="l">Coding since</div></div>
+            <div class="stat"><div class="n"><span class="text-cy" data-count="15">0</span>+</div><div class="l">Production systems</div></div>
+            <div class="stat"><div class="n text-cy">GOV</div><div class="l">+ Enterprise scale</div></div>
+          </div>
+        </div>
+
+        <div class="reactor" data-reveal aria-hidden="true">
+          <svg viewBox="0 0 500 500">
+            <defs>
+              <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#7fefff"/><stop offset="60%" stop-color="#38e0ff"/><stop offset="100%" stop-color="#0a6f8f"/>
+              </radialGradient>
+            </defs>
+            <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(56,224,255,0.12)" stroke-width="1"/>
+            <g class="r-spin-rev"><circle cx="250" cy="250" r="200" fill="none" stroke="#38e0ff" stroke-width="1" stroke-dasharray="2 8" opacity="0.5"/></g>
+            <g class="r-spin">
+              <circle cx="250" cy="250" r="170" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="40 18" opacity="0.7"/>
+              <circle cx="250" cy="80" r="4" fill="#ffc46b"/>
+              <circle cx="250" cy="420" r="3" fill="#38e0ff"/>
+            </g>
+            <g class="r-spin-fast"><circle cx="250" cy="250" r="130" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="3 12" opacity="0.55"/></g>
+            <polygon class="core-pulse" points="250,160 328,205 328,295 250,340 172,295 172,205" fill="none" stroke="#38e0ff" stroke-width="1.5"/>
+            <circle class="core-pulse" cx="250" cy="250" r="58" fill="url(#coreGrad)" opacity="0.85"/>
+            <circle cx="250" cy="250" r="58" fill="none" stroke="#7fefff" stroke-width="1"/>
+            <text x="250" y="246" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">FULL</text>
+            <text x="250" y="264" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">STACK</text>
+          </svg>
+          <div class="orbit-chip" data-orbit="0">Laravel</div>
+          <div class="orbit-chip" data-orbit="1">React</div>
+          <div class="orbit-chip" data-orbit="2">Next.js</div>
+          <div class="orbit-chip" data-orbit="3">NestJS</div>
+          <div class="orbit-chip" data-orbit="4">Node.js</div>
+          <div class="orbit-chip" data-orbit="5">PostgreSQL</div>
+          <div class="orbit-chip" data-orbit="6">GIS</div>
+          <div class="orbit-chip" data-orbit="7">AWS</div>
         </div>
       </div>
     </section>
 
+    <div class="radar-div" aria-hidden="true"><div class="r"><i></i></div></div>
+
+    <section id="about" class="wrap" data-reveal aria-label="About">
+      <div class="sec-head"><span class="eyebrow">01 &middot; Identity</span><h2>Engineering that scales</h2></div>
+      <div class="about-grid">
+        <div class="panel hud-frame">
+          <span class="corner-id">DOSSIER // SHRZ-001</span>
+          <p class="muted" style="font-size:1.08rem; margin-bottom:16px;">
+            I'm a <b style="color:var(--fg)">Principal Full-Stack Engineer</b> working heavily with
+            <b style="color:var(--cy)">Laravel, React, Node.js, NestJS</b> and <b style="color:var(--cy)">GIS platforms</b>.
+            My work spans government, healthcare and enterprise sectors — building scalable systems,
+            orchestrating complex workflows and deploying robust CI/CD pipelines.
+          </p>
+          <p class="muted" style="font-size:1.08rem;">
+            Beyond core full-stack and GIS expertise, I have hands-on experience with cross-platform desktop apps
+            (Electron.js, C# WinForms), mobile development (Android, Firebase, Java) and foundational embedded systems (Arduino, C/C++).
+          </p>
+        </div>
+        <div class="panel hud-frame">
+          <span class="corner-id">STATUS</span>
+          <div style="font-family:var(--mono); font-size:13px; display:grid; gap:14px;">
+            <div><span class="muted">ROLE</span><br><b class="text-cy">Asst. Director &middot; Computer Programming</b></div>
+            <div><span class="muted">SECTOR</span><br><b>Gov &middot; Healthcare &middot; Enterprise SaaS</b></div>
+            <div><span class="muted">BASE</span><br><b>Lahore, Pakistan</b> <span class="text-gold">&middot; Remote / Relocation ready</span></div>
+            <div><span class="muted">AVAILABILITY</span><br><b style="color:var(--green)">&#9679; Open to new missions</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="wrap" data-reveal aria-label="Skills">
+      <div class="sec-head"><span class="eyebrow">02 &middot; Capability matrix</span><h2>Tech constellation</h2></div>
+      <div class="galaxy" id="galaxy" aria-hidden="true">
+        <div class="galaxy-core"><b>14+</b>core systems<br>online</div>
+      </div>
+      <div class="skill-readout" id="skill-readout" aria-live="polite">
+        <span class="rk">// Hover a node to query the matrix.</span> Each technology reports experience, projects and confidence level.
+      </div>
+      <div class="skill-list" id="skill-list"></div>
+    </section>
+
+    <section id="experience" class="wrap" data-reveal aria-label="Experience">
+      <div class="sec-head"><span class="eyebrow">03 &middot; Mission log</span><h2>Experience railway</h2></div>
+      <div class="rail" data-stagger>
+        <div class="rail-line" aria-hidden="true"></div>
+
+        <article class="station now panel hud-frame">
+          <span class="node" aria-hidden="true"></span>
+          <div class="exp-head">
+            <div><h3>Assistant Director — Computer Programming</h3><div class="org">GIS Lab &middot; Punjab Forest Department</div></div>
+            <span class="when">Feb 2025 — Present</span>
+          </div>
+          <div class="exp-body">
+            <p>Architecting, building and deploying full-scale, GIS-enabled web platforms for government-scale forestry operations, monitoring and decision-making — in production across administrative and field stakeholders.</p>
+            <ul>
+              <li>Delivered end-to-end systems: Complaint Management (React + Node.js) and Asset Management (Laravel) tailored to operational workflows.</li>
+              <li>Implemented web GIS: spatial storage, interactive map rendering, layer overlays and QR-based geospatial tagging.</li>
+              <li>Engineered role-based access control across hierarchical government structures for secure deployments.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="station panel hud-frame">
+          <span class="node" aria-hidden="true"></span>
+          <div class="exp-head">
+            <div><h3>Senior Laravel / PHP Developer</h3><div class="org">Carbonic IT Solutions &middot; Islamabad</div></div>
+            <span class="when">Nov 2024 — Mar 2025</span>
+          </div>
+          <div class="exp-body">
+            <p>Maintained and expanded interconnected logistics products (Global Shopaholics Portal, Ship6) powering international shipping and package forwarding.</p>
+            <ul>
+              <li>Conducted speed and code optimizations for high-performance applications.</li>
+              <li>Executed work via Jira and implemented CI/CD workflows over SSH to production servers.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="station panel hud-frame">
+          <span class="node" aria-hidden="true"></span>
+          <div class="exp-head">
+            <div><h3>Mid &rarr; Senior Software Developer</h3><div class="org">CMH Lahore Medical College</div></div>
+            <span class="when">Feb 2023 — Nov 2024</span>
+          </div>
+          <div class="exp-body">
+            <p>Managed and enhanced 9 interconnected portals (Student Management, Admissions, HR, Employee, Library, Hostel, FCPS/HO Induction, Evaluation) essential to institutional operations.</p>
+            <ul>
+              <li>Built CI/CD pipelines with GitHub Actions, automating critical deployment tasks.</li>
+              <li>Managed server configuration in DirectAdmin, improving portal stability.</li>
+              <li>Hardware integration: configured ZKTeco attendance machines with web applications.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="station panel hud-frame">
+          <span class="node" aria-hidden="true"></span>
+          <div class="exp-head">
+            <div><h3>Application Developer</h3><div class="org">Stars Developers &middot; Lahore</div></div>
+            <span class="when">Nov 2021 — Feb 2023</span>
+          </div>
+          <div class="exp-body">
+            <p>Built mobile and desktop applications in Java and C#, then transitioned to scalable backend-driven web systems with Laravel (PHP).</p>
+          </div>
+        </article>
+
+        <article class="station panel hud-frame">
+          <span class="node" aria-hidden="true"></span>
+          <div class="exp-head">
+            <div><h3>Freelance — Desktop, Android &amp; Web</h3><div class="org">Independent</div></div>
+            <span class="when">2018 — Present</span>
+          </div>
+          <div class="exp-body">
+            <p>Delivered complete multi-platform solutions — from C# WinForms and Electron.js desktop apps, to Android with Firebase, evolving into Laravel/Node.js cloud platforms.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="wrap" data-reveal aria-label="Projects">
+      <div class="sec-head"><span class="eyebrow">04 &middot; Deployed platforms</span><h2>Project holograms</h2></div>
+      <div class="proj-grid" data-stagger>
+
+        <article class="proj feat panel hud-frame" tabindex="0" data-href="https://punjabtreeenumeration.com">
+          <span class="hex-id">SYS-01 // LTE</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <span class="tag">Gov Tech &middot; Next.js &middot; NestJS &middot; PostgreSQL</span>
+          <h3>Linear Tree Enumeration System</h3>
+          <p>A modern, GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries and interactive geospatial visualization over large datasets.</p>
+          <div class="meta"><span class="stack">punjabtreeenumeration.com</span><span class="go" aria-hidden="true">&#8599;</span></div>
+        </article>
+
+        <article class="proj half panel hud-frame" tabindex="0" data-href="https://cms.gisforestry.com">
+          <span class="hex-id">SYS-02</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Complaint Management</h3>
+          <p>Multi-role routing for forest incidents with WhatsApp API alerts to Conservators &amp; DFOs.</p>
+          <div class="meta"><span class="stack">React &middot; Node &middot; Mongo</span><span class="go" aria-hidden="true">&#8599;</span></div>
+        </article>
+
+        <article class="proj half panel hud-frame" tabindex="0" data-href="https://ams.gisforestry.com">
+          <span class="hex-id">SYS-03</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Asset Management</h3>
+          <p>IT/consumables tracking with QR generation, low-stock alerts and role-based assignment.</p>
+          <div class="meta"><span class="stack">Laravel 11 &middot; MySQL</span><span class="go" aria-hidden="true">&#8599;</span></div>
+        </article>
+
+        <article class="proj wide panel hud-frame" tabindex="0" data-href="https://ppms.gisforestry.com">
+          <span class="hex-id">SYS-04</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Pakistan Plantation Management</h3>
+          <p>Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.</p>
+          <div class="meta"><span class="stack">GIS &middot; Public reporting</span><span class="go" aria-hidden="true">&#8599;</span></div>
+        </article>
+
+        <article class="proj wide panel hud-frame" tabindex="0">
+          <span class="hex-id">SYS-05</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>GIS Spatial Monitoring Suite</h3>
+          <p>Fire Management, Nursery Tracking and Forest Change Analysis — Leaflet mapping with QR markers.</p>
+          <div class="meta"><span class="stack">Leaflet &middot; PostGIS</span></div>
+        </article>
+
+        <article class="proj half panel hud-frame" tabindex="0">
+          <span class="hex-id">SYS-06</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Jotly.ai</h3>
+          <p>Full-stack AI app: image generation, voiceovers and AI chat.</p>
+          <div class="meta"><span class="stack">AI / SaaS &middot; Canada</span></div>
+        </article>
+
+        <article class="proj half panel hud-frame" tabindex="0">
+          <span class="hex-id">SYS-07</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Sportseuropa Suite</h3>
+          <p>Team registration &amp; live scoring for Olympic-level games, judges and championships.</p>
+          <div class="meta"><span class="stack">Sports Mgmt &middot; Italy</span></div>
+        </article>
+
+        <article class="proj half panel hud-frame" tabindex="0">
+          <span class="hex-id">SYS-08</span>
+          <div class="scanline-sweep" aria-hidden="true"></div>
+          <h3>Global Shopaholics &amp; Ship6</h3>
+          <p>International shipping, package forwarding and e-commerce logistics infrastructure.</p>
+          <div class="meta"><span class="stack">Logistics SaaS</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="education" class="wrap" data-reveal aria-label="Education">
+      <div class="sec-head"><span class="eyebrow">05 &middot; Foundation</span><h2>Academic core</h2></div>
+      <div class="edu-grid" data-stagger>
+        <article class="panel hud-frame">
+          <div class="exp-head">
+            <div><h3>BS Computer Science</h3><div class="org">LACAS &middot; GC University Faisalabad</div></div>
+            <span class="when">2017 — 2021</span>
+          </div>
+          <p class="muted">Core fundamentals — Data Structures, Algorithms, Distributed Databases, Parallel Computing and Software Engineering — building a strong base for advanced database management and web architecture.</p>
+        </article>
+        <article class="panel hud-frame">
+          <div class="exp-head">
+            <div><h3>Intermediate — Computer Science</h3><div class="org">Govt. Islamia College, Civil Lines Lahore</div></div>
+            <span class="when">2015 — 2017</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap" data-reveal aria-label="Contact">
+      <div class="sec-head" style="text-align:center;"><span class="eyebrow" style="justify-content:center;">06 &middot; Open channel</span><h2>Transmission terminal</h2></div>
+      <div class="terminal panel hud-frame">
+        <span class="corner-id">SECURE LINK // AES-256</span>
+        <div class="term-head">
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+          <span class="title">comms@sheraz:~</span>
+        </div>
+        <div class="term-body" id="term-body">
+          <div class="term-line"><span class="pr">$</span>establish_uplink --target "Malik Sheraz"</div>
+          <div class="term-line"><span class="resp">&rsaquo; Channel encrypted. Awaiting your transmission…</span></div>
+          <div class="wave" id="contact-wave" aria-hidden="true"></div>
+          <div class="term-line"><span class="pr">$</span><span id="contact-type"></span></div>
+        </div>
+        <div class="contact-actions">
+          <a href="mailto:sherii55055@gmail.com" class="btn btn-primary magnetic">&#9993; Send Email</a>
+          <a href="https://wa.me/+923481655055" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
+          <a href="assets/files/sheraz-cv.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Resume</a>
+        </div>
+        <div class="contact-meta">LOCATION: Lahore, PK &middot; STATUS: <span class="text-gold">Available</span> &middot; MODE: Remote / Relocation</div>
+      </div>
+    </section>
   </main>
 
-  <footer class="border-t border-white/[0.06] py-10 mt-10">
-    <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-fg-muted">© <span id="current-year"></span> Malik Sheraz Maqsood Ahmed. All rights reserved.</p>
-      <a href="#top" class="text-sm text-fg-muted hover:text-white transition-colors flex items-center gap-2">
-        Back to top
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-      </a>
+  <footer class="foot">
+    <div class="wrap">
+      <span>&copy; <span id="year"></span> Malik Sheraz Maqsood Ahmed &middot; ARC OS v2.0</span>
+      <span>Built with Three.js + Anime.js &middot; <a href="#top">&uarr; Return to orbit</a></span>
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <div class="assistant" id="assistant">
+    <div class="assistant-bubble hidden" id="assistant-bubble" role="status" aria-live="polite">
+      <button class="close" id="assistant-close" aria-label="Dismiss assistant">&times;</button>
+      <div class="who">&#9672; ARC // AI Guide</div>
+      <div id="assistant-text"></div>
+    </div>
+    <button class="assistant-orb" id="assistant-orb" aria-label="Toggle AI assistant">
+      <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </button>
+  </div>
+
+  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle UI sound" aria-pressed="false">
+    <svg class="off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg class="on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>
+  </button>
+
+  <canvas id="matrix-rain" aria-hidden="true"></canvas>
+  <div class="console-eg" id="console-eg" aria-hidden="true">
+    <div class="ch">&#9672; ARC ROOT TERMINAL — type "help"</div>
+    <div class="cb" id="console-out"><div class="out">&rsaquo; Dark protocol engaged. Welcome, operator.</div></div>
+    <div class="cin"><span>$</span><input id="console-input" autocomplete="off" spellcheck="false" aria-label="Console input"></div>
+  </div>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="assets/js/main.js"></script>
 </body>
 </html>
