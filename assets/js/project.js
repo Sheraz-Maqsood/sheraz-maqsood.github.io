@@ -1,18 +1,31 @@
 /* ============================================================
    ARC // Project Dossier engine — data-driven detail pages
    URL:  project.html?id=<slug>
+   Layout order (blog-style):  Video(s) → Screenshot gallery → PDF docs
    To customize a project: edit the PROJECTS map below.
-     video : path to your .mp4  (null = standby placeholder)
-     poster: still image shown before play
-     shots : [{ src, cap }]  screenshots
-     doc   : { href, label, size } | null  (PDF documentation)
-     domain: "https://..."   | null  (live site, may be offline)
+     videos: [{ src, label }]     one or more .mp4 demos (played inline)
+     shots : [{ src, cap }]       screenshots (scrollable gallery + lightbox)
+     docs  : [{ href, label }]    zero or more PDF documents
+     poster: still image shown before a video plays
+     domain: "https://..."  | null  (live site, may be offline)
+   Back-compat: single `video` / `doc` still supported.
    ============================================================ */
 (function () {
   "use strict";
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var DUMMY = "assets/projects/_dummy/";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Helper: build an ordered list of screenshot objects for a project dir */
+  function mkShots(dir, n, ext) {
+    ext = ext || "png";
+    var out = [];
+    for (var i = 1; i <= n; i++) {
+      var nn = (i < 10 ? "0" : "") + i;
+      out.push({ src: dir + "shot-" + nn + "." + ext, cap: "Frame " + nn });
+    }
+    return out;
+  }
 
   /* ---------- DATA ---------- */
   var PROJECTS = {
@@ -21,9 +34,19 @@
       tagline: "A GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries over very large datasets.",
       year: "2025", sector: "Government / Forestry",
       domain: "https://punjabtreeenumeration.com",
-      video: null, poster: DUMMY + "poster.svg",
-      shots: [{ src: DUMMY + "shot1.svg", cap: "Spatial dashboard" }, { src: DUMMY + "shot2.svg", cap: "Enumeration map" }, { src: DUMMY + "shot3.svg", cap: "Analytics module" }],
-      doc: null,
+      poster: "assets/projects/lte/shot-01.png",
+      videos: [
+        { src: "assets/projects/lte/video-01.mp4", label: "Platform walkthrough" },
+        { src: "assets/projects/lte/video-02.mp4", label: "Field & reporting flow" }
+      ],
+      shots: mkShots("assets/projects/lte/", 27),
+      docs: [
+        { href: "assets/projects/lte/doc-04.pdf", label: "Division-Wise Report" },
+        { href: "assets/projects/lte/doc-05.pdf", label: "Enumeration Aggregate Report" },
+        { href: "assets/projects/lte/doc-01.pdf", label: "Field Report A" },
+        { href: "assets/projects/lte/doc-02.pdf", label: "Field Report B" },
+        { href: "assets/projects/lte/doc-03.pdf", label: "Field Report C" }
+      ],
       overview: "Built to enumerate and monitor linear plantations at provincial scale, the LTE platform combines interactive geospatial visualization with optimized spatial querying so field and admin users can track millions of records without performance loss.",
       highlights: ["Interactive map rendering with layered overlays", "High-performance spatial queries on large datasets", "Role-based access across government hierarchy", "QR-based geospatial tagging of records"],
       stack: ["Next.js", "NestJS", "PostgreSQL", "PostGIS", "Leaflet", "CI/CD"]
@@ -33,9 +56,14 @@
       tagline: "Multi-role routing platform for forest incidents with WhatsApp API alerts to Conservators and DFOs.",
       year: "2025", sector: "Government / Workflow",
       domain: "https://cms.gisforestry.com",
-      video: null, poster: DUMMY + "poster.svg",
-      shots: [{ src: DUMMY + "shot1.svg", cap: "Complaint intake" }, { src: DUMMY + "shot2.svg", cap: "Routing console" }, { src: DUMMY + "shot3.svg", cap: "Status tracking" }],
-      doc: null,
+      poster: "assets/projects/cms/shot-01.png",
+      videos: [
+        { src: "assets/projects/cms/video-01.mp4", label: "System demonstration" }
+      ],
+      shots: mkShots("assets/projects/cms/", 14),
+      docs: [
+        { href: "assets/projects/cms/doc-01.pdf", label: "Example Complaint Report" }
+      ],
       overview: "A routing system that moves forest incident complaints through the right administrative chain, with automated WhatsApp notifications so officers are alerted the moment action is required.",
       highlights: ["Multi-role complaint routing", "WhatsApp API notifications", "Audit trail and status tracking", "Mongo-backed flexible records"],
       stack: ["React", "Node.js", "MongoDB", "WhatsApp API"]
@@ -57,9 +85,12 @@
       tagline: "Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.",
       year: "2024", sector: "Government / Public",
       domain: "https://ppms.gisforestry.com",
-      video: null, poster: DUMMY + "poster.svg",
-      shots: [{ src: DUMMY + "shot1.svg", cap: "Public reporting" }, { src: DUMMY + "shot2.svg", cap: "GPS capture" }, { src: DUMMY + "shot3.svg", cap: "National map" }],
-      doc: null,
+      poster: "assets/projects/ppms/shot-01.png",
+      videos: [
+        { src: "assets/projects/ppms/video-01.mp4", label: "Platform demonstration" }
+      ],
+      shots: mkShots("assets/projects/ppms/", 18),
+      docs: [],
       overview: "A public-facing geospatial platform that lets citizens and departments log tree plantation activity with GPS coordinates and photo evidence, feeding national environmental policy with verifiable field data.",
       highlights: ["Nationwide GPS-tagged reporting", "Photographic evidence capture", "Citizen + department workflows", "Policy-grade data aggregation"],
       stack: ["Laravel", "GIS", "Leaflet", "MySQL"]
@@ -123,6 +154,10 @@
   var p = PROJECTS[getId()] || PROJECTS["lte"];
   document.title = p.title.join(" ") + " — Sheraz // ARC OS";
 
+  /* Normalize to arrays (back-compat with single video / doc) */
+  var VIDEOS = (p.videos && p.videos.length) ? p.videos : (p.video ? [{ src: p.video, label: "" }] : []);
+  var DOCS = (p.docs && p.docs.length) ? p.docs : (p.doc ? [p.doc] : []);
+
   /* ---------- HEADER ---------- */
   var titleHtml = "<span>" + esc(p.title[0]) + "</span> " +
     (p.hl === 1 ? "<span class='glitch hl-word' data-text='" + esc(p.title[1]) + "'>" + esc(p.title[1]) + "</span>"
@@ -133,59 +168,139 @@
   $("#p-meta").innerHTML =
     "<span class='p-chip gold'>" + esc(p.sector) + "</span>" +
     "<span class='p-chip'>YEAR " + esc(p.year) + "</span>" +
-    "<span class='p-chip'>" + p.stack.length + " TECH MODULES</span>";
+    "<span class='p-chip'>" + p.stack.length + " TECH MODULES</span>" +
+    (VIDEOS.length ? "<span class='p-chip'>" + VIDEOS.length + " VIDEO" + (VIDEOS.length > 1 ? "S" : "") + "</span>" : "");
 
   /* ---------- ACTIONS ---------- */
   var actions = "";
   if (p.domain) actions += "<a class='btn btn-primary magnetic' href='" + esc(p.domain) + "' target='_blank' rel='noopener'>&#9673; Visit Live Platform</a>";
-  if (p.doc) actions += "<a class='btn btn-ghost magnetic' href='" + esc(p.doc.href) + "' target='_blank' rel='noopener'>&darr; Documentation (PDF)</a>";
+  if (DOCS.length) actions += "<a class='btn btn-ghost magnetic' href='" + esc(DOCS[0].href) + "' target='_blank' rel='noopener'>&darr; Documentation (PDF)</a>";
   actions += "<a class='btn btn-ghost magnetic' href='index.html#projects'>&larr; All systems</a>";
   $("#p-actions").innerHTML = actions;
 
-  /* ---------- VIDEO PLAYER ---------- */
+  /* ---------- VIDEO PLAYER(S) ---------- */
   (function buildVideo() {
-    var stage = $("#video-stage");
-    var top = "<div class='v-hud-top'><span class='v-rec'><i></i> REC &middot; " + esc(p.code) + "</span><span>CH-01 // DEMO REEL</span></div>";
-    var corners = "<span class='v-corner v-tl'></span><span class='v-corner v-tr'></span><span class='v-corner v-bl'></span><span class='v-corner v-br'></span>";
-    var timeline = "<div class='v-timeline'><span>00:00</span><span class='bar'><i></i></span><span>LIVE</span></div>";
-    if (p.video) {
-      stage.innerHTML = corners + top +
-        "<video id='v-el' poster='" + esc(p.poster) + "' preload='none' playsinline></video>" +
-        "<button class='v-playbtn' id='v-play' aria-label='Play video'><span class='ring'><span class='tri'></span></span><span class='lbl'>Play demo</span></button>" +
-        timeline;
-      var v = $("#v-el"); var src = document.createElement("source"); src.src = p.video; src.type = "video/mp4"; v.appendChild(src);
-      var btn = $("#v-play");
-      btn.addEventListener("click", function () { v.setAttribute("controls", ""); v.play(); btn.style.display = "none"; });
-    } else {
-      stage.innerHTML = corners + top +
-        "<div class='v-poster' style=\"background-image:url('" + esc(p.poster) + "')\"></div>" +
-        "<button class='v-playbtn' id='v-play' aria-label='Video pending'><span class='ring'><span class='tri'></span></span><span class='lbl v-standby'>Video proof &middot; standby</span></button>" +
-        timeline;
-      $("#v-play").addEventListener("click", function () {
-        var lbl = $("#v-play .lbl"); lbl.textContent = "Upload pending — attach your .mp4";
-      });
+    var rack = $("#video-stage");
+    rack.classList.remove("video-stage");
+    rack.className = "video-rack";
+
+    function corners() { return "<span class='v-corner v-tl'></span><span class='v-corner v-tr'></span><span class='v-corner v-bl'></span><span class='v-corner v-br'></span>"; }
+    function timeline() { return "<div class='v-timeline'><span>00:00</span><span class='bar'><i></i></span><span>LIVE</span></div>"; }
+    function topbar(label, idx) {
+      return "<div class='v-hud-top'><span class='v-rec'><i></i> REC &middot; " + esc(p.code) +
+        (VIDEOS.length > 1 ? " &middot; " + (idx + 1) + "/" + VIDEOS.length : "") + "</span>" +
+        "<span>" + (label ? esc(label) : "CH-0" + (idx + 1) + " // DEMO REEL") + "</span></div>";
     }
+
+    if (!VIDEOS.length) {
+      var st = document.createElement("div");
+      st.className = "video-stage";
+      st.innerHTML = corners() + topbar("", 0) +
+        "<div class='v-poster' style=\"background-image:url('" + esc(p.poster) + "')\"></div>" +
+        "<button class='v-playbtn' aria-label='Video pending'><span class='ring'><span class='tri'></span></span><span class='lbl v-standby'>Video proof &middot; standby</span></button>" +
+        timeline();
+      st.querySelector(".v-playbtn").addEventListener("click", function () {
+        st.querySelector(".lbl").textContent = "Upload pending — attach your .mp4";
+      });
+      rack.appendChild(st);
+      return;
+    }
+
+    VIDEOS.forEach(function (vObj, idx) {
+      var st = document.createElement("div");
+      st.className = "video-stage";
+      st.innerHTML = corners() + topbar(vObj.label, idx) +
+        "<video poster='" + esc(p.poster) + "' preload='none' playsinline></video>" +
+        "<button class='v-playbtn' aria-label='Play video'><span class='ring'><span class='tri'></span></span><span class='lbl'>Play " + (vObj.label ? esc(vObj.label) : "demo") + "</span></button>" +
+        timeline();
+      var v = st.querySelector("video");
+      var src = document.createElement("source"); src.src = vObj.src; src.type = "video/mp4"; v.appendChild(src);
+      var btn = st.querySelector(".v-playbtn");
+      btn.addEventListener("click", function () { v.setAttribute("controls", ""); v.play(); btn.style.display = "none"; });
+      rack.appendChild(st);
+    });
   })();
 
-  /* ---------- SCREENSHOTS + LIGHTBOX ---------- */
-  (function buildShots() {
-    var grid = $("#shot-grid");
-    grid.innerHTML = p.shots.map(function (s, i) {
-      return "<figure class='shot' data-full='" + esc(s.src) + "' tabindex='0' aria-label='" + esc(s.cap) + "'>" +
+  /* ---------- SCREENSHOT GALLERY (scrollable) + LIGHTBOX ---------- */
+  (function buildGallery() {
+    var host = $("#shot-grid");
+    host.classList.remove("shot-grid");
+    host.className = "gallery";
+
+    var figures = p.shots.map(function (s, i) {
+      var nn = (i < 9 ? "0" : "") + (i + 1);
+      return "<figure class='shot' data-idx='" + i + "' data-full='" + esc(s.src) + "' tabindex='0' aria-label='" + esc(s.cap || ("View " + nn)) + "'>" +
         "<span class='zoom'>&#9974;</span>" +
-        "<img src='" + esc(s.src) + "' alt='" + esc(p.title.join(" ")) + " — " + esc(s.cap) + "' loading='lazy'>" +
-        "<figcaption class='cap'>0" + (i + 1) + " &middot; " + esc(s.cap) + "</figcaption></figure>";
+        "<img src='" + esc(s.src) + "' alt='" + esc(p.title.join(" ")) + " — " + esc(s.cap || nn) + "' loading='lazy'>" +
+        "<figcaption class='cap'>" + nn + " &middot; " + esc(s.cap || "View") + "</figcaption></figure>";
     }).join("");
+
+    host.innerHTML =
+      "<button class='g-nav g-prev' aria-label='Previous screenshots'>&lsaquo;</button>" +
+      "<div class='g-track' id='g-track'>" + figures + "</div>" +
+      "<button class='g-nav g-next' aria-label='Next screenshots'>&rsaquo;</button>" +
+      "<div class='g-count' id='g-count'></div>";
+
+    var track = $("#g-track");
+    var prev = host.querySelector(".g-prev");
+    var next = host.querySelector(".g-next");
+    var count = $("#g-count");
+    count.textContent = p.shots.length + " frames · scroll or drag";
+
+    function step() {
+      var card = track.querySelector(".shot");
+      return card ? card.getBoundingClientRect().width + 16 : 320;
+    }
+    function updateNav() {
+      var maxS = track.scrollWidth - track.clientWidth - 2;
+      prev.classList.toggle("off", track.scrollLeft <= 2);
+      next.classList.toggle("off", track.scrollLeft >= maxS);
+    }
+    prev.addEventListener("click", function () { track.scrollBy({ left: -step() * 1.5, behavior: "smooth" }); });
+    next.addEventListener("click", function () { track.scrollBy({ left: step() * 1.5, behavior: "smooth" }); });
+    track.addEventListener("scroll", updateNav, { passive: true });
+    window.addEventListener("resize", updateNav);
+    updateNav();
+
+    /* drag-to-scroll (mouse) */
+    var down = false, sx = 0, sl = 0, moved = false;
+    track.addEventListener("mousedown", function (e) { down = true; moved = false; sx = e.pageX; sl = track.scrollLeft; track.classList.add("drag"); });
+    window.addEventListener("mousemove", function (e) { if (!down) return; var dx = e.pageX - sx; if (Math.abs(dx) > 4) moved = true; track.scrollLeft = sl - dx; });
+    window.addEventListener("mouseup", function () { down = false; track.classList.remove("drag"); });
+
+    /* ---------- LIGHTBOX with prev / next ---------- */
     var lb = $("#lightbox"), lbImg = $("#lb-img");
-    function open(src) { lbImg.src = src; lb.classList.add("open"); }
+    var cur = 0;
+    if (lb && !lb.querySelector(".lb-prev")) {
+      var bp = document.createElement("button"); bp.className = "lb-nav lb-prev"; bp.setAttribute("aria-label", "Previous"); bp.innerHTML = "&lsaquo;";
+      var bn = document.createElement("button"); bn.className = "lb-nav lb-next"; bn.setAttribute("aria-label", "Next"); bn.innerHTML = "&rsaquo;";
+      var cc = document.createElement("div"); cc.className = "lb-count"; cc.id = "lb-count";
+      lb.appendChild(bp); lb.appendChild(bn); lb.appendChild(cc);
+    }
+    var lbPrev = lb.querySelector(".lb-prev"), lbNext = lb.querySelector(".lb-next"), lbCount = $("#lb-count");
+
+    function show(i) {
+      cur = (i + p.shots.length) % p.shots.length;
+      lbImg.src = p.shots[cur].src;
+      if (lbCount) lbCount.textContent = (cur + 1) + " / " + p.shots.length;
+    }
+    function open(i) { show(i); lb.classList.add("open"); }
     function close() { lb.classList.remove("open"); lbImg.src = ""; }
-    Array.prototype.forEach.call(grid.querySelectorAll(".shot"), function (el) {
-      el.addEventListener("click", function () { open(el.getAttribute("data-full")); });
-      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(el.getAttribute("data-full")); } });
+
+    Array.prototype.forEach.call(track.querySelectorAll(".shot"), function (el) {
+      el.addEventListener("click", function () { if (moved) return; open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
     });
+    if (lbPrev) lbPrev.addEventListener("click", function (e) { e.stopPropagation(); show(cur - 1); });
+    if (lbNext) lbNext.addEventListener("click", function (e) { e.stopPropagation(); show(cur + 1); });
     $("#lb-close").addEventListener("click", close);
     lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(cur - 1);
+      else if (e.key === "ArrowRight") show(cur + 1);
+    });
   })();
 
   /* ---------- OVERVIEW + STACK ---------- */
@@ -193,16 +308,24 @@
   $("#p-highlights").innerHTML = p.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("");
   $("#p-stack").innerHTML = p.stack.map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("");
 
-  /* ---------- DOCUMENTATION CARD ---------- */
-  (function buildDoc() {
-    var el = $("#doc-card");
-    if (p.doc) {
-      el.innerHTML = "<div class='doc-icon'>PDF</div><div class='doc-meta'><h4>" + esc(p.doc.label || "Project Documentation") +
-        "</h4><p>" + esc(p.doc.size || "PDF document") + "</p></div>" +
-        "<a class='btn btn-primary magnetic' href='" + esc(p.doc.href) + "' target='_blank' rel='noopener'>&darr; Download</a>";
+  /* ---------- DOCUMENTATION CARD(S) ---------- */
+  (function buildDocs() {
+    var host = $("#doc-card");
+    host.classList.remove("panel", "hud-frame", "doc-card");
+    host.className = "doc-rack";
+    if (DOCS.length) {
+      host.innerHTML = DOCS.map(function (d) {
+        return "<div class='panel hud-frame doc-card'>" +
+          "<div class='doc-icon'>PDF</div>" +
+          "<div class='doc-meta'><h4>" + esc(d.label || "Project Documentation") + "</h4>" +
+          "<p>" + esc(d.size || "PDF document") + "</p></div>" +
+          "<a class='btn btn-primary magnetic' href='" + esc(d.href) + "' target='_blank' rel='noopener'>&darr; Open</a></div>";
+      }).join("");
     } else {
-      el.innerHTML = "<div class='doc-icon' style='opacity:.6'>PDF</div><div class='doc-meta'><h4>Project Documentation</h4>" +
-        "<p>Standby — PDF documentation will be attached.</p></div><span class='btn btn-ghost disabled'>Pending</span>";
+      host.innerHTML = "<div class='panel hud-frame doc-card'>" +
+        "<div class='doc-icon' style='opacity:.6'>PDF</div>" +
+        "<div class='doc-meta'><h4>Project Documentation</h4><p>No documents attached for this system.</p></div>" +
+        "<span class='btn btn-ghost disabled'>None</span></div>";
     }
   })();
 
