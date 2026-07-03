@@ -18,7 +18,7 @@
 
   /* Helper: build an ordered list of screenshot objects for a project dir */
   function mkShots(dir, n, ext) {
-    ext = ext || "png";
+    ext = ext || "webp";
     var out = [];
     for (var i = 1; i <= n; i++) {
       var nn = (i < 10 ? "0" : "") + i;
@@ -34,7 +34,7 @@
       tagline: "A GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries over very large datasets.",
       year: "2025", sector: "Government / Forestry",
       domain: "https://punjabtreeenumeration.com",
-      poster: "assets/projects/lte/shot-01.png",
+      poster: "assets/projects/lte/shot-01.webp",
       videos: [
         { src: "assets/projects/lte/video-01.mp4", label: "Platform walkthrough" },
         { src: "assets/projects/lte/video-02.mp4", label: "Field & reporting flow" }
@@ -56,7 +56,7 @@
       tagline: "Multi-role routing platform for forest incidents with WhatsApp API alerts to Conservators and DFOs.",
       year: "2025", sector: "Government / Workflow",
       domain: "https://cms.gisforestry.com",
-      poster: "assets/projects/cms/shot-01.png",
+      poster: "assets/projects/cms/shot-01.webp",
       videos: [
         { src: "assets/projects/cms/video-01.mp4", label: "System demonstration" }
       ],
@@ -85,7 +85,7 @@
       tagline: "Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.",
       year: "2024", sector: "Government / Public",
       domain: "https://ppms.gisforestry.com",
-      poster: "assets/projects/ppms/shot-01.png",
+      poster: "assets/projects/ppms/shot-01.webp",
       videos: [
         { src: "assets/projects/ppms/video-01.mp4", label: "Platform demonstration" }
       ],
