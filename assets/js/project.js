@@ -308,25 +308,98 @@
   $("#p-highlights").innerHTML = p.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("");
   $("#p-stack").innerHTML = p.stack.map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("");
 
-  /* ---------- DOCUMENTATION CARD(S) ---------- */
+  /* ---------- DOCUMENTATION: preview cards + in-page PDF carousel ---------- */
   (function buildDocs() {
     var host = $("#doc-card");
     host.classList.remove("panel", "hud-frame", "doc-card");
     host.className = "doc-rack";
-    if (DOCS.length) {
-      host.innerHTML = DOCS.map(function (d) {
-        return "<div class='panel hud-frame doc-card'>" +
-          "<div class='doc-icon'>PDF</div>" +
-          "<div class='doc-meta'><h4>" + esc(d.label || "Project Documentation") + "</h4>" +
-          "<p>" + esc(d.size || "PDF document") + "</p></div>" +
-          "<a class='btn btn-primary magnetic' href='" + esc(d.href) + "' target='_blank' rel='noopener'>&darr; Open</a></div>";
-      }).join("");
-    } else {
+
+    if (!DOCS.length) {
+      host.className = "";
       host.innerHTML = "<div class='panel hud-frame doc-card'>" +
         "<div class='doc-icon' style='opacity:.6'>PDF</div>" +
         "<div class='doc-meta'><h4>Project Documentation</h4><p>No documents attached for this system.</p></div>" +
         "<span class='btn btn-ghost disabled'>None</span></div>";
+      return;
     }
+
+    function thumbOf(d) { return d.thumb || (d.href ? d.href.replace(/\.pdf(\?|$)/i, "-thumb.webp$1") : ""); }
+
+    host.innerHTML = DOCS.map(function (d, i) {
+      var th = thumbOf(d);
+      return "<figure class='doc-preview' data-idx='" + i + "' tabindex='0' role='button' aria-label='Open " + esc(d.label || ("Document " + (i + 1))) + "'>" +
+        "<div class='dp-thumb'>" +
+          (th ? "<img src='" + esc(th) + "' alt='First page of " + esc(d.label || "document") + "' loading='lazy'>" : "<span class='dp-ph'>PDF</span>") +
+          "<span class='dp-badge'>PDF</span><span class='dp-open'>&#9672; VIEW</span>" +
+        "</div>" +
+        "<figcaption><b>" + esc(d.label || ("Document " + (i + 1))) + "</b><span>Page 1 preview &middot; click to read</span></figcaption>" +
+        "</figure>";
+    }).join("");
+
+    /* ----- build the full-screen PDF viewer overlay once ----- */
+    var lb = document.createElement("div");
+    lb.className = "pdf-lb"; lb.setAttribute("aria-hidden", "true"); lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Document viewer");
+    lb.innerHTML =
+      "<div class='pdf-head'>" +
+        "<span class='pdf-title'></span>" +
+        "<span class='pdf-count'></span>" +
+        "<a class='pdf-btn pdf-dl' target='_blank' rel='noopener'>&darr; Download</a>" +
+        "<button class='pdf-btn pdf-x' aria-label='Close viewer'>&times;</button>" +
+      "</div>" +
+      "<div class='pdf-stage'>" +
+        "<button class='pdf-nav pdf-prev' aria-label='Previous document'>&#8249;</button>" +
+        "<div class='pdf-frame-wrap'><div class='pdf-load'>Loading document&hellip;</div><iframe class='pdf-frame' title='PDF document' loading='lazy'></iframe></div>" +
+        "<button class='pdf-nav pdf-next' aria-label='Next document'>&#8250;</button>" +
+      "</div>" +
+      "<div class='pdf-dots'></div>";
+    document.body.appendChild(lb);
+
+    var frame = lb.querySelector(".pdf-frame"),
+        titleEl = lb.querySelector(".pdf-title"),
+        countEl = lb.querySelector(".pdf-count"),
+        dlEl = lb.querySelector(".pdf-dl"),
+        prevB = lb.querySelector(".pdf-prev"),
+        nextB = lb.querySelector(".pdf-next"),
+        dots = lb.querySelector(".pdf-dots"),
+        loadEl = lb.querySelector(".pdf-load");
+    var idx = 0;
+
+    dots.innerHTML = DOCS.map(function (d, i) { return "<button class='pdf-dot' data-i='" + i + "' aria-label='Document " + (i + 1) + "'></button>"; }).join("");
+    var dotEls = Array.prototype.slice.call(dots.querySelectorAll(".pdf-dot"));
+
+    function show(i) {
+      idx = (i + DOCS.length) % DOCS.length;
+      var d = DOCS[idx];
+      loadEl.style.display = "grid";
+      frame.style.opacity = "0";
+      frame.src = esc(d.href) + "#view=FitH&toolbar=1";
+      titleEl.textContent = d.label || ("Document " + (idx + 1));
+      countEl.textContent = (idx + 1) + " / " + DOCS.length;
+      dlEl.setAttribute("href", d.href);
+      dlEl.setAttribute("download", "");
+      var multi = DOCS.length > 1;
+      prevB.hidden = !multi; nextB.hidden = !multi; dots.style.display = multi ? "flex" : "none";
+      dotEls.forEach(function (el, k) { el.classList.toggle("on", k === idx); });
+    }
+    frame.addEventListener("load", function () { loadEl.style.display = "none"; frame.style.opacity = "1"; });
+    function open(i) { show(i); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
+    function close() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; frame.src = "about:blank"; }
+    function go(step) { show(idx + step); }
+
+    Array.prototype.forEach.call(host.querySelectorAll(".doc-preview"), function (el) {
+      el.addEventListener("click", function () { open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
+    });
+    prevB.addEventListener("click", function () { go(-1); });
+    nextB.addEventListener("click", function () { go(1); });
+    lb.querySelector(".pdf-x").addEventListener("click", close);
+    dotEls.forEach(function (el) { el.addEventListener("click", function () { show(parseInt(el.getAttribute("data-i"), 10)); }); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") go(-1);
+      else if (e.key === "ArrowRight") go(1);
+    });
   })();
 
   /* ---------- REVEAL (self-contained) ---------- */

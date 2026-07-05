@@ -657,3 +657,86 @@ section { position: relative; padding: 110px 0; }
 .back-top { position: fixed; right: 22px; bottom: 78px; z-index: 8500; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--line); background: rgba(4,12,22,0.8); backdrop-filter: blur(10px); color: var(--cy); display: grid; place-items: center; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s var(--ease-hud), visibility 0.3s, box-shadow 0.25s, border-color 0.25s; }
 .back-top.show { opacity: 1; visibility: visible; transform: none; }
 .back-top:hover { border-color: var(--line-strong); box-shadow: var(--glow-cy); transform: translateY(-3px); }
+
+/* ============================================================
+   ADDENDUM 5 — Documentation preview cards + in-page PDF carousel
+   ============================================================ */
+.doc-rack { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.doc-preview { margin: 0; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg-panel); backdrop-filter: blur(8px); transition: transform 0.3s var(--ease-hud), border-color 0.3s, box-shadow 0.3s; }
+.doc-preview:hover, .doc-preview:focus-visible { transform: translateY(-5px); border-color: var(--line-strong); box-shadow: var(--glow-cy); outline: none; }
+.dp-thumb { position: relative; aspect-ratio: 3/4; overflow: hidden; background: #0a1420; border-bottom: 1px solid var(--line); }
+.dp-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s var(--ease-hud); }
+.doc-preview:hover .dp-thumb img { transform: scale(1.05); }
+.dp-ph { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); color: var(--fg-dim); font-size: 20px; letter-spacing: 0.2em; }
+.dp-badge { position: absolute; top: 8px; left: 8px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; color: var(--gold); background: rgba(2,6,13,0.7); border: 1px solid rgba(255,196,107,0.35); padding: 3px 7px; border-radius: 4px; }
+.dp-open { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; letter-spacing: 0.18em; color: var(--cy); background: rgba(2,6,13,0.55); opacity: 0; transition: opacity 0.3s; }
+.doc-preview:hover .dp-open, .doc-preview:focus-visible .dp-open { opacity: 1; }
+.doc-preview figcaption { padding: 12px 14px; }
+.doc-preview figcaption b { display: block; color: var(--fg); font-size: 0.95rem; margin-bottom: 3px; }
+.doc-preview figcaption span { font-family: var(--mono); font-size: 10px; color: var(--fg-dim); letter-spacing: 0.04em; }
+
+.pdf-lb { position: fixed; inset: 0; z-index: 9750; background: rgba(2,4,10,0.96); backdrop-filter: blur(12px); display: none; flex-direction: column; padding: 16px; }
+.pdf-lb.open { display: flex; }
+.pdf-head { display: flex; align-items: center; gap: 14px; padding: 6px 8px 14px; border-bottom: 1px solid var(--line); }
+.pdf-head .pdf-title { font-family: var(--mono); font-size: 14px; color: var(--cy); letter-spacing: 0.05em; }
+.pdf-head .pdf-count { font-family: var(--mono); font-size: 12px; color: var(--fg-dim); }
+.pdf-head .pdf-dl { margin-left: auto; }
+.pdf-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; color: var(--cy); border: 1px solid var(--line); border-radius: 4px; padding: 8px 14px; transition: all 0.25s; background: none; cursor: pointer; }
+.pdf-btn:hover { border-color: var(--line-strong); box-shadow: var(--glow-cy); background: rgba(56,224,255,0.08); }
+.pdf-x { font-size: 18px; padding: 6px 12px; }
+.pdf-stage { flex: 1; display: flex; align-items: stretch; gap: 12px; min-height: 0; padding: 14px 0; }
+.pdf-frame-wrap { position: relative; flex: 1; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; box-shadow: var(--glow-cy-lg); background: #1a1a1a; }
+.pdf-frame { width: 100%; height: 100%; border: 0; display: block; transition: opacity 0.3s; background: #fff; }
+.pdf-load { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 13px; color: var(--cy); letter-spacing: 0.1em; background: var(--bg-deep); }
+.pdf-nav { flex: none; width: 54px; border: 1px solid var(--line-strong); border-radius: 8px; background: rgba(4,12,22,0.7); color: var(--cy); font-size: 30px; cursor: pointer; transition: all 0.25s; }
+.pdf-nav:hover { background: var(--cy); color: #02121a; box-shadow: var(--glow-cy); }
+.pdf-nav[hidden] { display: none; }
+.pdf-dots { display: flex; justify-content: center; gap: 8px; padding-top: 4px; }
+.pdf-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--line-strong); background: transparent; cursor: pointer; transition: all 0.25s; padding: 0; }
+.pdf-dot.on { background: var(--cy); box-shadow: var(--glow-cy); }
+@media (max-width: 720px) {
+  .pdf-nav { width: 40px; font-size: 22px; }
+  .pdf-head { flex-wrap: wrap; gap: 8px; }
+  .pdf-head .pdf-title { font-size: 12px; }
+}
+
+/* ============================================================
+   ADDENDUM 6 — Header polish: spacious, no-wrap brand, cleaner collapse
+   ============================================================ */
+.hud-header { padding: 18px 0; }
+.hud-header .wrap { justify-content: flex-start; gap: 22px; }
+.brand { flex: none; gap: 13px; }
+.brand > span:last-child { display: inline-flex; flex-direction: column; line-height: 1.06; }
+.brand small { white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; margin-top: 4px; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim); }
+.nav { margin-left: auto; gap: 24px; }
+.header-cta { flex: none; margin-left: 4px; position: relative; }
+.header-cta::before { content: ""; position: absolute; left: -14px; top: 50%; transform: translateY(-50%); width: 1px; height: 20px; background: var(--line); }
+.nav-toggle { margin-left: auto; }
+
+/* Collapse to hamburger before 8 items get cramped (laptops) */
+@media (max-width: 1180px) {
+  .nav { display: none; }
+  .nav-toggle { display: block; }
+  .header-cta { display: none; }
+  .brand small { display: block; }
+}
+/* Free up room for the nav on mid-size desktops by dropping the subtitle */
+@media (max-width: 1360px) and (min-width: 1181px) {
+  .brand small { display: none; }
+}
+
+/* brand name emphasis + hover glow */
+.brand > span:last-child { font-size: 1.06rem; letter-spacing: 0.08em; }
+.brand:hover .mark { box-shadow: var(--glow-cy); border-radius: 8px; }
+.brand:hover small { color: var(--cy); }
+
+/* ============================================================
+   ADDENDUM 7 — Project hologram preview images
+   ============================================================ */
+.proj-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: 0.92; transition: transform 0.6s var(--ease-hud), opacity 0.4s; }
+.proj:hover .proj-img, .proj:focus-visible .proj-img { transform: scale(1.06); opacity: 1; }
+.proj-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(2,4,10,0.97) 6%, rgba(2,4,10,0.76) 42%, rgba(2,4,10,0.34) 100%); transition: background 0.4s; }
+.proj:hover .proj-shade { background: linear-gradient(to top, rgba(2,4,10,0.95) 6%, rgba(2,4,10,0.62) 46%, rgba(4,20,34,0.20) 100%); }
+.proj h3, .proj p { text-shadow: 0 1px 12px rgba(2,4,10,0.92); }
+.proj .hex-id { color: var(--cy); opacity: 0.92; text-shadow: 0 1px 8px rgba(2,4,10,0.9); }
+.proj .tag { text-shadow: 0 1px 10px rgba(2,4,10,0.9); }

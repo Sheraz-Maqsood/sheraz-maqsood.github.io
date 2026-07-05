@@ -84,7 +84,15 @@
   /* ========== 2. WEBGL PARTICLE UNIVERSE ========== */
   function initWebGL() {
     var canvas = $("#webgl-bg");
-    if (!canvas || reduceMotion || typeof window.THREE === "undefined") return;
+    if (!canvas || reduceMotion || innerWidth < 700) return;   /* skip decorative 3D on phones */
+    if (typeof window.THREE !== "undefined") { try { buildWebGL(canvas); } catch (e) {} return; }
+    var sc = document.createElement("script");
+    sc.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    sc.async = true;
+    sc.onload = function () { try { buildWebGL(canvas); } catch (e) {} };
+    document.head.appendChild(sc);
+  }
+  function buildWebGL(canvas) {
     var renderer;
     try {
       renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: "high-performance" });
@@ -150,7 +158,7 @@
   function initScroll() {
     var header = $("#header"), prog = $("#scroll-progress");
     var navLinks = $$(".nav a");
-    var sections = navLinks.map(function (a) { return $(a.getAttribute("href")); }).filter(Boolean);
+    var sections = navLinks.map(function (a) { var h = a.getAttribute("href"); return (h && h.charAt(0) === "#") ? $(h) : null; }).filter(Boolean);
     var ticking = false;
     function onScroll() {
       if (ticking) return; ticking = true;

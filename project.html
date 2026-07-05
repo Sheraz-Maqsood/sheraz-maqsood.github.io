@@ -8,8 +8,12 @@
   <meta name="theme-color" content="#02040a">
   <meta property="og:title" content="Project Dossier — Sheraz // ARC OS">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://sheraz.is-a.dev/assets/sheraz/professional.png">
+  <meta property="og:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,2 36,11 36,29 20,38 4,29 4,11' fill='%2302040a' stroke='%2338e0ff' stroke-width='2'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='%2338e0ff' font-family='monospace' font-size='17' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -31,60 +35,7 @@
     <div class="tick t1"></div><div class="tick t2"></div><div class="tick t3"></div><div class="tick t4"></div>
   </div>
 
-  <header class="hud-header scrolled" id="header">
-    <div class="wrap">
-      <a href="index.html" class="brand" aria-label="ARC OS home">
-        <span class="mark" aria-hidden="true">
-          <svg viewBox="0 0 40 40"><polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="#38e0ff" stroke-width="1.5"/></svg>
-          <span>S</span>
-        </span>
-        <span>SHERAZ<small>Principal Full-Stack Engineer <br> – Laravel, Nest, PostgreSQL <br>  GIS Platforms</small></span>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="index.html#about">About</a>
-        <a href="index.html#skills">Skills</a>
-        <a href="index.html#experience">Experience</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
-      <a href="index.html#projects" class="btn btn-primary header-cta">&larr; All Systems</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    </div>
-  </header>
-
-  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-    <a href="index.html#about"><span class="idx">01</span>About</a>
-    <a href="index.html#skills"><span class="idx">02</span>Skills</a>
-    <a href="index.html#experience"><span class="idx">03</span>Experience</a>
-    <a href="index.html#projects"><span class="idx">04</span>Projects</a>
-    <a href="index.html#contact"><span class="idx">05</span>Contact</a>
-  </div>
-
-  <main id="main">
-
-    <section class="wrap p-hero" data-reveal aria-label="Project header">
-      <a href="index.html#projects" class="back-link">&larr; Return to ARC OS · Projects</a>
-      <span class="eyebrow" id="p-code">DOSSIER</span>
-      <h1 id="p-title">Project</h1>
-      <p class="p-tagline" id="p-tagline"></p>
-      <div class="p-meta" id="p-meta"></div>
-      <div class="p-actions" id="p-actions"></div>
-    </section>
-
-    <section class="wrap" data-reveal aria-label="Video proof">
-      <div class="p-section-label">Primary proof &middot; Video demonstration</div>
-      <div class="video-stage" id="video-stage"></div>
-      <p class="muted" style="font-family:var(--mono); font-size:12px; margin-top:12px;">// In Pakistan, deployments and domains can go offline — the recorded demo is the permanent proof of this work.</p>
-    </section>
-
-    <section class="wrap" data-reveal aria-label="Overview">
-      <div class="p-section-label">Mission overview</div>
-      <div class="p-info-grid">
-        <div class="panel hud-frame">
-          <span class="corner-id">OVERVIEW</span>
-          <p class="muted" id="p-overview" style="font-size:1.05rem;"></p>
-          <div class="p-stack-tags" id="p-stack" style="margin-top:20px;"></div>
-        </div>
+  <div id="site-header"></div>
         <div class="panel hud-frame">
           <span class="corner-id">HIGHLIGHTS</span>
           <ul id="p-highlights"></ul>
@@ -125,7 +76,7 @@
     <svg class="on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>
   </button>
 
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script defer src="assets/js/components.js"></script>
   <script defer src="assets/js/main.js"></script>
   <script defer src="assets/js/project.js"></script>
 </body>
