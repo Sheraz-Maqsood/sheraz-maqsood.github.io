@@ -197,10 +197,10 @@
       st.className = "video-stage";
       st.innerHTML = corners() + topbar("", 0) +
         "<div class='v-poster' style=\"background-image:url('" + esc(p.poster) + "')\"></div>" +
-        "<button class='v-playbtn' aria-label='Video pending'><span class='ring'><span class='tri'></span></span><span class='lbl v-standby'>Video proof &middot; standby</span></button>" +
+        "<button class='v-playbtn' aria-label='Video pending'><span class='ring'><span class='tri'></span></span><span class='lbl v-standby'>Demo recording soon</span></button>" +
         timeline();
       st.querySelector(".v-playbtn").addEventListener("click", function () {
-        st.querySelector(".lbl").textContent = "Upload pending — attach your .mp4";
+        st.querySelector(".lbl").textContent = "Demo video coming soon — the deployment proof is on its way.";
       });
       rack.appendChild(st);
       return;

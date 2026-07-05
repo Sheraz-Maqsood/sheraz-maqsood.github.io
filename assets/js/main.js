@@ -43,7 +43,7 @@
 
     /* Repeat visitors skip the boot — instant access on return */
     var seenBoot = false;
-    try { seenBoot = sessionStorage.getItem("arcBooted") === "1"; sessionStorage.setItem("arcBooted", "1"); } catch (err) {}
+    try { seenBoot = localStorage.getItem("arcBooted") === "1"; localStorage.setItem("arcBooted", "1"); } catch (err) {}
     if (seenBoot) {
       if (bar) bar.style.width = "100%";
       if (skip) skip.style.display = "none";
@@ -656,6 +656,44 @@
     });
   }
 
+  /* ========== 16d. PROJECT FILTERS ========== */
+  function initFilters() {
+    var bar = $("#proj-filters"); if (!bar) return;
+    var cards = $$(".proj-grid .proj");
+    var chips = $$(".pf-chip", bar);
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        chips.forEach(function (c) { c.classList.remove("on"); c.setAttribute("aria-pressed", "false"); });
+        chip.classList.add("on"); chip.setAttribute("aria-pressed", "true");
+        var f = chip.getAttribute("data-filter");
+        cards.forEach(function (card) {
+          var cats = (card.getAttribute("data-cat") || "").split(" ");
+          var show = (f === "all") || cats.indexOf(f) !== -1;
+          card.classList.toggle("hide", !show);
+        });
+        play("select");
+      });
+    });
+  }
+
+  /* ========== 16e. FIRST-VISIT HINT ========== */
+  function initHint() {
+    var hint = $("#first-hint"); if (!hint) return;
+    var seen = false; try { seen = localStorage.getItem("arcHint") === "1"; } catch (e) {}
+    if (seen) { hint.parentNode && hint.parentNode.removeChild(hint); return; }
+    var timer;
+    function dismiss() {
+      hint.classList.remove("show");
+      try { localStorage.setItem("arcHint", "1"); } catch (e) {}
+      clearTimeout(timer);
+      setTimeout(function () { hint.parentNode && hint.parentNode.removeChild(hint); }, 500);
+    }
+    function reveal() { hint.classList.add("show"); timer = setTimeout(dismiss, 13000); }
+    if (state.booted) setTimeout(reveal, 900);
+    else window.addEventListener("arc:booted", function () { setTimeout(reveal, 1800); }, { once: true });
+    var x = $("#first-hint-x"); if (x) x.addEventListener("click", dismiss);
+  }
+
   /* ========== 16. MISC ========== */
   function initMisc() {
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
@@ -671,7 +709,7 @@
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
                 initTyper, initOrbit, initGalaxy, initProjects, initContact, initSound,
-                initAssistant, initEasterEggs, initManifesto, initGallery, initMisc];
+                initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initMisc];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
   }
 
