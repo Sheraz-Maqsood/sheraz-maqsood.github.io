@@ -1,25 +1,24 @@
-# sheraz-maqsood.github.io
+# ARC OS v2.0 — Sheraz Maqsood Portfolio
 
-Personal portfolio site for `https://sheraz-maqsood.github.io/`.
+Personal portfolio for **Malik Sheraz Maqsood Ahmed** — Principal Full-Stack & GIS Engineer.  
+Hosted at [sheraz.is-a.dev](https://sheraz.is-a.dev).
 
 ## Structure
 
-- `index.html` - main GitHub Pages homepage
-- `assets/css/styles.css` - site styling
-- `assets/js/main.js` - small interactions and reveal animation
-- `assets/files/sheraz-cv.pdf` - downloadable CV
-- `assets/images/` - future screenshots and project media
+- `index.html` — main portfolio homepage
+- `project.html` — data-driven project detail page (dossier)
+- `404.html` — custom "Signal Lost" page
+- `assets/css/styles.css` — complete design system (ARC HUD theme)
+- `assets/js/main.js` — boot sequence, WebGL, interactions, easter eggs
+- `assets/js/components.js` — shared header/nav (single source of truth)
+- `assets/js/project.js` — project data + dossier rendering engine
+- `assets/sheraz/` — profile photos, field ops images
+- `assets/projects/` — per-project screenshots, videos, PDF documents
+
+## Tech
+
+Vanilla HTML/CSS/JS — no frameworks. Three.js (WebGL background). Anime.js (scroll reveals).
 
 ## Publishing
 
-This repository is set up for a GitHub Pages user site. To publish:
-
-1. Create a GitHub repository named `sheraz-maqsood.github.io`
-2. Push the contents of this folder to the `main` branch
-3. GitHub will serve the site automatically from the repository root
-
-## Future updates
-
-- Add screenshots to `assets/images/`
-- Add project videos by embedding them in `index.html`
-- Expand the `Future Showcase` section into project case studies
+Push `main` branch to `sheraz-maqsood.github.io` — GitHub Pages serves from root.

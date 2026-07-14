@@ -51,6 +51,7 @@ ul { list-style: none; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg-void); }
 ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cy-deep), var(--cy)); border-radius: 6px; border: 2px solid var(--bg-void); }
+html { scrollbar-color: var(--cy-deep) var(--bg-void); scrollbar-width: thin; }
 
 .skip-link { position: fixed; left: 12px; top: -60px; z-index: 10001; background: var(--cy); color: #02040a; padding: 10px 18px; font-weight: 700; border-radius: 6px; transition: top 0.2s; }
 .skip-link:focus { top: 12px; }
@@ -366,20 +367,21 @@ section { position: relative; padding: 110px 0; }
   .bg-grid, .bg-aurora span, .fx-overlay::before { animation: none !important; }
   [data-reveal], [data-stagger] > * { opacity: 1 !important; transform: none !important; }
   #webgl-bg { display: none; }
+  .cursor-reticle { display: none !important; }
+  .boot-core .spin, .boot-core .spin-r, .reactor .r-spin, .reactor .r-spin-rev, .reactor .r-spin-fast, .reactor .core-pulse,
+  .orbit-chip, .radar-div .r i, .radar-div .r::after, .rail-line::before, .wave i, .assistant-orb::before, .assistant-orb::after,
+  .assistant-orb.speaking .eq i, .hero-status .pulse, .sys-chip i, .em-frame .em-scan, .portrait .p-scan, .proj .scanline-sweep::before,
+  .v-timeline .bar i, .glitch::before, .glitch::after, .cursor-blink, .ls-dot, .p-live i, .sys-caret { animation: none !important; }
 }
 
 .hidden { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-/* ============================================================
-   ADDENDUM — targeted name glitch + project detail page
-   ============================================================ */
-
 /* Highlighted name words (Sheraz / Maqsood) */
 .hero h1 .l2 { color: var(--fg); text-shadow: none; }
 .hl-word { color: var(--cy); text-shadow: var(--glow-cy); display: inline-block; position: relative; }
 
-/* ---- Project detail: hero ---- */
+/* ---- Project detail ---- */
 .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 26px; transition: color 0.25s; }
 .back-link:hover { color: var(--cy); }
 .p-hero { padding-top: 120px; }
@@ -454,9 +456,7 @@ section { position: relative; padding: 110px 0; }
   .v-playbtn .ring { width: 70px; height: 70px; }
 }
 
-/* ============================================================
-   ADDENDUM 2 — AI Developer Profile + Tech Arsenal
-   ============================================================ */
+/* ---- AI Developer Profile ---- */
 
 /* ---- Profile layout ---- */
 .profile-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items: stretch; }
@@ -539,9 +539,7 @@ section { position: relative; padding: 110px 0; }
   .sys-line .k { min-width: 130px; }
 }
 
-/* ============================================================
-   ADDENDUM 3 — Portrait (right), Field-ops image + carousel, live systems
-   ============================================================ */
+/* ---- Portrait, Field-ops, live systems ---- */
 
 /* ---- About: portrait on the RIGHT, equal cards, no empty gap ---- */
 .about-grid.has-portrait {
@@ -622,9 +620,7 @@ section { position: relative; padding: 110px 0; }
 .glb-count { font-family: var(--mono); color: var(--cy); font-size: 12px; margin-top: 6px; letter-spacing: 0.18em; }
 @media (max-width: 820px) { .glb-prev { left: 6px; } .glb-next { right: 6px; } .glb-nav { width: 44px; height: 44px; font-size: 22px; } }
 
-/* ============================================================
-   ADDENDUM 4 — project-page carousel / video rack / doc rack + LIVE chip
-   ============================================================ */
+/* ---- Project-page carousel, video rack, doc rack, LIVE chip ---- */
 .video-rack { display: grid; gap: 22px; }
 
 .gallery { position: relative; }
@@ -658,9 +654,7 @@ section { position: relative; padding: 110px 0; }
 .back-top.show { opacity: 1; visibility: visible; transform: none; }
 .back-top:hover { border-color: var(--line-strong); box-shadow: var(--glow-cy); transform: translateY(-3px); }
 
-/* ============================================================
-   ADDENDUM 5 — Documentation preview cards + in-page PDF carousel
-   ============================================================ */
+/* ---- Documentation preview cards + PDF carousel ---- */
 .doc-rack { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
 .doc-preview { margin: 0; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--bg-panel); backdrop-filter: blur(8px); transition: transform 0.3s var(--ease-hud), border-color 0.3s, box-shadow 0.3s; }
 .doc-preview:hover, .doc-preview:focus-visible { transform: translateY(-5px); border-color: var(--line-strong); box-shadow: var(--glow-cy); outline: none; }
@@ -700,9 +694,7 @@ section { position: relative; padding: 110px 0; }
   .pdf-head .pdf-title { font-size: 12px; }
 }
 
-/* ============================================================
-   ADDENDUM 6 — Header polish: spacious, no-wrap brand, cleaner collapse
-   ============================================================ */
+/* ---- Header polish ---- */
 .hud-header { padding: 18px 0; }
 .hud-header .wrap { justify-content: flex-start; gap: 22px; }
 .brand { flex: none; gap: 13px; }
@@ -730,9 +722,7 @@ section { position: relative; padding: 110px 0; }
 .brand:hover .mark { box-shadow: var(--glow-cy); border-radius: 8px; }
 .brand:hover small { color: var(--cy); }
 
-/* ============================================================
-   ADDENDUM 7 — Project hologram preview images
-   ============================================================ */
+/* ---- Project hologram preview images ---- */
 .proj-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; opacity: 0.92; transition: transform 0.6s var(--ease-hud), opacity 0.4s; }
 .proj:hover .proj-img, .proj:focus-visible .proj-img { transform: scale(1.06); opacity: 1; }
 .proj-shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(2,4,10,0.97) 6%, rgba(2,4,10,0.76) 42%, rgba(2,4,10,0.34) 100%); transition: background 0.4s; }
@@ -741,9 +731,7 @@ section { position: relative; padding: 110px 0; }
 .proj .hex-id { color: var(--cy); opacity: 0.92; text-shadow: 0 1px 8px rgba(2,4,10,0.9); }
 .proj .tag { text-shadow: 0 1px 10px rgba(2,4,10,0.9); }
 
-/* ============================================================
-   ADDENDUM 8 — filters, contact form, socials, hint, reduced-motion
-   ============================================================ */
+/* ---- Filters, contact form, hint ---- */
 .proj-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
 .pf-chip { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); border: 1px solid var(--line); background: rgba(4,12,22,0.4); padding: 8px 16px; border-radius: 30px; transition: all 0.25s var(--ease-hud); }
 .pf-chip:hover { color: var(--cy); border-color: var(--line-strong); }
@@ -759,6 +747,11 @@ section { position: relative; padding: 110px 0; }
 .cf-field input::placeholder, .cf-field textarea::placeholder { color: var(--fg-dim); }
 .cf-field input:focus, .cf-field textarea:focus { outline: none; border-color: var(--line-strong); box-shadow: var(--glow-cy); }
 .cf-send { justify-self: start; margin-top: 2px; }
+.cf-status { font-family: var(--mono); font-size: 13px; padding: 10px 14px; border-radius: 4px; display: none; }
+.cf-status.show { display: block; }
+.cf-status.sending { color: var(--gold); border: 1px solid rgba(255,196,107,0.35); background: rgba(255,196,107,0.06); }
+.cf-status.success { color: var(--green); border: 1px solid rgba(93,255,160,0.35); background: rgba(93,255,160,0.06); }
+.cf-status.error { color: var(--red); border: 1px solid rgba(255,90,110,0.35); background: rgba(255,90,110,0.06); }
 
 .foot-social a { color: var(--fg-muted); transition: color 0.25s; }
 .foot-social a:hover { color: var(--cy); }
@@ -772,11 +765,4 @@ section { position: relative; padding: 110px 0; }
 .first-hint .fh-body b { color: var(--fg); font-family: var(--mono); font-size: 11px; }
 @media (max-width: 640px) { .first-hint { left: 12px; right: 12px; width: auto; bottom: 84px; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .boot-core .spin, .boot-core .spin-r, .reactor .r-spin, .reactor .r-spin-rev, .reactor .r-spin-fast, .reactor .core-pulse,
-  .orbit-chip, .radar-div .r i, .radar-div .r::after, .rail-line::before, .wave i, .assistant-orb::before, .assistant-orb::after,
-  .assistant-orb.speaking .eq i, .hero-status .pulse, .sys-chip i, .em-frame .em-scan, .portrait .p-scan, .proj .scanline-sweep::before,
-  .v-timeline .bar i, .glitch::before, .glitch::after, .cursor-blink, .ls-dot, .p-live i, .sys-caret { animation: none !important; }
-  .cursor-reticle { display: none !important; }
-  html { scroll-behavior: auto !important; }
-}
+

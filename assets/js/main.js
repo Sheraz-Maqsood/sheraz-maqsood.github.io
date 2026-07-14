@@ -694,7 +694,41 @@
     var x = $("#first-hint-x"); if (x) x.addEventListener("click", dismiss);
   }
 
-  /* ========== 16. MISC ========== */
+  /* ========== 16c. CONTACT FORM submission feedback ========== */
+  function initForm() {
+    var form = document.querySelector(".comm-form");
+    if (!form) return;
+    var btn = form.querySelector("#cf-send");
+    var status = form.querySelector("#cf-status");
+    if (!status) return;
+
+    function setState(state, msg) {
+      status.className = "cf-status show " + state;
+      status.textContent = msg;
+      if (btn) btn.disabled = state === "sending";
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      setState("sending", "&#9658; Transmitting…");
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        redirect: "manual"
+      }).then(function (r) {
+        if (r.status === 0 || (r.status >= 200 && r.status < 400)) {
+          setState("success", "&#10003; Message transmitted. I'll get back to you shortly.");
+          form.reset();
+        } else {
+          setState("error", "&#9888; Transmission failed. Send an email directly instead.");
+        }
+      }).catch(function () {
+        setState("error", "&#9888; Network error. Try emailing me directly.");
+      });
+    });
+  }
+
+  /* ========== 16d. MISC ========== */
   function initMisc() {
     var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
     var bt = $("#back-top");
@@ -709,7 +743,7 @@
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
                 initTyper, initOrbit, initGalaxy, initProjects, initContact, initSound,
-                initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initMisc];
+                initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
   }
 

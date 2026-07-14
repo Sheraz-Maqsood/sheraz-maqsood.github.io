@@ -18,7 +18,7 @@
     ["contact", "Contact"]
   ];
   var BRAND = { name: "SHERAZ", sub: "Full-Stack &middot; GIS &middot; Cloud" };
-  var CV = "assets/files/sheraz-cv.pdf";
+  var CV = "Sheraz%20CV%20-%20Curriculum%20vitae%2025042026.pdf";
 
   var host = document.getElementById("site-header");
   if (!host) return;
