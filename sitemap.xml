@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://sheraz.is-a.dev/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=lte</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=cms</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=ams</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=ppms</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=gis-suite</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=jotly</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=sportseuropa</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://sheraz.is-a.dev/project.html?id=shopaholics</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sheraz.is-a.dev/</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=lte</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=gis-portal</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=cms</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=ams</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=ppms</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=gis-suite</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=jotly</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=sportseuropa</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://sheraz.is-a.dev/project.html?id=shopaholics</loc><lastmod>2026-07-20</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>

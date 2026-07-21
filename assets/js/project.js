@@ -12,8 +12,18 @@
    ============================================================ */
 (function () {
   "use strict";
-  var $ = function (s, c) { return (c || document).querySelector(s); };
-  var DUMMY = "assets/projects/_dummy/";
+  /* Resilient query helper.
+     Previously a single missing element (e.g. #p-title) threw a TypeError that
+     aborted this whole IIFE, leaving every project.html?id= page blank. Now a
+     missing mount point degrades to a detached node: that one block silently
+     renders nowhere, and the rest of the page still builds. */
+  var $ = function (s, c) {
+    var el = (c || document).querySelector(s);
+    if (el) return el;
+    if (window.console && console.warn) console.warn("[ARC] missing mount point:", s);
+    return document.createElement("div");
+  };
+  var DUMMY = "assets/_dummy/";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Helper: build an ordered list of screenshot objects for a project dir */
@@ -183,8 +193,83 @@
   }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-  var p = PROJECTS[getId()] || PROJECTS["lte"];
+  var RESOLVED_ID = PROJECTS[getId()] ? getId() : "lte";
+  var p = PROJECTS[RESOLVED_ID];
   document.title = p.title.join(" ") + " — Sheraz // ARC OS";
+
+  /* ---------- SEO META (unique per project, prevents duplicate-content) ----------
+     Each ?id=<slug> URL must expose its own title, description, canonical and OG
+     tags, otherwise every dossier URL looks identical to a crawler and only one
+     of them gets indexed. Purely additive to <head> — no layout impact. */
+  (function seoMeta() {
+    var SITE = "https://sheraz.is-a.dev/";
+    var pageUrl = SITE + "project.html?id=" + encodeURIComponent(RESOLVED_ID);
+    var name = p.title.join(" ");
+    var desc = (p.tagline || p.overview || "").replace(/\s+/g, " ").trim();
+    if (desc.length > 300) desc = desc.slice(0, 297).replace(/\s+\S*$/, "") + "…";
+    var img = SITE + (p.poster || "assets/sheraz/og-card.jpg");
+
+    function setMeta(attr, key, val) {
+      if (!val) return;
+      var el = document.head.querySelector("meta[" + attr + '="' + key + '"]');
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", val);
+    }
+    function setLink(rel, href) {
+      var el = document.head.querySelector('link[rel="' + rel + '"]');
+      if (!el) {
+        el = document.createElement("link");
+        el.setAttribute("rel", rel);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("href", href);
+    }
+
+    setLink("canonical", pageUrl);
+    setMeta("name", "description", desc);
+    setMeta("property", "og:title", name + " — Sheraz // ARC OS");
+    setMeta("property", "og:description", desc);
+    setMeta("property", "og:url", pageUrl);
+    setMeta("property", "og:image", img);
+    setMeta("name", "twitter:title", name + " — Sheraz // ARC OS");
+    setMeta("name", "twitter:description", desc);
+    setMeta("name", "twitter:image", img);
+
+    /* BreadcrumbList + CreativeWork structured data for this dossier */
+    try {
+      var ld = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE },
+              { "@type": "ListItem", "position": 2, "name": "Projects", "item": SITE + "#projects" },
+              { "@type": "ListItem", "position": 3, "name": name, "item": pageUrl }
+            ]
+          },
+          {
+            "@type": "CreativeWork",
+            "name": name,
+            "description": desc,
+            "url": pageUrl,
+            "dateCreated": String(p.year || ""),
+            "genre": p.sector || "",
+            "keywords": (p.stack || []).join(", "),
+            "author": { "@type": "Person", "name": "Malik Sheraz Maqsood Ahmed", "url": SITE }
+          }
+        ]
+      };
+      var s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
+    } catch (e) { /* structured data is optional — never block rendering */ }
+  })();
 
   /* Normalize to arrays (back-compat with single video / doc) */
   var VIDEOS = (p.videos && p.videos.length) ? p.videos : (p.video ? [{ src: p.video, label: "" }] : []);

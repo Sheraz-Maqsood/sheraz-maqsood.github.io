@@ -6,11 +6,23 @@
   <title>Project Dossier — Sheraz // ARC OS</title>
   <meta name="description" content="Project dossier — video proof, screenshots and documentation. ARC OS portfolio of Malik Sheraz Maqsood Ahmed.">
   <meta name="theme-color" content="#02040a">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Malik Sheraz Maqsood Ahmed">
+  <!-- Canonical/OG below are static defaults; project.js rewrites them per ?id= slug. -->
+  <link rel="canonical" href="https://sheraz.is-a.dev/project.html">
+  <meta property="og:site_name" content="Malik Sheraz Maqsood Ahmed — ARC OS">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Project Dossier — Sheraz // ARC OS">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sheraz.is-a.dev/project.html">
+  <meta property="og:description" content="Project dossier — video proof, screenshots and documentation. ARC OS portfolio of Malik Sheraz Maqsood Ahmed.">
   <meta property="og:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Project Dossier — Sheraz // ARC OS">
+  <meta name="twitter:description" content="Project dossier — video proof, screenshots and documentation.">
+  <meta name="twitter:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,2 36,11 36,29 20,38 4,29 4,11' fill='%2302040a' stroke='%2338e0ff' stroke-width='2'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='%2338e0ff' font-family='monospace' font-size='17' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="apple-touch-icon" href="/assets/icons/icon-180.png">
@@ -36,6 +48,30 @@
   </div>
 
   <div id="site-header"></div>
+
+  <main id="main">
+
+    <section class="p-hero wrap" data-reveal aria-label="Project overview">
+      <div class="p-section-label" id="p-code">DOSSIER</div>
+      <h1 id="p-title">Project Dossier</h1>
+      <p class="p-tagline" id="p-tagline"></p>
+      <div class="p-meta" id="p-meta"></div>
+      <div class="p-actions" id="p-actions"></div>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Video proof">
+      <div class="p-section-label">Signal &middot; Video proof</div>
+      <div class="video-stage" id="video-stage"></div>
+    </section>
+
+    <section class="wrap" data-reveal aria-label="Overview and highlights">
+      <div class="p-section-label">Briefing &middot; Overview</div>
+      <div class="p-info-grid">
+        <div class="panel hud-frame">
+          <span class="corner-id">OVERVIEW</span>
+          <p id="p-overview"></p>
+          <div class="p-stack-tags" id="p-stack"></div>
+        </div>
         <div class="panel hud-frame">
           <span class="corner-id">HIGHLIGHTS</span>
           <ul id="p-highlights"></ul>
