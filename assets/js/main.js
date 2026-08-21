@@ -739,11 +739,60 @@
     }
   }
 
+  /* ========== 16e. OPERATOR // LIVE cursor-scan reveal ========== */
+  function initPortraitReveal() {
+    var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (isTouch || !fine) return;                          // touch/coarse: static clean image
+    var media  = document.querySelector(".portrait-media");
+    if (!media) return;
+    var reveal = media.querySelector(".p-reveal");
+    var spot   = media.querySelector(".p-spot");
+    if (!reveal || !spot) return;
+
+    var HALF_W = 86, HALF_H = 107;                         // half of the 172x214 oval
+    var LERP = reduceMotion ? 1 : 0.22;
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+    var active = false, first = true, raf = 0;
+
+    function place() {
+      reveal.style.webkitMaskPosition = (cx - HALF_W) + "px " + (cy - HALF_H) + "px";
+      reveal.style.maskPosition        = (cx - HALF_W) + "px " + (cy - HALF_H) + "px";
+      spot.style.transform             = "translate(" + cx + "px," + cy + "px)";
+    }
+    function loop() {
+      cx += (tx - cx) * LERP;
+      cy += (ty - cy) * LERP;
+      place();
+      if (Math.abs(tx - cx) < 0.3 && Math.abs(ty - cy) < 0.3) { raf = 0; return; }
+      raf = requestAnimationFrame(loop);
+    }
+    media.addEventListener("mousemove", function (e) {
+      var r = media.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (first) {                                         // snap on first move, then fade in
+        cx = tx; cy = ty; first = false;
+        place();
+        reveal.style.opacity = "1";
+        spot.style.opacity = "1";
+      }
+      active = true;
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+    media.addEventListener("mouseleave", function () {
+      active = false; first = true;
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      reveal.style.opacity = "0";
+      spot.style.opacity = "0";
+    });
+  }
+
   /* ========== INIT ALL (deferred-safe) ========== */
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
                 initTyper, initOrbit, initGalaxy, initProjects, initContact, initSound,
-                initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc];
+                initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc,
+                initPortraitReveal];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
   }
 

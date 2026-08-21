@@ -565,6 +565,36 @@ section { position: relative; padding: 110px 0; }
 .portrait .p-corner.bl { bottom: 66px; left: 10px; border-bottom: 2px solid; border-left: 2px solid; }
 .portrait .p-corner.br { bottom: 66px; right: 10px; border-bottom: 2px solid; border-right: 2px solid; }
 .portrait .p-reticle { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 50% at 50% 35%, transparent 60%, rgba(2,6,13,0.28) 100%); }
+
+/* ---- OPERATOR // LIVE cursor-scan reveal (desktop hover only; JS-driven) ----
+   Idle state is untouched: .p-reveal/.p-spot sit at opacity 0 until the pointer
+   enters the portrait. The reveal is a cyan HUD "scan" of the same photo, unveiled
+   through a soft-feathered oval mask that glides with the cursor. */
+.portrait-media .p-reveal {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+  background-image: url("../sheraz/professional.webp");
+  background-size: cover; background-position: 50% 12%;
+  filter: grayscale(1) contrast(1.18) brightness(1.12) sepia(1) hue-rotate(150deg) saturate(2.6);
+  -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
+          mask-image: radial-gradient(closest-side, #000 60%, transparent 100%);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 172px 214px; mask-size: 172px 214px;
+  -webkit-mask-position: -9999px -9999px; mask-position: -9999px -9999px;
+  transition: opacity 0.4s ease-out, transform 0.7s var(--ease-hud);
+  will-change: opacity;
+}
+.portrait:hover .portrait-media .p-reveal { transform: scale(1.05); }
+.portrait-media .p-spot {
+  position: absolute; z-index: 2; top: 0; left: 0;
+  width: 172px; height: 214px; margin: -107px 0 0 -86px; border-radius: 50%;
+  border: 1.5px solid rgba(56,224,255,0.5);
+  box-shadow: 0 0 24px rgba(56,224,255,0.22), inset 0 0 20px rgba(56,224,255,0.12);
+  pointer-events: none; opacity: 0; transition: opacity 0.4s ease-out;
+  will-change: transform, opacity;
+}
+@media (hover: none), (pointer: coarse) {
+  .portrait-media .p-reveal, .portrait-media .p-spot { display: none; }
+}
 .portrait figcaption { padding: 14px 16px; border-top: 1px solid var(--line); font-family: var(--mono); background: rgba(2,6,13,0.4); }
 .portrait figcaption b { color: var(--fg); display: block; font-size: 14px; letter-spacing: 0.02em; }
 .portrait figcaption > span { color: var(--fg-muted); font-size: 11px; display: block; margin-top: 3px; }
@@ -593,6 +623,16 @@ section { position: relative; padding: 110px 0; }
 .em-frame::after { content: "\2922  EXPAND"; position: absolute; top: 8px; right: 10px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; color: var(--cy); background: rgba(2,6,13,0.65); padding: 4px 8px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; }
 .em-frame:hover::after { opacity: 1; }
 .exp-media figcaption { font-family: var(--mono); font-size: 11px; color: var(--fg-dim); margin-top: 9px; line-height: 1.5; }
+.exp-proof { clear: both; margin: 20px 0 18px; max-width: 760px; }
+.exp-proof .em-tag { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--cy); margin-bottom: 8px; }
+.proof-frame { position: relative; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; background: #02060d; box-shadow: var(--glow-cy); }
+.proof-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #02060d; }
+.proof-frame .em-corner { position: absolute; width: 18px; height: 18px; border-color: var(--cy); pointer-events: none; z-index: 2; }
+.proof-frame .em-corner.tl { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
+.proof-frame .em-corner.tr { top: 8px; right: 8px; border-top: 2px solid; border-right: 2px solid; }
+.proof-frame .em-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid; border-left: 2px solid; }
+.proof-frame .em-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+.exp-proof figcaption { font-family: var(--mono); font-size: 11px; color: var(--fg-dim); margin-top: 9px; line-height: 1.5; }
 @media (max-width: 720px) { .exp-media { float: none; width: 100%; max-width: 100%; margin: 16px 0; } }
 
 /* ---- Live deployed systems chips ---- */
@@ -764,5 +804,4 @@ section { position: relative; padding: 110px 0; }
 .first-hint .fh-body { font-size: 13px; color: var(--fg-muted); line-height: 1.6; }
 .first-hint .fh-body b { color: var(--fg); font-family: var(--mono); font-size: 11px; }
 @media (max-width: 640px) { .first-hint { left: 12px; right: 12px; width: auto; bottom: 84px; } }
-
 
