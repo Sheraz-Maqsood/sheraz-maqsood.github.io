@@ -32,6 +32,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
   <link rel="preload" as="image" href="assets/sheraz/professional.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/refresh.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -81,6 +82,7 @@
        then replace YOURCODE below and uncomment.
   <script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   -->
+  <noscript><style>#boot { display:none; } [data-reveal] { opacity:1; transform:none; }</style></noscript>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -125,7 +127,7 @@
             <span class="l1">Malik <span class="glitch hl-word" data-text="Sheraz">Sheraz</span></span>
             <span class="l2"><span class="glitch hl-word" data-text="Maqsood">Maqsood</span> Ahmed</span>
           </h1>
-          <div class="roles"><span id="role-type"></span><span class="cursor-blink"></span></div>
+          <div class="roles"><span id="role-type">Principal Full-Stack &amp; GIS Engineer</span><span class="cursor-blink"></span></div>
           <p class="hero-sub">
             I architect and ship <b>enterprise &amp; government-scale systems</b> — specializing in
             <b>Laravel, NestJS, React, Next.js, PostgreSQL</b> and <b>GIS platforms</b> with full CI/CD and cloud deployment.
@@ -137,10 +139,10 @@
             <a href="https://wa.me/+923481655055" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
           </div>
           <div class="hero-stats">
-            <div class="stat"><div class="n"><span class="text-cy" data-count="2018">0</span></div><div class="l">Coding since</div></div>
-            <div class="stat"><div class="n"><span class="text-cy" data-count="15">0</span>+</div><div class="l">Production systems</div></div>
+            <div class="stat"><div class="n"><span class="text-cy" data-count="2018">2018</span></div><div class="l">Coding since</div></div>
+            <div class="stat"><div class="n"><span class="text-cy" data-count="15">15</span>+</div><div class="l">Production systems</div></div>
             <div class="stat"><div class="n text-cy">GOV</div><div class="l">+ Enterprise scale</div></div>
-            <div class="stat"><div class="n"><span class="text-cy" data-count="8">0</span></div><div class="l">Live gov systems</div></div>
+            <div class="stat"><div class="n"><span class="text-cy" data-count="8">8</span></div><div class="l">Live gov systems</div></div>
           </div>
         </div>
 
@@ -297,7 +299,7 @@
 
     <section id="skills" class="wrap" data-reveal aria-label="Skills">
       <div class="sec-head"><span class="eyebrow">02 &middot; Capability matrix</span><h2>Tech constellation</h2></div>
-      <div class="galaxy" id="galaxy" aria-hidden="true">
+      <div class="galaxy" id="galaxy" role="group" aria-label="Interactive technology constellation">
         <div class="galaxy-core"><b>14+</b>core systems<br>online</div>
       </div>
       <div class="skill-readout" id="skill-readout" aria-live="polite">
@@ -517,13 +519,14 @@
     <section id="projects" class="wrap" data-reveal aria-label="Projects">
       <div class="sec-head"><span class="eyebrow">04 &middot; Deployed platforms</span><h2>Project holograms</h2></div>
       <p class="muted" style="margin-top:-34px; margin-bottom:22px; font-family:var(--mono); font-size:12px;">// Open any system to view the video proof, screenshots and documentation.</p>
-      <div class="proj-filters" id="proj-filters" aria-label="Filter projects">
+      <div class="proj-filters" id="proj-filters" role="group" aria-label="Filter projects">
         <button class="pf-chip on" data-filter="all" aria-pressed="true">All</button>
         <button class="pf-chip" data-filter="gov" aria-pressed="false">Government</button>
         <button class="pf-chip" data-filter="gis" aria-pressed="false">GIS</button>
         <button class="pf-chip" data-filter="saas" aria-pressed="false">SaaS</button>
         <button class="pf-chip" data-filter="ai" aria-pressed="false">AI</button>
       </div>
+      <p class="project-result-count" id="project-result-count" role="status" aria-live="polite">Showing all 9 projects</p>
       <div class="proj-grid" data-stagger>
 
         <article class="proj feat panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=lte">
@@ -532,7 +535,7 @@
           <span class="hex-id">SYS-01 // LTE</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
           <span class="tag">Gov Tech &middot; Next.js &middot; NestJS &middot; PostgreSQL</span>
-          <h3>Linear Tree Enumeration System</h3>
+          <h3><a class="project-detail-link" href="project.html?id=lte">Linear Tree Enumeration System</a></h3>
           <p>A modern, GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries and interactive geospatial visualization over large datasets.</p>
           <div class="meta"><span class="stack">Open dossier &middot; video proof</span><a class="live-link" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener" aria-label="Open live deployment of Linear Tree Enumeration"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -542,7 +545,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-02</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Complaint Management</h3>
+          <h3><a class="project-detail-link" href="project.html?id=cms">Complaint Management</a></h3>
           <p>Multi-role routing for forest incidents with WhatsApp API alerts to Conservators &amp; DFOs.</p>
           <div class="meta"><span class="stack">React &middot; Node &middot; Mongo</span><a class="live-link" href="https://cms.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Complaint Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -552,7 +555,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-03</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Asset Management</h3>
+          <h3><a class="project-detail-link" href="project.html?id=ams">Asset Management</a></h3>
           <p>IT/consumables tracking with QR generation, low-stock alerts and role-based assignment.</p>
           <div class="meta"><span class="stack">Laravel 11 &middot; MySQL</span><a class="live-link" href="https://ams.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Asset Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -562,7 +565,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-04</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Pakistan Plantation Management</h3>
+          <h3><a class="project-detail-link" href="project.html?id=ppms">Pakistan Plantation Management</a></h3>
           <p>Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.</p>
           <div class="meta"><span class="stack">GIS &middot; Public reporting</span><a class="live-link" href="https://ppms.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Pakistan Plantation Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -572,7 +575,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-05</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>GIS Spatial Monitoring Suite</h3>
+          <h3><a class="project-detail-link" href="project.html?id=gis-suite">GIS Spatial Monitoring Suite</a></h3>
           <p>Fire Management, Nursery Tracking and Forest Change Analysis — Leaflet mapping with QR markers.</p>
           <div class="meta"><span class="stack">Leaflet &middot; PostGIS</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -582,7 +585,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-06</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Jotly.ai</h3>
+          <h3><a class="project-detail-link" href="project.html?id=jotly">Jotly.ai</a></h3>
           <p>Full-stack AI app: image generation, voiceovers and AI chat.</p>
           <div class="meta"><span class="stack">AI / SaaS &middot; Canada</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -592,7 +595,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-07</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Sportseuropa Suite</h3>
+          <h3><a class="project-detail-link" href="project.html?id=sportseuropa">Sportseuropa Suite</a></h3>
           <p>Team registration &amp; live scoring for Olympic-level games, judges and championships.</p>
           <div class="meta"><span class="stack">Sports Mgmt &middot; Italy</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -602,7 +605,7 @@
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-08</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3>Global Shopaholics &amp; Ship6</h3>
+          <h3><a class="project-detail-link" href="project.html?id=shopaholics">Global Shopaholics &amp; Ship6</a></h3>
           <p>International shipping, package forwarding and e-commerce logistics infrastructure.</p>
           <div class="meta"><span class="stack">Logistics SaaS</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
@@ -613,7 +616,7 @@
           <span class="hex-id">SYS-09</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
           <span class="tag">Gov Tech &middot; Next.js &middot; React</span>
-          <h3>GIS Forestry Public Web Portal</h3>
+          <h3><a class="project-detail-link" href="project.html?id=gis-portal">GIS Forestry Public Web Portal</a></h3>
           <p>Public Next.js portal for the Punjab Forest, Wildlife &amp; Fisheries Department — forests, national parks &amp; zoos, drone echo-tech (multi-spectral, LiDAR &amp; thermal) and citizen e-services, with a custom admin panel.</p>
           <div class="meta"><span class="stack">Next.js &middot; React &middot; Node</span><a class="live-link" href="https://gisforestry.com" target="_blank" rel="noopener" aria-label="Open live GIS Forestry public web portal"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>

@@ -193,6 +193,35 @@
   }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
+  /* Keep the existing viewers, with keyboard focus contained and restored. */
+  function dialogFocus(lb, label, closeSelector) {
+    var previousFocus = null, previousOverflow = "";
+    var background = Array.prototype.slice.call(document.querySelectorAll("#main, #site-header, .foot"));
+    lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true"); lb.setAttribute("aria-label", label);
+    lb.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var items = Array.prototype.slice.call(lb.querySelectorAll("button, a[href], iframe"))
+        .filter(function (el) { return !el.hidden && !el.disabled && !el.closest("[hidden]"); });
+      if (!items.length) return;
+      var i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(i + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+    });
+    return {
+      open: function () {
+        previousFocus = document.activeElement; previousOverflow = document.body.style.overflow;
+        lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+        background.forEach(function (el) { el.inert = true; });
+        var close = lb.querySelector(closeSelector); if (close) close.focus();
+      },
+      close: function () {
+        lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = previousOverflow;
+        background.forEach(function (el) { el.inert = false; });
+        if (previousFocus) previousFocus.focus({ preventScroll: true });
+      }
+    };
+  }
+
   var RESOLVED_ID = PROJECTS[getId()] ? getId() : "lte";
   var p = PROJECTS[RESOLVED_ID];
   document.title = p.title.join(" ") + " — Sheraz // ARC OS";
@@ -333,7 +362,16 @@
       var v = st.querySelector("video");
       var src = document.createElement("source"); src.src = vObj.src; src.type = "video/mp4"; v.appendChild(src);
       var btn = st.querySelector(".v-playbtn");
-      btn.addEventListener("click", function () { v.setAttribute("controls", ""); v.play(); btn.style.display = "none"; });
+      btn.addEventListener("click", function () {
+        v.setAttribute("controls", "");
+        var playback = v.play();
+        if (playback && playback.then) {
+          playback.then(function () { btn.style.display = "none"; }).catch(function () {
+            btn.style.display = "";
+            btn.querySelector(".lbl").textContent = "Recording unavailable — retry or visit the live platform above.";
+          });
+        } else btn.style.display = "none";
+      });
       rack.appendChild(st);
     });
   })();
@@ -346,7 +384,7 @@
 
     var figures = p.shots.map(function (s, i) {
       var nn = (i < 9 ? "0" : "") + (i + 1);
-      return "<figure class='shot' data-idx='" + i + "' data-full='" + esc(s.src) + "' tabindex='0' aria-label='" + esc(s.cap || ("View " + nn)) + "'>" +
+      return "<figure class='shot' data-idx='" + i + "' data-full='" + esc(s.src) + "' tabindex='0' role='button' aria-label='" + esc(s.cap || ("View " + nn)) + "'>" +
         "<span class='zoom'>&#9974;</span>" +
         "<img src='" + esc(s.src) + "' alt='" + esc(p.title.join(" ")) + " — " + esc(s.cap || nn) + "' loading='lazy'>" +
         "<figcaption class='cap'>" + nn + " &middot; " + esc(s.cap || "View") + "</figcaption></figure>";
@@ -373,8 +411,8 @@
       prev.classList.toggle("off", track.scrollLeft <= 2);
       next.classList.toggle("off", track.scrollLeft >= maxS);
     }
-    prev.addEventListener("click", function () { track.scrollBy({ left: -step() * 1.5, behavior: "smooth" }); });
-    next.addEventListener("click", function () { track.scrollBy({ left: step() * 1.5, behavior: "smooth" }); });
+    prev.addEventListener("click", function () { track.scrollBy({ left: -step() * 1.5, behavior: reduceMotion ? "auto" : "smooth" }); });
+    next.addEventListener("click", function () { track.scrollBy({ left: step() * 1.5, behavior: reduceMotion ? "auto" : "smooth" }); });
     track.addEventListener("scroll", updateNav, { passive: true });
     window.addEventListener("resize", updateNav);
     updateNav();
@@ -395,17 +433,19 @@
       lb.appendChild(bp); lb.appendChild(bn); lb.appendChild(cc);
     }
     var lbPrev = lb.querySelector(".lb-prev"), lbNext = lb.querySelector(".lb-next"), lbCount = $("#lb-count");
+    var focus = dialogFocus(lb, "Project screenshots", ".lb-close");
 
     function show(i) {
       cur = (i + p.shots.length) % p.shots.length;
       lbImg.src = p.shots[cur].src;
+      lbImg.alt = p.title.join(" ") + " — " + (p.shots[cur].cap || "Screenshot " + (cur + 1));
       if (lbCount) lbCount.textContent = (cur + 1) + " / " + p.shots.length;
     }
-    function open(i) { show(i); lb.classList.add("open"); }
-    function close() { lb.classList.remove("open"); lbImg.src = ""; }
+    function open(i) { show(i); lb.classList.add("open"); focus.open(); }
+    function close() { lb.classList.remove("open"); lbImg.src = ""; focus.close(); }
 
     Array.prototype.forEach.call(track.querySelectorAll(".shot"), function (el) {
-      el.addEventListener("click", function () { if (moved) return; open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("click", function () { if (moved) return; el.focus({ preventScroll: true }); open(parseInt(el.getAttribute("data-idx"), 10)); });
       el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
     });
     if (lbPrev) lbPrev.addEventListener("click", function (e) { e.stopPropagation(); show(cur - 1); });
@@ -480,6 +520,7 @@
         dots = lb.querySelector(".pdf-dots"),
         loadEl = lb.querySelector(".pdf-load");
     var idx = 0;
+    var focus = dialogFocus(lb, "Project documents", ".pdf-x");
 
     dots.innerHTML = DOCS.map(function (d, i) { return "<button class='pdf-dot' data-i='" + i + "' aria-label='Document " + (i + 1) + "'></button>"; }).join("");
     var dotEls = Array.prototype.slice.call(dots.querySelectorAll(".pdf-dot"));
@@ -499,12 +540,12 @@
       dotEls.forEach(function (el, k) { el.classList.toggle("on", k === idx); });
     }
     frame.addEventListener("load", function () { loadEl.style.display = "none"; frame.style.opacity = "1"; });
-    function open(i) { show(i); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; }
-    function close() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; frame.src = "about:blank"; }
+    function open(i) { show(i); lb.classList.add("open"); focus.open(); }
+    function close() { lb.classList.remove("open"); frame.src = "about:blank"; focus.close(); }
     function go(step) { show(idx + step); }
 
     Array.prototype.forEach.call(host.querySelectorAll(".doc-preview"), function (el) {
-      el.addEventListener("click", function () { open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("click", function () { el.focus({ preventScroll: true }); open(parseInt(el.getAttribute("data-idx"), 10)); });
       el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
     });
     prevB.addEventListener("click", function () { go(-1); });

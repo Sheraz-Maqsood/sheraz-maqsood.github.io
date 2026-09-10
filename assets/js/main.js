@@ -169,9 +169,14 @@
           var h = document.documentElement.scrollHeight - innerHeight;
           prog.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
         }
-        var cur = sections[0];
+        var cur = null;
         for (var i = 0; i < sections.length; i++) { if (sections[i].offsetTop - 140 <= y) cur = sections[i]; }
-        navLinks.forEach(function (a) { a.classList.toggle("active", cur && a.getAttribute("href") === "#" + cur.id); });
+        navLinks.forEach(function (a) {
+          var active = !!cur && a.getAttribute("href") === "#" + cur.id;
+          a.classList.toggle("active", active);
+          if (active) a.setAttribute("aria-current", "location");
+          else a.removeAttribute("aria-current");
+        });
         ticking = false;
       });
     }
@@ -183,14 +188,43 @@
   function initMobileNav() {
     var t = $("#nav-toggle"), m = $("#mobile-nav");
     if (!t || !m) return;
-    function toggle(open) {
+    var page = $("#main"), foot = $(".foot"), previousOverflow = "";
+    function toggle(open, restoreFocus) {
+      if (open) previousOverflow = document.body.style.overflow;
       m.classList.toggle("open", open);
       m.setAttribute("aria-hidden", String(!open));
+      m.inert = !open;
       t.setAttribute("aria-expanded", String(open));
-      document.body.style.overflow = open ? "hidden" : "";
+      t.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (page) page.inert = open;
+      if (foot) foot.inert = open;
+      document.body.style.overflow = open ? "hidden" : previousOverflow;
+      if (open) m.querySelector("a").focus();
+      else if (restoreFocus !== false) t.focus();
     }
     t.addEventListener("click", function () { toggle(!m.classList.contains("open")); });
-    $$("#mobile-nav a").forEach(function (a) { a.addEventListener("click", function () { toggle(false); }); });
+    $$("#mobile-nav a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        toggle(false, false);
+        var href = a.getAttribute("href");
+        var target = href.charAt(0) === "#" ? $(href) : null;
+        if (target) { target.setAttribute("tabindex", "-1"); target.focus({ preventScroll: true }); }
+        else t.focus();
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (!m.classList.contains("open")) return;
+      if (e.key === "Escape") { e.preventDefault(); toggle(false); }
+      if (e.key === "Tab") {
+        var items = [t].concat($$("a", m));
+        var index = items.indexOf(document.activeElement);
+        e.preventDefault();
+        items[(index + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+      }
+    });
+    addEventListener("resize", function () {
+      if (innerWidth > 1180 && m.classList.contains("open")) toggle(false, false);
+    });
   }
 
   /* ========== 5. MOUSE: cursor reticle + panel sheen + parallax vars ========== */
@@ -341,6 +375,9 @@
       return "<div class='si panel'><b>" + s.n + "</b><span>" + s.conf + " · " + s.exp + "</span></div>";
     }).join("");
     if (!g) return;
+    var hovered = false;
+    g.addEventListener("mouseenter", function () { hovered = true; });
+    g.addEventListener("mouseleave", function () { hovered = false; });
     var rings = { 1: 130, 2: 210, 3: 285 };
     [130, 210, 285].forEach(function (r) {
       var d = document.createElement("div"); d.className = "galaxy-ring";
@@ -364,13 +401,15 @@
         };
         node.addEventListener("mouseenter", show);
         node.addEventListener("focus", show);
+        node.addEventListener("click", show);
         g.appendChild(node);
         nodes.push({ el: node, ring: rings[ring], base: (i / arr.length) * Math.PI * 2, speed: ring === "1" ? 0.00045 : (ring === "2" ? -0.0003 : 0.0002) });
       });
     });
     var t = 0, raf;
     function frame() {
-      t += reduceMotion ? 0 : 16;
+      /* Keep the constellation steady while someone reads or selects a node. */
+      t += reduceMotion || hovered || g.contains(document.activeElement) ? 0 : 16;
       nodes.forEach(function (o) {
         var a = o.base + t * o.speed;
         o.el.style.transform = "translate(-50%,-50%) translate(" + (Math.cos(a) * o.ring) + "px," + (Math.sin(a) * o.ring * 0.78) + "px)";
@@ -385,8 +424,8 @@
   function initProjects() {
     $$(".proj[data-href]").forEach(function (p) {
       var go = function () { play("select"); var href = p.getAttribute("data-href"); if (/^https?:/i.test(href)) window.open(href, "_blank", "noopener"); else window.location.href = href; };
-      p.addEventListener("click", go);
-      p.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      p.addEventListener("click", function (e) { if (!e.target.closest("a, button, input")) go(); });
+      p.addEventListener("keydown", function (e) { if (e.target === p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); go(); } });
     });
     $$(".proj").forEach(function (p) { p.addEventListener("mouseenter", function () { play("hover"); }); });
   }
@@ -482,6 +521,7 @@
     var pos = 0;
     var BACKTICK = String.fromCharCode(96);
     addEventListener("keydown", function (e) {
+      if (e.target.closest && e.target.closest("input, textarea, select, [contenteditable='true']")) return;
       var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       pos = (k === seq[pos]) ? pos + 1 : (k === seq[0] ? 1 : 0);
       if (pos === seq.length) { pos = 0; activateDark(); }
@@ -605,6 +645,7 @@
 
     var lb = document.createElement("div");
     lb.className = "gallery-lb"; lb.setAttribute("aria-hidden", "true"); lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true"); lb.setAttribute("aria-label", "Photo gallery");
     lb.innerHTML =
       '<button class="glb-close" aria-label="Close gallery">&times;</button>' +
       '<div class="glb-stage">' +
@@ -616,7 +657,8 @@
     document.body.appendChild(lb);
     var img = lb.querySelector(".glb-img"), cap = lb.querySelector(".glb-cap"), cnt = lb.querySelector(".glb-count");
     var bPrev = lb.querySelector(".glb-prev"), bNext = lb.querySelector(".glb-next"), bClose = lb.querySelector(".glb-close");
-    var cur = [], idx = 0;
+    var cur = [], idx = 0, previousFocus = null, previousOverflow = "";
+    var background = [$("#main"), $("#site-header"), $(".foot")].filter(Boolean);
 
     function show(dir) {
       var it = cur[idx]; if (!it) return;
@@ -630,15 +672,31 @@
     function open(group, start) {
       cur = groups[group] || []; if (!cur.length) return;
       idx = start || 0;
+      previousFocus = document.activeElement;
+      previousOverflow = document.body.style.overflow;
       lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
+      background.forEach(function (el) { el.inert = true; });
       document.body.style.overflow = "hidden"; show(1);
+      bClose.focus();
     }
-    function hide() { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; }
+    function hide() {
+      lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true");
+      background.forEach(function (el) { el.inert = false; });
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus) previousFocus.focus({ preventScroll: true });
+    }
     function go(d) { if (!cur.length) return; idx = (idx + d + cur.length) % cur.length; show(d); }
 
     nodes.forEach(function (n) {
       n.style.cursor = "zoom-in";
+      n.setAttribute("tabindex", "0");
+      n.setAttribute("role", "button");
+      n.setAttribute("aria-label", "Open photo: " + (n.getAttribute("data-cap") || n.getAttribute("alt") || "Gallery image"));
+      n.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); n.click(); }
+      });
       n.addEventListener("click", function () {
+        n.focus({ preventScroll: true });
         var g = n.getAttribute("data-gallery"); var arr = groups[g], start = 0;
         for (var k = 0; k < arr.length; k++) { if (arr[k].node === n) { start = k; break; } }
         open(g, start);
@@ -653,6 +711,12 @@
       if (e.key === "Escape") hide();
       else if (e.key === "ArrowLeft") go(-1);
       else if (e.key === "ArrowRight") go(1);
+      else if (e.key === "Tab") {
+        var buttons = [bClose, bPrev, bNext].filter(function (b) { return !b.hidden; });
+        var current = buttons.indexOf(document.activeElement);
+        e.preventDefault();
+        buttons[(current + (e.shiftKey ? -1 : 1) + buttons.length) % buttons.length].focus();
+      }
     });
   }
 
@@ -671,6 +735,12 @@
           var show = (f === "all") || cats.indexOf(f) !== -1;
           card.classList.toggle("hide", !show);
         });
+        var result = $("#project-result-count");
+        if (result) {
+          var count = cards.filter(function (card) { return !card.classList.contains("hide"); }).length;
+          result.textContent = f === "all" ? "Showing all " + count + " projects" :
+            "Showing " + count + " " + chip.textContent.trim() + " project" + (count === 1 ? "" : "s");
+        }
         play("select");
       });
     });
@@ -701,29 +771,43 @@
     var btn = form.querySelector("#cf-send");
     var status = form.querySelector("#cf-status");
     if (!status) return;
+    var sending = false;
 
     function setState(state, msg) {
       status.className = "cf-status show " + state;
       status.textContent = msg;
       if (btn) btn.disabled = state === "sending";
+      form.setAttribute("aria-busy", String(state === "sending"));
     }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      setState("sending", "&#9658; Transmitting…");
-      fetch(form.action, {
+      if (sending || !form.reportValidity()) return;
+      sending = true;
+      setState("sending", "▶ Transmitting…");
+      var controller = new AbortController();
+      var timeout = setTimeout(function () { controller.abort(); }, 20000);
+      var endpoint = form.action.replace("https://formsubmit.co/", "https://formsubmit.co/ajax/");
+      fetch(endpoint, {
         method: "POST",
         body: new FormData(form),
-        redirect: "manual"
+        headers: { "Accept": "application/json" },
+        signal: controller.signal
       }).then(function (r) {
-        if (r.status === 0 || (r.status >= 200 && r.status < 400)) {
-          setState("success", "&#10003; Message transmitted. I'll get back to you shortly.");
+        if (!r.ok) throw new Error("Message service rejected the request");
+        return r.json();
+      }).then(function (result) {
+        if (result.success === true || result.success === "true") {
+          setState("success", "✓ Message accepted. I'll get back to you shortly.");
           form.reset();
         } else {
-          setState("error", "&#9888; Transmission failed. Send an email directly instead.");
+          setState("error", "Transmission could not be confirmed. Your message is still here; try again or use Send Email below.");
         }
       }).catch(function () {
-        setState("error", "&#9888; Network error. Try emailing me directly.");
+        setState("error", "Connection failed or timed out. Your message is still here; try again or use Send Email below.");
+      }).finally(function () {
+        clearTimeout(timeout);
+        sending = false;
       });
     });
   }

@@ -24,7 +24,7 @@
   if (!host) return;
 
   /* On sub-pages (project.html) section links must point back to the homepage */
-  var sub = /project\.html/i.test(location.href);
+  var sub = /(?:project|404)\.html/i.test(location.pathname);
   function href(id) { return sub ? "index.html#" + id : "#" + id; }
   function pad(n) { return (n < 10 ? "0" : "") + n; }
 
@@ -44,10 +44,10 @@
         "</a>" +
         "<nav class='nav' aria-label='Primary'>" + navHtml + "</nav>" +
         "<a href='" + CV + "' target='_blank' rel='noopener' class='btn btn-primary header-cta'>Resume &darr;</a>" +
-        "<button class='nav-toggle' id='nav-toggle' aria-label='Open menu' aria-expanded='false'><span></span><span></span><span></span></button>" +
+        "<button class='nav-toggle' id='nav-toggle' aria-label='Open menu' aria-expanded='false' aria-controls='mobile-nav'><span></span><span></span><span></span></button>" +
       "</div>" +
     "</header>" +
-    "<div class='mobile-nav' id='mobile-nav' aria-hidden='true'>" +
+    "<div class='mobile-nav' id='mobile-nav' aria-label='Mobile navigation' aria-hidden='true' inert>" +
       mobHtml +
       "<a href='" + CV + "' target='_blank' rel='noopener'><span class='idx'>" + pad(NAV.length + 1) + "</span>Resume &darr;</a>" +
     "</div>";
