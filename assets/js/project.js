@@ -83,20 +83,12 @@
       tagline: "Internal IT / consumables tracking with QR generation, low-stock alerts and role-based assignment.",
       year: "2025", sector: "Government / Operations",
       domain: "https://ams.gisforestry.com",
-      poster: "assets/projects/ams/shot-01.webp",
-      videos: [
-        { src: "assets/projects/ams/video-01.mp4", label: "AMS platform walkthrough" }
-      ],
+      poster: "assets/projects/ams/preview.webp",
+      videos: [],
       shots: [
-        { src: "assets/projects/ams/shot-01.webp", cap: "Dashboard — assets, licenses, consumables & people overview" },
-        { src: "assets/projects/ams/shot-02.webp", cap: "Asset registry — searchable list of all tracked assets" },
-        { src: "assets/projects/ams/shot-03.webp", cap: "Asset detail view with QR label & checkout status" },
-        { src: "assets/projects/ams/shot-04.webp", cap: "Core data model — assets, licenses, consumables, components & kits" },
-        { src: "assets/projects/ams/shot-05.webp", cap: "Annotated asset view — full asset information & actions" }
+        { src: "assets/projects/ams/preview.webp", cap: "Asset Management System preview" }
       ],
-      docs: [
-        { href: "assets/projects/ams/doc-01.pdf", label: "AMS — GIS Lab Presentation" }
-      ],
+      docs: [],
       overview: "Tracks assets and consumables across departments, generating QR codes for every item, raising low-stock alerts, and enforcing role-based assignment so accountability is always clear.",
       highlights: ["QR code generation per asset", "Low-stock threshold alerts", "Role-based assignment & accountability", "Laravel 11 + MySQL backend"],
       stack: ["Laravel 11", "MySQL", "Blade", "QR"]
@@ -169,16 +161,10 @@
       tagline: "Public-facing Next.js portal for the Punjab Forest, Wildlife & Fisheries Department — showcasing forests, national parks and zoos, drone echo-tech and citizen e-services, backed by a custom admin panel.",
       year: "2026", sector: "Government / Public Portal",
       domain: "https://gisforestry.com",
-      poster: "assets/projects/gis-portal/shot-01.webp",
-      videos: [
-        { src: "assets/projects/gis-portal/video-01.mp4", label: "Portal walkthrough" }
-      ],
+      poster: "assets/sheraz/gislab-forest-iucn.webp",
+      videos: [],
       shots: [
-        { src: "assets/projects/gis-portal/shot-01.webp", cap: "Homepage — interactive showcase of forests, national parks & zoos" },
-        { src: "assets/projects/gis-portal/shot-02.webp", cap: "Echo-Tech — multi-spectral & hyper-spectral drone imaging" },
-        { src: "assets/projects/gis-portal/shot-03.webp", cap: "Echo-Tech — LiDAR 3D modelling & thermal imaging" },
-        { src: "assets/projects/gis-portal/shot-04.webp", cap: "Footer — social channels & departmental resource links" },
-        { src: "assets/projects/gis-portal/shot-05.webp", cap: "Custom admin panel — secure content management" }
+        { src: "assets/sheraz/gislab-forest-iucn.webp", cap: "GIS Lab forestry technology showcase" }
       ],
       docs: [],
       overview: "The public web presence for the Punjab Forest, Wildlife & Fisheries Department (GIS Lab, F&W Lahore), served on gisforestry.com and punjabeforest.gop.pk. Built with Next.js, it presents the department's forests, national parks and zoos alongside an 'Echo-Tech' section on drone-based multi-spectral, LiDAR and thermal forest monitoring, plus citizen e-services — all managed through a custom admin panel.",
