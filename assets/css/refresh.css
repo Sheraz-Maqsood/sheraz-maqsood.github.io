@@ -221,3 +221,144 @@ button, input, textarea { max-width: 100%; }
   [data-reveal].in { animation: none; }
   .proj:hover .proj-img, .btn:hover { transform: none; }
 }
+
+/* ========================================================
+   ARC OS v2.1 HUD ENHANCEMENTS — Non-destructive visual polish
+   ======================================================== */
+
+/* Hero Telemetry Bar */
+.hero-telemetry-bar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 14px;
+  margin-bottom: 22px;
+  padding: 8px 16px;
+  background: rgba(3, 14, 28, 0.75);
+  border: 1px solid rgba(56, 224, 255, 0.28);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  box-shadow: 0 0 20px rgba(56, 224, 255, 0.08) inset;
+}
+.telem-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.telem-sep {
+  color: rgba(56, 224, 255, 0.35);
+  user-select: none;
+}
+.t-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.t-dot.live {
+  background: #5dffa0;
+  box-shadow: 0 0 8px #5dffa0;
+  animation: pulse-dot 1.8s infinite ease-in-out;
+}
+.t-dot.geo {
+  background: #38e0ff;
+  box-shadow: 0 0 8px #38e0ff;
+}
+.t-dot.gov {
+  background: #ffc46b;
+  box-shadow: 0 0 8px #ffc46b;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+/* Government Verification Badge in Experience */
+.gov-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #5dffa0;
+  background: rgba(93, 255, 160, 0.08);
+  border: 1px solid rgba(93, 255, 160, 0.32);
+  border-radius: 4px;
+  box-shadow: 0 0 14px rgba(93, 255, 160, 0.15);
+  margin-top: 6px;
+}
+.gov-verified-badge .badge-star {
+  color: #ffc46b;
+}
+
+/* Deployed Systems Chips with Pulse Indicator */
+.sys-chip.live-prod {
+  position: relative;
+  border-color: rgba(56, 224, 255, 0.35);
+  background: rgba(4, 18, 34, 0.7);
+  transition: all 0.25s ease;
+}
+.sys-chip.live-prod:hover {
+  border-color: #38e0ff;
+  box-shadow: 0 0 16px rgba(56, 224, 255, 0.25);
+  transform: translateY(-2px);
+  color: #fff;
+}
+.sys-chip .chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5dffa0;
+  box-shadow: 0 0 6px #5dffa0;
+  margin-right: 6px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Project Cards LIVE PROD Badge */
+.live-prod-badge {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #5dffa0;
+  background: rgba(2, 14, 24, 0.88);
+  border: 1px solid rgba(93, 255, 160, 0.4);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(93, 255, 160, 0.2);
+}
+.live-prod-badge .badge-ping {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5dffa0;
+  box-shadow: 0 0 6px #5dffa0;
+  animation: pulse-dot 1.6s infinite ease-in-out;
+}
+
+/* Enhanced Tech Tile Hover */
+.logo-tile {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.logo-tile:hover {
+  border-color: rgba(56, 224, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(56, 224, 255, 0.2);
+  transform: translateY(-4px);
+}
+

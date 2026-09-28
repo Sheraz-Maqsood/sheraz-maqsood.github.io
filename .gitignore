@@ -5,3 +5,6 @@ _wtest.txt
 
 # temp files from pdf thumbnail generation (unreferenced)
 assets/projects/*/*-tmp-*.png
+
+node_modules/
+
