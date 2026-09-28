@@ -178,6 +178,22 @@
     return m ? decodeURIComponent(m[1]) : "lte";
   }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var MEDIA_REV = "media-20260928";
+  function mediaUrl(src) {
+    if (!src || src.indexOf("assets/projects/") !== 0 || src.indexOf("?") !== -1) return src;
+    return src + "?v=" + MEDIA_REV;
+  }
+  function refreshProjectMedia(project) {
+    project.poster = mediaUrl(project.poster);
+    (project.videos || []).forEach(function (item) { item.src = mediaUrl(item.src); });
+    (project.shots || []).forEach(function (item) { item.src = mediaUrl(item.src); });
+    (project.docs || []).forEach(function (item) {
+      item.href = mediaUrl(item.href);
+      item.thumb = mediaUrl(item.thumb);
+    });
+    if (project.video) project.video = mediaUrl(project.video);
+    if (project.doc && project.doc.href) project.doc.href = mediaUrl(project.doc.href);
+  }
 
   /* Keep the existing viewers, with keyboard focus contained and restored. */
   function dialogFocus(lb, label, closeSelector) {
@@ -210,6 +226,7 @@
 
   var RESOLVED_ID = PROJECTS[getId()] ? getId() : "lte";
   var p = PROJECTS[RESOLVED_ID];
+  refreshProjectMedia(p);
   document.title = p.title.join(" ") + " — Sheraz // ARC OS";
 
   /* ---------- SEO META (unique per project, prevents duplicate-content) ----------
