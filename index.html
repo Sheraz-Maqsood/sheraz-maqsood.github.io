@@ -154,74 +154,107 @@
           </div>
         </div>
 
-        <!-- PAMPHLET-STYLE EDITORIAL HERO COLLAGE (Matches Reference Pamphlet Exactly) -->
-        <!-- 1 Straight Foreground Cutout (No BG) on Right + 5 Surrounding Asymmetric Photo Blocks + Neon Yellow Highlighters & Scribble Doodles -->
-        <div class="pamphlet-hero-stage" data-reveal aria-label="Visual showcase">
-          <!-- Background Stipple/Grain Dots Accent -->
-          <svg class="p-stipple" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-            <circle cx="10" cy="15" r="1.5" fill="#e2ff38" opacity="0.6"/>
-            <circle cx="25" cy="12" r="1" fill="#fff" opacity="0.4"/>
-            <circle cx="35" cy="22" r="1.5" fill="#e2ff38" opacity="0.7"/>
-            <circle cx="18" cy="30" r="1" fill="#fff" opacity="0.5"/>
-            <circle cx="48" cy="16" r="2" fill="#e2ff38" opacity="0.8"/>
-            <circle cx="60" cy="28" r="1" fill="#fff" opacity="0.4"/>
-            <circle cx="42" cy="40" r="1.5" fill="#e2ff38" opacity="0.6"/>
-            <circle cx="75" cy="18" r="1.5" fill="#e2ff38" opacity="0.5"/>
-            <circle cx="90" cy="24" r="1" fill="#fff" opacity="0.3"/>
-            <circle cx="82" cy="38" r="2" fill="#e2ff38" opacity="0.7"/>
-            <circle cx="28" cy="52" r="1.5" fill="#fff" opacity="0.4"/>
-            <circle cx="55" cy="48" r="1.2" fill="#e2ff38" opacity="0.6"/>
-          </svg>
-
-          <!-- 5 PHOTO BLOCKS (Surrounding perimeter in empty areas) -->
-          <!-- 1. Top Wide Panorama (Like city banner in pamphlet) -->
-          <div class="p-photo-block p-photo-1" title="Linear Tree Enumeration GIS Platform">
-            <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="340" height="120">
+        <!-- UNBOXED HERO STAGE: Orbit Radar + Straight Cutout + 5 Tilted Showcase Cards (Cyan HUD Theme) -->
+        <!-- Completely Out-of-Box: Seamless with background starry universe, pure Cyan/HUD color scheme -->
+        <div class="hero-stage unboxed" data-reveal aria-label="Geospatial Radar &amp; Visual Showcase">
+          
+          <!-- 1. The Core Orbital Tech Reactor (Matches media_1790663678138) -->
+          <div class="reactor" aria-hidden="true">
+            <svg viewBox="0 0 500 500">
+              <defs>
+                <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#7fefff"/>
+                  <stop offset="60%" stop-color="#38e0ff"/>
+                  <stop offset="100%" stop-color="#0a6f8f"/>
+                </radialGradient>
+              </defs>
+              <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(56,224,255,0.14)" stroke-width="1"/>
+              <g class="r-spin-rev"><circle cx="250" cy="250" r="200" fill="none" stroke="#38e0ff" stroke-width="1" stroke-dasharray="2 8" opacity="0.55"/></g>
+              <g class="r-spin">
+                <circle cx="250" cy="250" r="170" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="40 18" opacity="0.75"/>
+                <circle cx="250" cy="80" r="4" fill="#ffc46b"/>
+                <circle cx="250" cy="420" r="3" fill="#38e0ff"/>
+              </g>
+              <g class="r-spin-fast"><circle cx="250" cy="250" r="130" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="3 12" opacity="0.6"/></g>
+              <polygon class="core-pulse" points="250,160 328,205 328,295 250,340 172,295 172,205" fill="none" stroke="#38e0ff" stroke-width="1.5"/>
+              <circle class="core-pulse" cx="250" cy="250" r="58" fill="url(#coreGrad)" opacity="0.88"/>
+              <circle cx="250" cy="250" r="58" fill="none" stroke="#7fefff" stroke-width="1"/>
+              <text x="250" y="246" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">FULL</text>
+              <text x="250" y="264" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">STACK</text>
+            </svg>
+            <div class="orbit-chip" data-orbit="0">Laravel</div>
+            <div class="orbit-chip" data-orbit="1">React</div>
+            <div class="orbit-chip" data-orbit="2">Next.js</div>
+            <div class="orbit-chip" data-orbit="3">NestJS</div>
+            <div class="orbit-chip" data-orbit="4">Node.js</div>
+            <div class="orbit-chip" data-orbit="5">PostgreSQL</div>
+            <div class="orbit-chip" data-orbit="6">GIS</div>
+            <div class="orbit-chip" data-orbit="7">Quantum</div>
           </div>
 
-          <!-- 2. Top-Right Mini Frame -->
-          <div class="p-photo-block p-photo-2" title="IUCN Forest Operations">
-            <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="160" height="110">
+          <!-- GIS Radar Pill Telemetry (Matches media_1790663678138) -->
+          <div class="radar-telemetry-pill">
+            <span class="pill-dot"></span> GIS RADAR &middot; 31.52&deg; N 74.35&deg; E
           </div>
 
-          <!-- 3. Mid-Left Frame (Perspective Tunnel / System Workflow) -->
-          <div class="p-photo-block p-photo-3" title="Complaint Management System Architecture">
-            <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="220" height="180">
+          <!-- 2. 5 Tilted Photos in Empty Perimeter Areas (Out of Box & Cyan HUD Styled) -->
+          <!-- Card 1: Top-Left (Tilted -6deg) -->
+          <div class="orbit-photo-card opc-1" style="--rot: -6deg;" title="Linear Tree Enumeration GIS Platform">
+            <div class="opc-frame">
+              <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="180" height="115">
+              <span class="opc-tag">// 01 GIS ENGINE</span>
+              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+            </div>
           </div>
 
-          <!-- 4. Bottom-Left Frame (On-Ground Execution / Plantation MS) -->
-          <div class="p-photo-block p-photo-4" title="Pakistan Plantation Management System">
-            <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="220" height="190">
+          <!-- Card 2: Top-Right (Tilted +5deg) -->
+          <div class="orbit-photo-card opc-2" style="--rot: 5deg;" title="IUCN Forest Operations">
+            <div class="opc-frame">
+              <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="170" height="110">
+              <span class="opc-tag">// 02 FIELD OPS</span>
+              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+            </div>
           </div>
 
-          <!-- 5. Bottom-Right Frame (Enterprise Architecture / CMH Lab) -->
-          <div class="p-photo-block p-photo-5" title="Enterprise Systems at CMH Lahore">
-            <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="240" height="170">
+          <!-- Card 3: Mid-Left (Tilted -4deg) -->
+          <div class="orbit-photo-card opc-3" style="--rot: -4deg;" title="Complaint Management System Architecture">
+            <div class="opc-frame">
+              <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="175" height="115">
+              <span class="opc-tag">// 03 WORKFLOW</span>
+              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+            </div>
           </div>
 
-          <!-- NEON YELLOW / CHARTREUSE TRANSLUCENT HIGHLIGHTER BARS (Signature Pamphlet Style) -->
-          <div class="p-highlighter bar-mid" aria-hidden="true"></div>
-          <div class="p-highlighter bar-bot" aria-hidden="true"></div>
-
-          <!-- HAND-DRAWN DOODLE SCRIBBLING (Signature Pamphlet Accents) -->
-          <!-- Circle scribble wrapping the bottom-left photo like in reference -->
-          <svg class="p-doodle doodle-circle" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-            <ellipse cx="50" cy="50" rx="42" ry="34" stroke="#e2ff38" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-15 50 50)"/>
-            <path d="M12 55 C18 78, 65 92, 86 65 C96 50, 78 22, 45 20 C22 18, 10 38, 25 58" stroke="#e2ff38" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
-          </svg>
-
-          <!-- Zigzag doodle on the right edge like in reference -->
-          <svg class="p-doodle doodle-zigzag" viewBox="0 0 70 120" fill="none" aria-hidden="true">
-            <path d="M60 10 L15 38 L55 68 L10 98 L50 115" stroke="#e2ff38" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-
-          <!-- 1 STRAIGHT FOREGROUND CUTOUT (NO BG) - Replace src with your transparent PNG anytime -->
-          <div class="p-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
-            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="p-cutout-img" width="460" height="580" loading="eager" decoding="async">
+          <!-- Card 4: Bottom-Left (Tilted +4deg) -->
+          <div class="orbit-photo-card opc-4" style="--rot: 4deg;" title="Pakistan Plantation Management System">
+            <div class="opc-frame">
+              <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="180" height="120">
+              <span class="opc-tag">// 04 NATIONWIDE</span>
+              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+            </div>
           </div>
 
-          <!-- Editorial Timeline Tag -->
-          <div class="p-stage-label">// SELECTED WORKS &middot; 2018-2026</div>
+          <!-- Card 5: Bottom-Right Behind Cutout (Tilted -3deg) -->
+          <div class="orbit-photo-card opc-5" style="--rot: -3deg;" title="Enterprise Systems at CMH Lahore">
+            <div class="opc-frame">
+              <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="175" height="115">
+              <span class="opc-tag">// 05 ENTERPRISE</span>
+              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+            </div>
+          </div>
+
+          <!-- Cyan HUD Highlight Tape Accents -->
+          <div class="cyan-tape tape-mid" aria-hidden="true">// ARCHITECTURE &middot; PRODUCTION</div>
+          <div class="cyan-tape tape-bot" aria-hidden="true">// GEOSPATIAL &middot; GOV SCALE</div>
+
+          <!-- 3. Straight Foreground Cutout PNG (NO BG) - Upright & Straight on Right -->
+          <div class="hero-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
+            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="hero-cutout-img" width="460" height="580" loading="eager" decoding="async">
+            <div class="cutout-badge">
+              <span class="c-dot"></span> MALIK SHERAZ // LEAD ARCHITECT
+            </div>
+          </div>
+
         </div>
       </div>
       <a href="#about" class="scroll-cue" aria-label="Scroll to About"><span class="mouse"><i></i></span>SCROLL TO EXPLORE</a>
