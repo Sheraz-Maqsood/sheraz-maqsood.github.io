@@ -448,6 +448,20 @@
       }, { threshold: 0.4 });
       io.observe(t.closest("section"));
     }
+
+    var copyBtn = $("#copy-email-btn");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        var email = copyBtn.getAttribute("data-email") || "sherii55055@gmail.com";
+        navigator.clipboard.writeText(email);
+        var txt = $("#copy-email-text");
+        if (txt) {
+          var orig = txt.textContent;
+          txt.textContent = "COPIED TO CLIPBOARD!";
+          setTimeout(function () { txt.textContent = orig; }, 2200);
+        }
+      });
+    }
   }
 
   /* ========== 13. SOUND (Web Audio, synth, muted by default) ========== */
