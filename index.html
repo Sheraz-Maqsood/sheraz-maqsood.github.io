@@ -154,37 +154,74 @@
           </div>
         </div>
 
-        <div class="reactor" data-reveal aria-hidden="true">
-          <svg viewBox="0 0 500 500">
-            <defs>
-              <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#7fefff"/><stop offset="60%" stop-color="#38e0ff"/><stop offset="100%" stop-color="#0a6f8f"/>
-              </radialGradient>
-            </defs>
-            <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(56,224,255,0.12)" stroke-width="1"/>
-            <g class="r-spin-rev"><circle cx="250" cy="250" r="200" fill="none" stroke="#38e0ff" stroke-width="1" stroke-dasharray="2 8" opacity="0.5"/></g>
-            <g class="r-spin">
-              <circle cx="250" cy="250" r="170" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="40 18" opacity="0.7"/>
-              <circle cx="250" cy="80" r="4" fill="#ffc46b"/>
-              <circle cx="250" cy="420" r="3" fill="#38e0ff"/>
-            </g>
-            <g class="r-spin-fast"><circle cx="250" cy="250" r="130" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="3 12" opacity="0.55"/></g>
-            <polygon class="core-pulse" points="250,160 328,205 328,295 250,340 172,295 172,205" fill="none" stroke="#38e0ff" stroke-width="1.5"/>
-            <circle class="core-pulse" cx="250" cy="250" r="58" fill="url(#coreGrad)" opacity="0.85"/>
-            <circle cx="250" cy="250" r="58" fill="none" stroke="#7fefff" stroke-width="1"/>
-            <circle cx="250" cy="250" r="215" fill="none" stroke="rgba(56,224,255,0.2)" stroke-dasharray="1 12" stroke-width="2"/>
-            <text x="250" y="246" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">FULL</text>
-            <text x="250" y="264" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">STACK</text>
+        <!-- PAMPHLET-STYLE EDITORIAL HERO COLLAGE (Matches Reference Pamphlet Exactly) -->
+        <!-- 1 Straight Foreground Cutout (No BG) on Right + 5 Surrounding Asymmetric Photo Blocks + Neon Yellow Highlighters & Scribble Doodles -->
+        <div class="pamphlet-hero-stage" data-reveal aria-label="Visual showcase">
+          <!-- Background Stipple/Grain Dots Accent -->
+          <svg class="p-stipple" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+            <circle cx="10" cy="15" r="1.5" fill="#e2ff38" opacity="0.6"/>
+            <circle cx="25" cy="12" r="1" fill="#fff" opacity="0.4"/>
+            <circle cx="35" cy="22" r="1.5" fill="#e2ff38" opacity="0.7"/>
+            <circle cx="18" cy="30" r="1" fill="#fff" opacity="0.5"/>
+            <circle cx="48" cy="16" r="2" fill="#e2ff38" opacity="0.8"/>
+            <circle cx="60" cy="28" r="1" fill="#fff" opacity="0.4"/>
+            <circle cx="42" cy="40" r="1.5" fill="#e2ff38" opacity="0.6"/>
+            <circle cx="75" cy="18" r="1.5" fill="#e2ff38" opacity="0.5"/>
+            <circle cx="90" cy="24" r="1" fill="#fff" opacity="0.3"/>
+            <circle cx="82" cy="38" r="2" fill="#e2ff38" opacity="0.7"/>
+            <circle cx="28" cy="52" r="1.5" fill="#fff" opacity="0.4"/>
+            <circle cx="55" cy="48" r="1.2" fill="#e2ff38" opacity="0.6"/>
           </svg>
-          <div class="reactor-geo-badge">GIS RADAR &middot; 31.52&deg; N 74.35&deg; E</div>
-          <div class="orbit-chip" data-orbit="0">Laravel</div>
-          <div class="orbit-chip" data-orbit="1">React</div>
-          <div class="orbit-chip" data-orbit="2">Next.js</div>
-          <div class="orbit-chip" data-orbit="3">NestJS</div>
-          <div class="orbit-chip" data-orbit="4">Node.js</div>
-          <div class="orbit-chip" data-orbit="5">PostgreSQL</div>
-          <div class="orbit-chip" data-orbit="6">GIS</div>
-          <div class="orbit-chip" data-orbit="7">Quantum</div>
+
+          <!-- 5 PHOTO BLOCKS (Surrounding perimeter in empty areas) -->
+          <!-- 1. Top Wide Panorama (Like city banner in pamphlet) -->
+          <div class="p-photo-block p-photo-1" title="Linear Tree Enumeration GIS Platform">
+            <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="340" height="120">
+          </div>
+
+          <!-- 2. Top-Right Mini Frame -->
+          <div class="p-photo-block p-photo-2" title="IUCN Forest Operations">
+            <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="160" height="110">
+          </div>
+
+          <!-- 3. Mid-Left Frame (Perspective Tunnel / System Workflow) -->
+          <div class="p-photo-block p-photo-3" title="Complaint Management System Architecture">
+            <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="220" height="180">
+          </div>
+
+          <!-- 4. Bottom-Left Frame (On-Ground Execution / Plantation MS) -->
+          <div class="p-photo-block p-photo-4" title="Pakistan Plantation Management System">
+            <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="220" height="190">
+          </div>
+
+          <!-- 5. Bottom-Right Frame (Enterprise Architecture / CMH Lab) -->
+          <div class="p-photo-block p-photo-5" title="Enterprise Systems at CMH Lahore">
+            <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="240" height="170">
+          </div>
+
+          <!-- NEON YELLOW / CHARTREUSE TRANSLUCENT HIGHLIGHTER BARS (Signature Pamphlet Style) -->
+          <div class="p-highlighter bar-mid" aria-hidden="true"></div>
+          <div class="p-highlighter bar-bot" aria-hidden="true"></div>
+
+          <!-- HAND-DRAWN DOODLE SCRIBBLING (Signature Pamphlet Accents) -->
+          <!-- Circle scribble wrapping the bottom-left photo like in reference -->
+          <svg class="p-doodle doodle-circle" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <ellipse cx="50" cy="50" rx="42" ry="34" stroke="#e2ff38" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-15 50 50)"/>
+            <path d="M12 55 C18 78, 65 92, 86 65 C96 50, 78 22, 45 20 C22 18, 10 38, 25 58" stroke="#e2ff38" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+          </svg>
+
+          <!-- Zigzag doodle on the right edge like in reference -->
+          <svg class="p-doodle doodle-zigzag" viewBox="0 0 70 120" fill="none" aria-hidden="true">
+            <path d="M60 10 L15 38 L55 68 L10 98 L50 115" stroke="#e2ff38" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <!-- 1 STRAIGHT FOREGROUND CUTOUT (NO BG) - Replace src with your transparent PNG anytime -->
+          <div class="p-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
+            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="p-cutout-img" width="460" height="580" loading="eager" decoding="async">
+          </div>
+
+          <!-- Editorial Timeline Tag -->
+          <div class="p-stage-label">// SELECTED WORKS &middot; 2018-2026</div>
         </div>
       </div>
       <a href="#about" class="scroll-cue" aria-label="Scroll to About"><span class="mouse"><i></i></span>SCROLL TO EXPLORE</a>
@@ -533,28 +570,28 @@
         </div>
         <div class="wo-grid" data-stagger>
           <a class="wo-card" href="https://sporteuropa-online.com/" target="_blank" rel="noopener">
-            <b>Sportseuropa</b><span>Olympic-level team registration &amp; sports management</span><em>ITALY · 2021—2025</em>
+            <b>Sportseuropa</b><span>Olympic-level team registration &amp; sports management</span><em>🇮🇹 ITALY &middot; 2021—2025</em>
           </a>
           <a class="wo-card" href="https://scores.gymacademy-online.com/auth/login" target="_blank" rel="noopener">
-            <b>Sportseuropa Scores</b><span>Live scoring for judges &amp; championship control</span><em>ITALY · 2025</em>
+            <b>Sportseuropa Scores</b><span>Live scoring for judges &amp; championship control</span><em>🇮🇹 ITALY &middot; 2025</em>
           </a>
           <a class="wo-card" href="https://jotly.ai" target="_blank" rel="noopener">
-            <b>Jotly.ai</b><span>Full-stack AI — image generation, voiceovers &amp; chat</span><em>CANADA · 2025</em>
+            <b>Jotly.ai</b><span>Full-stack AI — image generation, voiceovers &amp; chat</span><em>🇨🇦 CANADA &middot; 2025</em>
           </a>
           <div class="wo-card">
-            <b>Tradogram</b><span>Enterprise procurement &amp; spend management platform</span><em>CANADA · 2021</em>
+            <b>Tradogram</b><span>Enterprise procurement &amp; spend management platform</span><em>🇨🇦 CANADA &middot; 2021</em>
           </div>
           <a class="wo-card" href="https://www.deeptime-digital.com" target="_blank" rel="noopener">
-            <b>DeepTime</b><span>Employee time tracking &amp; productivity analytics</span><em>USA · 2020</em>
+            <b>DeepTime</b><span>Employee time tracking &amp; productivity analytics</span><em>🇺🇸 USA &middot; 2020</em>
           </a>
           <a class="wo-card" href="https://www.broker-smarter.com" target="_blank" rel="noopener">
-            <b>Broker Smarter</b><span>Workflow management engine for brokers</span><em>USA · 2020</em>
+            <b>Broker Smarter</b><span>Workflow management engine for brokers</span><em>🇺🇸 USA &middot; 2020</em>
           </a>
           <a class="wo-card" href="https://www.gyaniguide.com" target="_blank" rel="noopener">
-            <b>GyaniGuide</b><span>Full-featured blogging &amp; CMS platform with admin panel</span><em>INDIA · 2020</em>
+            <b>GyaniGuide</b><span>Full-featured blogging &amp; CMS platform with admin panel</span><em>🇮🇳 INDIA &middot; 2020</em>
           </a>
           <div class="wo-card">
-            <b>Global Shopaholics · Ship6</b><span>International shipping &amp; package forwarding logistics</span><em>PAKISTAN → WORLD · 2024</em>
+            <b>Global Shopaholics &middot; Ship6</b><span>International shipping &amp; package forwarding logistics</span><em>🇵🇰 PAKISTAN &rarr; GLOBAL &middot; 2024</em>
           </div>
         </div>
       </div>
@@ -677,11 +714,16 @@
       <div class="sec-head"><span class="eyebrow">05 &middot; Foundation</span><h2>Academic core</h2></div>
       <div class="edu-grid" data-stagger>
         <article class="panel hud-frame">
+          <span class="corner-id">DEGREE // CS-01</span>
           <div class="exp-head"><div><h3>BS Computer Science</h3><div class="org">LACAS &middot; GC University Faisalabad</div></div><span class="when">2017 — 2021</span></div>
           <p class="muted">Core fundamentals — Data Structures, Algorithms, Distributed Databases, Parallel Computing and Software Engineering — building a strong base for advanced database management and web architecture.</p>
+          <span class="edu-meta-badge">&#9670; 4-Year BSCS &middot; Core Degree</span>
         </article>
         <article class="panel hud-frame">
+          <span class="corner-id">PRE-UNIVERSITY // ICS-02</span>
           <div class="exp-head"><div><h3>Intermediate — Computer Science</h3><div class="org">Govt. Islamia College, Civil Lines Lahore</div></div><span class="when">2015 — 2017</span></div>
+          <p class="muted">Mathematics, Statistics &amp; Computer Science fundamentals — establishing algorithmic thinking and programmatic problem solving.</p>
+          <span class="edu-meta-badge">&#9670; F.Sc ICS &middot; Computer Science</span>
         </article>
       </div>
     </section>

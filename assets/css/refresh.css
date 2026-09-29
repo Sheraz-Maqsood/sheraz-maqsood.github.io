@@ -484,4 +484,379 @@ button, input, textarea { max-width: 100%; }
   }
 }
 
+/* ========================================================
+   WORLDWIDE CLIENT MISSIONS (GLOBAL OPS)
+   ======================================================== */
+.world-ops {
+  margin-top: 36px;
+  padding: 38px 28px 28px;
+  background: rgba(6, 17, 30, 0.78);
+  border: 1px solid rgba(56, 224, 255, 0.22);
+  border-radius: 10px;
+}
+.wo-head {
+  margin-bottom: 24px;
+}
+.wo-head .eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--cy);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.wo-head .muted {
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+.wo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.wo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 18px;
+  background: rgba(3, 11, 20, 0.7);
+  border: 1px solid rgba(56, 224, 255, 0.18);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+a.wo-card:hover {
+  border-color: var(--cy);
+  background: rgba(7, 24, 44, 0.85);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 18px rgba(56, 224, 255, 0.25);
+  transform: translateY(-3px);
+}
+.wo-card b {
+  font-size: 1.1rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+a.wo-card b::after {
+  content: "↗";
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--cy);
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+a.wo-card:hover b::after {
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+.wo-card span {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  margin-bottom: 14px;
+  flex-grow: 1;
+}
+.wo-card em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #ffc46b;
+  background: rgba(255, 196, 107, 0.08);
+  border: 1px solid rgba(255, 196, 107, 0.25);
+  padding: 4px 9px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+/* ========================================================
+   ACADEMIC CORE (EDUCATION) POLISH
+   ======================================================== */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+}
+.edu-grid .panel {
+  padding: 34px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.edu-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--cy);
+  background: rgba(56, 224, 255, 0.08);
+  border: 1px solid rgba(56, 224, 255, 0.25);
+  border-radius: 4px;
+  padding: 4px 10px;
+  align-self: flex-start;
+}
+
+/* Dossier Back Navigation Button */
+.dossier-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cy);
+  text-decoration: none;
+  margin-bottom: 18px;
+  padding: 6px 14px;
+  background: rgba(3, 11, 20, 0.7);
+  border: 1px solid rgba(56, 224, 255, 0.25);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.dossier-back-link:hover {
+  background: rgba(56, 224, 255, 0.12);
+  border-color: var(--cy);
+  box-shadow: 0 0 12px rgba(56, 224, 255, 0.2);
+  transform: translateX(-3px);
+  color: #fff;
+}
+
+/* ========================================================
+   PAMPHLET-STYLE EDITORIAL HERO COLLAGE
+   1 Straight Cutout PNG on Right + 5 Surrounding Photo Blocks
+   + Neon Yellow Highlighter Bands & Scribble Doodles
+   (Faithfully matches reference pamphlet)
+   ======================================================== */
+.pamphlet-hero-stage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 530px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #080a0f;
+  background-image: 
+    radial-gradient(circle at 85% 60%, rgba(56, 224, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 20% 20%, rgba(226, 255, 56, 0.04) 0%, transparent 50%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(226, 255, 56, 0.06);
+}
+
+/* Background Stipple Spray Grain Accent */
+.p-stipple {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 110px;
+  height: 110px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* 5 Photo Montage Blocks */
+.p-photo-block {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #060d16;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+.p-photo-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(92%) contrast(1.22) brightness(0.88);
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+.p-photo-block:hover {
+  z-index: 9 !important;
+  border-color: #e2ff38;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.9), 0 0 24px rgba(226, 255, 56, 0.35);
+  transform: scale(1.05) rotate(0deg) !important;
+}
+.p-photo-block:hover img {
+  filter: grayscale(0%) contrast(1.06) brightness(1.02);
+  transform: scale(1.06);
+}
+
+/* Specific Positions & Tilts matching the pamphlet */
+/* 1. Top Wide Frame */
+.p-photo-1 {
+  top: 14px;
+  left: 14px;
+  width: 63%;
+  height: 110px;
+  transform: rotate(-1.5deg);
+  z-index: 2;
+}
+
+/* 2. Top-Right Mini Frame */
+.p-photo-2 {
+  top: 12px;
+  right: 14px;
+  width: 31%;
+  height: 102px;
+  transform: rotate(2deg);
+  z-index: 1;
+}
+
+/* 3. Middle-Left Frame (Like Subway in pamphlet) */
+.p-photo-3 {
+  top: 136px;
+  left: 14px;
+  width: 43%;
+  height: 170px;
+  transform: rotate(-1.2deg);
+  z-index: 2;
+}
+
+/* 4. Bottom-Left Frame (Like Walking Legs in pamphlet) */
+.p-photo-4 {
+  bottom: 14px;
+  left: 14px;
+  width: 44%;
+  height: 190px;
+  transform: rotate(1.5deg);
+  z-index: 3;
+}
+
+/* 5. Bottom-Right Frame (Like Skyscrapers in pamphlet) */
+.p-photo-5 {
+  bottom: 14px;
+  right: 14px;
+  width: 51%;
+  height: 170px;
+  transform: rotate(-1deg);
+  z-index: 2;
+}
+
+/* Neon Yellow Highlighter Bars (Signature Pamphlet Style) */
+.p-highlighter {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(226, 255, 56, 0.48);
+  mix-blend-mode: screen;
+  border-radius: 2px;
+}
+.p-highlighter.bar-mid {
+  top: 292px;
+  left: 0;
+  width: 78%;
+  height: 42px;
+  transform: rotate(-2deg);
+  z-index: 6; /* Overlays across subway & torso with screen blend */
+}
+.p-highlighter.bar-bot {
+  bottom: 20px;
+  right: 0;
+  width: 62%;
+  height: 38px;
+  transform: rotate(1deg);
+  background: rgba(226, 255, 56, 0.52);
+  z-index: 7;
+}
+
+/* Hand-Drawn Doodle & Scribble Accents (Pamphlet Style) */
+.p-doodle {
+  position: absolute;
+  pointer-events: none;
+}
+.p-doodle.doodle-circle {
+  bottom: 55px;
+  left: 18px;
+  width: 85px;
+  height: 85px;
+  transform: rotate(-10deg);
+  z-index: 7;
+}
+.p-doodle.doodle-zigzag {
+  top: 165px;
+  right: 8px;
+  width: 60px;
+  height: 90px;
+  z-index: 7;
+}
+
+/* Straight Stand-Up Cutout PNG (No Background) in Foreground Right */
+.p-cutout-stage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 66%;
+  height: 92%;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.p-cutout-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(56, 224, 255, 0.12));
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+.p-cutout-stage:hover .p-cutout-img {
+  transform: scale(1.02);
+}
+
+/* Corner Metadata Label */
+.p-stage-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 8;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #e2ff38;
+  background: rgba(2, 6, 14, 0.92);
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid rgba(226, 255, 56, 0.4);
+  pointer-events: none;
+}
+
+/* Responsive Scaling */
+@media (max-width: 900px) {
+  .pamphlet-hero-stage {
+    max-width: 440px;
+    height: 480px;
+    margin-top: 24px;
+  }
+}
+@media (max-width: 500px) {
+  .pamphlet-hero-stage {
+    max-width: 320px;
+    height: 400px;
+  }
+  .p-photo-1 { height: 90px; }
+  .p-photo-2 { height: 80px; }
+  .p-photo-3 { height: 130px; top: 110px; }
+  .p-photo-4 { height: 140px; }
+  .p-photo-5 { height: 130px; }
+  .p-highlighter.bar-mid { top: 225px; height: 32px; }
+  .p-highlighter.bar-bot { height: 28px; }
+  .p-doodle.doodle-circle { width: 65px; height: 65px; bottom: 40px; }
+  .p-doodle.doodle-zigzag { width: 45px; height: 70px; top: 130px; }
+}
+
+
+
+
+
 
