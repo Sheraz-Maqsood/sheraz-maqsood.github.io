@@ -154,12 +154,11 @@
           </div>
         </div>
 
-        <!-- UNBOXED HERO STAGE: Orbit Radar + Straight Cutout + 5 Tilted Showcase Cards (Cyan HUD Theme) -->
-        <!-- Completely Out-of-Box: Seamless with background starry universe, pure Cyan/HUD color scheme -->
-        <div class="hero-stage unboxed" data-reveal aria-label="Geospatial Radar &amp; Visual Showcase">
+        <!-- EDITORIAL PAMPHLET HERO SPREAD (No Scroll 100vh · Cyan HUD + Orbital Radar + 5 Editorial Photos + 1 Straight Cutout) -->
+        <div class="pamphlet-hero-spread" data-reveal aria-label="Editorial Visual Showcase">
           
-          <!-- 1. The Core Orbital Tech Reactor (Matches media_1790663678138) -->
-          <div class="reactor" aria-hidden="true">
+          <!-- Layer 1: Background Orbital Reactor Watermark & Tech Orbit -->
+          <div class="reactor spread-reactor" aria-hidden="true">
             <svg viewBox="0 0 500 500">
               <defs>
                 <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
@@ -192,67 +191,60 @@
             <div class="orbit-chip" data-orbit="7">Quantum</div>
           </div>
 
-          <!-- GIS Radar Pill Telemetry (Matches media_1790663678138) -->
-          <div class="radar-telemetry-pill">
-            <span class="pill-dot"></span> GIS RADAR &middot; 31.52&deg; N 74.35&deg; E
+          <!-- Layer 2: Editorial Photo Montage (Faithful to Reference Pamphlet) -->
+          <!-- 1. Top Wide Panorama Strip -->
+          <div class="pam-block pam-top-wide" title="Linear Tree Enumeration GIS Platform">
+            <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="320" height="120">
+            <span class="pam-tag">// 01 GIS ENGINE</span>
           </div>
 
-          <!-- 2. 5 Tilted Photos in Empty Perimeter Areas (Out of Box & Cyan HUD Styled) -->
-          <!-- Card 1: Top-Left (Tilted -6deg) -->
-          <div class="orbit-photo-card opc-1" style="--rot: -6deg;" title="Linear Tree Enumeration GIS Platform">
-            <div class="opc-frame">
-              <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="180" height="115">
-              <span class="opc-tag">// 01 GIS ENGINE</span>
-              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
+          <!-- 2. Top-Right Frame -->
+          <div class="pam-block pam-top-mini" title="IUCN Forest Operations">
+            <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="160" height="110">
+            <span class="pam-tag">// 02 OPS</span>
+          </div>
+
+          <!-- 3. Mid-Left Vertical Frame (Like subway in pamphlet) -->
+          <div class="pam-block pam-mid-left" title="Complaint Management System">
+            <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="200" height="160">
+            <span class="pam-tag">// 03 WORKFLOW</span>
+          </div>
+
+          <!-- 4. Bottom-Left Frame (Like walking legs in pamphlet) -->
+          <div class="pam-block pam-bot-left" title="Pakistan Plantation Management System">
+            <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="200" height="170">
+            <span class="pam-tag">// 04 NATIONWIDE</span>
+          </div>
+
+          <!-- 5. Bottom-Right Architecture Frame -->
+          <div class="pam-block pam-bot-right" title="Enterprise Systems at CMH Lahore">
+            <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="220" height="140">
+            <span class="pam-tag">// 05 ENTERPRISE</span>
+          </div>
+
+          <!-- Layer 3: Cyan HUD Editorial Highlighters (Translucent Film Screen Blend) -->
+          <div class="pam-highlighter pam-highlighter-mid" aria-hidden="true"></div>
+          <div class="pam-highlighter pam-highlighter-bot" aria-hidden="true"></div>
+
+          <!-- Layer 4: Cyan Cyber-Doodles (Pamphlet Accents) -->
+          <svg class="pam-doodle pam-doodle-circle" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <ellipse cx="50" cy="50" rx="42" ry="34" stroke="#38e0ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-15 50 50)"/>
+          </svg>
+          <svg class="pam-doodle pam-doodle-zigzag" viewBox="0 0 60 110" fill="none" aria-hidden="true">
+            <path d="M50 10 L15 35 L48 65 L10 95" stroke="#38e0ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <!-- Layer 5: 1 Straight Cutout PNG (Upright on Right, No BG) -->
+          <div class="pam-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
+            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="pam-cutout-img" width="460" height="580" loading="eager" decoding="async">
+            <div class="pam-cutout-tag">
+              <span class="dot"></span> MALIK SHERAZ // LEAD ARCHITECT
             </div>
           </div>
 
-          <!-- Card 2: Top-Right (Tilted +5deg) -->
-          <div class="orbit-photo-card opc-2" style="--rot: 5deg;" title="IUCN Forest Operations">
-            <div class="opc-frame">
-              <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="170" height="110">
-              <span class="opc-tag">// 02 FIELD OPS</span>
-              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
-            </div>
-          </div>
-
-          <!-- Card 3: Mid-Left (Tilted -4deg) -->
-          <div class="orbit-photo-card opc-3" style="--rot: -4deg;" title="Complaint Management System Architecture">
-            <div class="opc-frame">
-              <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="175" height="115">
-              <span class="opc-tag">// 03 WORKFLOW</span>
-              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
-            </div>
-          </div>
-
-          <!-- Card 4: Bottom-Left (Tilted +4deg) -->
-          <div class="orbit-photo-card opc-4" style="--rot: 4deg;" title="Pakistan Plantation Management System">
-            <div class="opc-frame">
-              <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="180" height="120">
-              <span class="opc-tag">// 04 NATIONWIDE</span>
-              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
-            </div>
-          </div>
-
-          <!-- Card 5: Bottom-Right Behind Cutout (Tilted -3deg) -->
-          <div class="orbit-photo-card opc-5" style="--rot: -3deg;" title="Enterprise Systems at CMH Lahore">
-            <div class="opc-frame">
-              <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="175" height="115">
-              <span class="opc-tag">// 05 ENTERPRISE</span>
-              <span class="opc-corner tl"></span><span class="opc-corner br"></span>
-            </div>
-          </div>
-
-          <!-- Cyan HUD Highlight Tape Accents -->
-          <div class="cyan-tape tape-mid" aria-hidden="true">// ARCHITECTURE &middot; PRODUCTION</div>
-          <div class="cyan-tape tape-bot" aria-hidden="true">// GEOSPATIAL &middot; GOV SCALE</div>
-
-          <!-- 3. Straight Foreground Cutout PNG (NO BG) - Upright & Straight on Right -->
-          <div class="hero-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
-            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="hero-cutout-img" width="460" height="580" loading="eager" decoding="async">
-            <div class="cutout-badge">
-              <span class="c-dot"></span> MALIK SHERAZ // LEAD ARCHITECT
-            </div>
+          <!-- Telemetry Pill at Base -->
+          <div class="pam-telemetry-badge">
+            <span class="t-pulse"></span> GIS RADAR &middot; 31.52&deg; N 74.35&deg; E &middot; SELECTED WORKS 2018-2026
           </div>
 
         </div>

@@ -628,74 +628,322 @@ a.wo-card:hover b::after {
 }
 
 /* ========================================================
-   UNBOXED HERO STAGE: Orbit Radar + Straight Cutout + Tilted Cards
-   Completely Out of Box: Transparent, Free-Floating, Cyan HUD Theme
-   (Faithfully matches media_1790663678138 + user specifications)
+   EDITORIAL PAMPHLET HERO SPREAD (No Scroll 100vh Spread)
+   - Left Column: Tightened typographic hierarchy
+   - Right Column: Editorial Photo Montage + Cutout + Radar
+   - Cyan HUD Palette, Out-of-Box, Fits 1 Viewport on Desktop
    ======================================================== */
-.hero-stage.unboxed {
+
+@media (min-width: 981px) {
+  .hero {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    padding-top: 75px !important;
+    padding-bottom: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+  }
+  .hero-grid {
+    gap: 36px !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+  .hero-status {
+    margin-bottom: 12px !important;
+    padding: 5px 12px !important;
+    font-size: 10.5px !important;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 3.8vw, 3.5rem) !important;
+    margin-bottom: 10px !important;
+    line-height: 1.08 !important;
+  }
+  .roles {
+    margin-bottom: 14px !important;
+    font-size: 13px !important;
+    min-height: 20px !important;
+  }
+  .hero-sub {
+    margin-bottom: 14px !important;
+    font-size: clamp(0.88rem, 1.2vw, 1.02rem) !important;
+    line-height: 1.48 !important;
+    max-width: 520px !important;
+  }
+  .hero-cta {
+    margin-bottom: 16px !important;
+    gap: 10px !important;
+  }
+  .hero-telemetry-bar {
+    margin-bottom: 12px !important;
+    font-size: 9.5px !important;
+    padding: 5px 12px !important;
+  }
+  .hero-stats {
+    padding-top: 14px !important;
+    gap: 6px !important;
+  }
+  .hero-stats .stat .n {
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem) !important;
+  }
+  .hero-stats .stat .l {
+    font-size: 10px !important;
+  }
+}
+
+/* The Pamphlet Spread Container */
+.pamphlet-hero-spread {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  min-height: 520px;
+  max-width: 530px;
+  height: clamp(460px, 66vh, 560px);
   margin: 0 auto;
   background: transparent;
-  border: none;
-  box-shadow: none;
   overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Reactor inside unboxed stage */
-.hero-stage.unboxed .reactor {
-  position: relative;
-  width: 100%;
+/* Layer 1: Background Orbital Reactor Watermark & Tech Orbit */
+.spread-reactor {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 90%;
   max-width: 440px;
   aspect-ratio: 1;
-  margin: 0 auto;
   z-index: 1;
+  opacity: 0.85;
+  pointer-events: none;
 }
-.hero-stage.unboxed .reactor svg {
+.spread-reactor svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
-.hero-stage.unboxed .orbit-chip {
+.spread-reactor .orbit-chip {
   pointer-events: auto;
   z-index: 2;
   transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-.hero-stage.unboxed .orbit-chip:hover {
+.spread-reactor .orbit-chip:hover {
   border-color: var(--cy);
   box-shadow: 0 0 16px var(--cy);
   color: #fff;
   cursor: default;
 }
 
-/* GIS Radar Pill Telemetry (Matches media_1790663678138) */
-.radar-telemetry-pill {
+/* Layer 2: Editorial Photo Montage Blocks */
+.pam-block {
   position: absolute;
-  bottom: 0px;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(56, 224, 255, 0.28);
+  background: rgba(3, 10, 20, 0.85);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(56, 224, 255, 0.12);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  backdrop-filter: blur(6px);
+}
+.pam-block img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+  filter: grayscale(88%) contrast(1.22) brightness(0.85);
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+.pam-block .pam-tag {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--cy);
+  background: rgba(2, 8, 16, 0.92);
+  border: 1px solid rgba(56, 224, 255, 0.35);
+  padding: 2px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pam-block:hover {
+  z-index: 12 !important;
+  border-color: var(--cy);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.92), 0 0 24px rgba(56, 224, 255, 0.45);
+  transform: scale(1.06) rotate(0deg) !important;
+}
+.pam-block:hover img {
+  filter: grayscale(0%) contrast(1.05) brightness(1.02);
+  transform: scale(1.05);
+}
+
+/* Positions matching the reference pamphlet editorial spread */
+.pam-top-wide {
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 22%;
+  transform: rotate(-1.5deg);
+  z-index: 2;
+}
+.pam-top-mini {
+  top: 0;
+  right: 0;
+  width: 31%;
+  height: 20%;
+  transform: rotate(2deg);
+  z-index: 2;
+}
+.pam-mid-left {
+  top: 25%;
+  left: 0;
+  width: 44%;
+  height: 35%;
+  transform: rotate(-1.2deg);
+  z-index: 3;
+}
+.pam-bot-left {
+  bottom: 0;
+  left: 0;
+  width: 44%;
+  height: 37%;
+  transform: rotate(1.5deg);
+  z-index: 4;
+}
+.pam-bot-right {
+  bottom: 0;
+  right: 0;
+  width: 52%;
+  height: 33%;
+  transform: rotate(-1deg);
+  z-index: 2;
+}
+
+/* Layer 3: Cyan HUD Editorial Highlighters */
+.pam-highlighter {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(56, 224, 255, 0.38);
+  mix-blend-mode: screen;
+  border-radius: 2px;
+}
+.pam-highlighter-mid {
+  top: 55%;
+  left: 0;
+  width: 78%;
+  height: 34px;
+  transform: rotate(-2deg);
+  z-index: 5;
+}
+.pam-highlighter-bot {
+  bottom: 12px;
+  right: 0;
+  width: 60%;
+  height: 30px;
+  transform: rotate(1deg);
+  z-index: 7;
+}
+
+/* Layer 4: Cyan Cyber-Doodles */
+.pam-doodle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 7;
+}
+.pam-doodle-circle {
+  bottom: 8%;
+  left: 18px;
+  width: 78px;
+  height: 78px;
+}
+.pam-doodle-zigzag {
+  top: 24%;
+  right: 6px;
+  width: 50px;
+  height: 85px;
+}
+
+/* Layer 5: 1 Straight Cutout PNG (Upright on Right, No BG) */
+.pam-cutout-stage {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 62%;
+  height: 90%;
+  z-index: 6;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.pam-cutout-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(56, 224, 255, 0.22));
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+.pam-cutout-stage:hover .pam-cutout-img {
+  transform: scale(1.02);
+}
+.pam-cutout-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--cy);
+  background: rgba(3, 11, 20, 0.92);
+  border: 1px solid rgba(56, 224, 255, 0.4);
+  border-radius: 4px;
+  padding: 3px 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 224, 255, 0.2);
+  pointer-events: none;
+}
+.pam-cutout-tag .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cy);
+  box-shadow: 0 0 6px var(--cy);
+}
+
+/* Telemetry Badge at Base */
+.pam-telemetry-badge {
+  position: absolute;
+  bottom: -16px;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   color: var(--cy);
-  background: rgba(3, 11, 20, 0.88);
+  background: rgba(3, 11, 20, 0.9);
   border: 1px solid rgba(56, 224, 255, 0.35);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(56, 224, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 224, 255, 0.15);
   border-radius: 20px;
-  padding: 5px 16px;
+  padding: 4px 14px;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 8;
   pointer-events: none;
 }
-.radar-telemetry-pill .pill-dot {
+.pam-telemetry-badge .t-pulse {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -703,213 +951,31 @@ a.wo-card:hover b::after {
   box-shadow: 0 0 8px var(--cy);
   animation: pulseDot 2s ease-in-out infinite;
 }
-@keyframes pulseDot {
-  0%, 100% { opacity: 0.5; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.25); }
-}
-
-/* 5 Tilted Photo Cards (Cyan HUD Theme) */
-.orbit-photo-card {
-  position: absolute;
-  z-index: 3;
-  transform: rotate(var(--rot, 0deg));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.2s ease;
-  cursor: pointer;
-}
-.orbit-photo-card .opc-frame {
-  position: relative;
-  overflow: hidden;
-  border-radius: 6px;
-  border: 1px solid rgba(56, 224, 255, 0.28);
-  background: rgba(4, 12, 22, 0.88);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75), 0 0 18px rgba(56, 224, 255, 0.12);
-  backdrop-filter: blur(8px);
-  padding: 3px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.orbit-photo-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-  filter: grayscale(85%) contrast(1.18) brightness(0.85);
-  transition: filter 0.35s ease, transform 0.35s ease;
-}
-.orbit-photo-card .opc-tag {
-  position: absolute;
-  bottom: 7px;
-  left: 7px;
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 0.08em;
-  color: var(--cy);
-  background: rgba(2, 8, 16, 0.92);
-  border: 1px solid rgba(56, 224, 255, 0.35);
-  padding: 2px 6px;
-  border-radius: 3px;
-  pointer-events: none;
-}
-.orbit-photo-card .opc-corner {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-color: var(--cy);
-  pointer-events: none;
-}
-.orbit-photo-card .opc-corner.tl { top: 3px; left: 3px; border-top: 2px solid var(--cy); border-left: 2px solid var(--cy); }
-.orbit-photo-card .opc-corner.br { bottom: 3px; right: 3px; border-bottom: 2px solid var(--cy); border-right: 2px solid var(--cy); }
-
-/* Hover Elevation */
-.orbit-photo-card:hover {
-  z-index: 12 !important;
-  transform: scale(1.08) rotate(0deg) !important;
-}
-.orbit-photo-card:hover .opc-frame {
-  border-color: var(--cy);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.9), 0 0 25px rgba(56, 224, 255, 0.4);
-}
-.orbit-photo-card:hover img {
-  filter: grayscale(0%) contrast(1.05) brightness(1);
-  transform: scale(1.04);
-}
-
-/* Specific Positions of the 5 Photo Cards around orbit empty area */
-.opc-1 {
-  top: -8px;
-  left: -20px;
-  width: 175px;
-  height: 110px;
-}
-.opc-2 {
-  top: -12px;
-  right: -10px;
-  width: 165px;
-  height: 105px;
-}
-.opc-3 {
-  top: 175px;
-  left: -35px;
-  width: 170px;
-  height: 115px;
-}
-.opc-4 {
-  bottom: 25px;
-  left: -25px;
-  width: 175px;
-  height: 115px;
-  z-index: 4;
-}
-.opc-5 {
-  bottom: 30px;
-  right: 120px;
-  width: 160px;
-  height: 105px;
-}
-
-/* Cyan Cyber Tape Accents (Replaces yellow highlighters) */
-.cyan-tape {
-  position: absolute;
-  pointer-events: none;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  color: var(--cy);
-  background: rgba(56, 224, 255, 0.12);
-  border: 1px dashed rgba(56, 224, 255, 0.4);
-  padding: 3px 10px;
-  border-radius: 2px;
-  backdrop-filter: blur(4px);
-  z-index: 4;
-}
-.cyan-tape.tape-mid {
-  top: 140px;
-  left: -15px;
-  transform: rotate(-3deg);
-}
-.cyan-tape.tape-bot {
-  bottom: 60px;
-  right: 15px;
-  transform: rotate(2deg);
-}
-
-/* 1 Straight Foreground Cutout PNG (Upright on Right, No BG) */
-.hero-cutout-stage {
-  position: absolute;
-  right: -10px;
-  bottom: 0;
-  width: 62%;
-  height: 94%;
-  z-index: 7;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
-  pointer-events: none;
-}
-.hero-cutout-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom right;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(56, 224, 255, 0.2));
-  pointer-events: auto;
-  transition: transform 0.3s ease;
-}
-.hero-cutout-stage:hover .hero-cutout-img {
-  transform: scale(1.02);
-}
-.cutout-badge {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
-  color: var(--cy);
-  background: rgba(3, 11, 20, 0.92);
-  border: 1px solid rgba(56, 224, 255, 0.4);
-  border-radius: 4px;
-  padding: 4px 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 224, 255, 0.2);
-  pointer-events: none;
-}
-.cutout-badge .c-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--cy);
-  box-shadow: 0 0 6px var(--cy);
-}
 
 /* Responsive adjustments */
 @media (max-width: 980px) {
-  .hero-stage.unboxed {
-    max-width: 440px;
-    min-height: 480px;
-    margin-top: 20px;
+  .hero {
+    min-height: auto;
+    padding-top: 85px;
+    padding-bottom: 40px;
   }
-  .opc-1 { width: 140px; height: 95px; left: -10px; }
-  .opc-2 { width: 135px; height: 90px; right: -5px; }
-  .opc-3 { width: 135px; height: 95px; left: -15px; }
-  .opc-4 { width: 140px; height: 95px; left: -10px; }
-  .opc-5 { width: 130px; height: 90px; right: 80px; }
-  .hero-cutout-stage { width: 68%; }
+  .pamphlet-hero-spread {
+    max-width: 440px;
+    height: 480px;
+    margin-top: 24px;
+  }
 }
 @media (max-width: 540px) {
-  .hero-stage.unboxed {
+  .pamphlet-hero-spread {
     max-width: 330px;
-    min-height: 380px;
+    height: 400px;
   }
-  .opc-1, .opc-3 { display: none; }
-  .opc-2 { width: 120px; height: 80px; top: 0; right: 0; }
-  .opc-4 { width: 125px; height: 85px; bottom: 10px; left: 0; }
-  .opc-5 { display: none; }
-  .hero-cutout-stage { width: 75%; height: 88%; }
-  .radar-telemetry-pill { font-size: 9px; padding: 4px 10px; }
+  .pam-top-mini, .pam-bot-right { display: none; }
+  .pam-top-wide { width: 90%; }
+  .pam-mid-left { width: 50%; }
+  .pam-bot-left { width: 50%; }
+  .pam-cutout-stage { width: 75%; }
+  .pam-telemetry-badge { font-size: 8.5px; padding: 3px 10px; }
 }
 
 
