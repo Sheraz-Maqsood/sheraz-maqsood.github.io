@@ -707,16 +707,16 @@ a.wo-card:hover b::after {
   justify-content: center;
 }
 
-/* Layer 1: Background Orbital Reactor Watermark & Tech Orbit */
+/* Layer 1: Background Orbital Reactor (Prominent & Clear, matches media_1790665229625) */
 .spread-reactor {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 90%;
-  max-width: 440px;
+  width: 100%;
+  max-width: 450px;
   aspect-ratio: 1;
-  z-index: 1;
-  opacity: 0.85;
+  z-index: 3;
+  opacity: 1;
   pointer-events: none;
 }
 .spread-reactor svg {
@@ -726,7 +726,7 @@ a.wo-card:hover b::after {
 }
 .spread-reactor .orbit-chip {
   pointer-events: auto;
-  z-index: 2;
+  z-index: 8;
   transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .spread-reactor .orbit-chip:hover {
@@ -736,25 +736,26 @@ a.wo-card:hover b::after {
   cursor: default;
 }
 
-/* Layer 2: Editorial Photo Montage Blocks */
+/* Layer 2: Satellite Photo Montage Blocks (Perimeter Flanking, Not Blocking Radar) */
 .pam-block {
   position: absolute;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid rgba(56, 224, 255, 0.28);
-  background: rgba(3, 10, 20, 0.85);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 16px rgba(56, 224, 255, 0.12);
+  background: rgba(3, 10, 20, 0.88);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.78), 0 0 16px rgba(56, 224, 255, 0.12);
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
   backdrop-filter: blur(6px);
+  padding: 3px;
 }
 .pam-block img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 3px;
-  filter: grayscale(88%) contrast(1.22) brightness(0.85);
+  border-radius: 4px;
+  filter: grayscale(85%) contrast(1.18) brightness(0.85);
   transition: filter 0.35s ease, transform 0.35s ease;
 }
 .pam-block .pam-tag {
@@ -776,107 +777,108 @@ a.wo-card:hover b::after {
   z-index: 12 !important;
   border-color: var(--cy);
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.92), 0 0 24px rgba(56, 224, 255, 0.45);
-  transform: scale(1.06) rotate(0deg) !important;
+  transform: scale(1.08) rotate(0deg) !important;
 }
 .pam-block:hover img {
   filter: grayscale(0%) contrast(1.05) brightness(1.02);
   transform: scale(1.05);
 }
 
-/* Positions matching the reference pamphlet editorial spread */
+/* Precise Satellite Flanking Positions (Leaves central radar core 100% open) */
 .pam-top-wide {
-  top: 0;
-  left: 0;
-  width: 65%;
-  height: 22%;
-  transform: rotate(-1.5deg);
+  top: -10px;
+  left: -25px;
+  width: 155px;
+  height: 100px;
+  transform: rotate(-5deg);
   z-index: 2;
 }
 .pam-top-mini {
-  top: 0;
-  right: 0;
-  width: 31%;
-  height: 20%;
-  transform: rotate(2deg);
+  top: -15px;
+  right: 80px;
+  width: 140px;
+  height: 90px;
+  transform: rotate(4deg);
   z-index: 2;
 }
 .pam-mid-left {
-  top: 25%;
-  left: 0;
-  width: 44%;
-  height: 35%;
-  transform: rotate(-1.2deg);
-  z-index: 3;
+  top: 175px;
+  left: -45px;
+  width: 145px;
+  height: 105px;
+  transform: rotate(-4deg);
+  z-index: 2;
 }
 .pam-bot-left {
-  bottom: 0;
-  left: 0;
-  width: 44%;
-  height: 37%;
-  transform: rotate(1.5deg);
+  bottom: 15px;
+  left: -30px;
+  width: 155px;
+  height: 105px;
+  transform: rotate(4deg);
   z-index: 4;
 }
 .pam-bot-right {
-  bottom: 0;
-  right: 0;
-  width: 52%;
-  height: 33%;
-  transform: rotate(-1deg);
+  bottom: 20px;
+  right: 140px;
+  width: 140px;
+  height: 95px;
+  transform: rotate(-3deg);
   z-index: 2;
 }
 
-/* Layer 3: Cyan HUD Editorial Highlighters */
+/* Layer 3: Cyan HUD Editorial Highlighters (Subtle Cyan Tape) */
 .pam-highlighter {
   position: absolute;
   pointer-events: none;
-  background: rgba(56, 224, 255, 0.38);
-  mix-blend-mode: screen;
+  background: rgba(56, 224, 255, 0.15);
+  border: 1px dashed rgba(56, 224, 255, 0.35);
+  backdrop-filter: blur(4px);
   border-radius: 2px;
 }
 .pam-highlighter-mid {
-  top: 55%;
-  left: 0;
-  width: 78%;
-  height: 34px;
-  transform: rotate(-2deg);
-  z-index: 5;
+  top: 135px;
+  left: -25px;
+  width: 180px;
+  height: 24px;
+  transform: rotate(-3deg);
+  z-index: 3;
 }
 .pam-highlighter-bot {
-  bottom: 12px;
-  right: 0;
-  width: 60%;
-  height: 30px;
-  transform: rotate(1deg);
-  z-index: 7;
+  bottom: 45px;
+  right: 40px;
+  width: 180px;
+  height: 24px;
+  transform: rotate(2deg);
+  z-index: 5;
 }
 
 /* Layer 4: Cyan Cyber-Doodles */
 .pam-doodle {
   position: absolute;
   pointer-events: none;
-  z-index: 7;
+  z-index: 5;
 }
 .pam-doodle-circle {
-  bottom: 8%;
-  left: 18px;
-  width: 78px;
-  height: 78px;
+  bottom: 25px;
+  left: -10px;
+  width: 70px;
+  height: 70px;
 }
 .pam-doodle-zigzag {
-  top: 24%;
-  right: 6px;
-  width: 50px;
-  height: 85px;
+  top: 30px;
+  right: 10px;
+  width: 45px;
+  height: 75px;
 }
 
-/* Layer 5: 1 Straight Cutout PNG (Upright on Right, No BG) */
+/* Layer 5: 1 Straight Cutout PNG (Upright on Right Foreground, No BG) */
 .pam-cutout-stage {
   position: absolute;
-  right: 0;
+  right: -15px;
   bottom: 0;
-  width: 62%;
-  height: 90%;
-  z-index: 6;
+  width: 290px;
+  height: 440px;
+  z-index: 7;
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -921,26 +923,26 @@ a.wo-card:hover b::after {
   box-shadow: 0 0 6px var(--cy);
 }
 
-/* Telemetry Badge at Base */
+/* Telemetry Badge at Base (Matches media_1790665229625) */
 .pam-telemetry-badge {
   position: absolute;
-  bottom: -16px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--cy);
   background: rgba(3, 11, 20, 0.9);
   border: 1px solid rgba(56, 224, 255, 0.35);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 224, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 14px rgba(56, 224, 255, 0.18);
   border-radius: 20px;
-  padding: 4px 14px;
+  padding: 5px 16px;
   white-space: nowrap;
-  z-index: 8;
+  z-index: 9;
   pointer-events: none;
 }
 .pam-telemetry-badge .t-pulse {
