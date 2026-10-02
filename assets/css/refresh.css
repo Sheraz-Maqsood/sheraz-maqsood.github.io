@@ -1099,3 +1099,422 @@ a.wo-card:hover b::after {
   .about-grid.has-portrait > .panel p { font-size: .9rem !important; line-height: 1.5; margin-bottom: 10px !important; }
   .about-grid.has-portrait .portrait-media { min-height: 300px; }
 }
+
+/* ========================================================
+   ◈ AI DEVELOPER PROFILE — one-viewport bento (desktop)
+   The two .profile-grid wrappers dissolve (display:contents) so all
+   four panels share one 3-column grid; banner becomes a slim strip.
+   ======================================================== */
+@media (min-width: 1100px) {
+  section#profile.wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, .82fr);
+    grid-template-areas:
+      "head  head  head"
+      "sys   who   mind"
+      "philo who   mind"
+      "ban   ban   ban";
+    grid-template-rows: auto auto 1fr auto;
+    gap: 16px;
+    padding-top: 36px;
+    padding-bottom: 32px;
+  }
+  #profile > .sec-head { grid-area: head; margin-bottom: 8px; }
+  #profile .sec-head h2 { font-size: clamp(2.2rem, 3.5vw, 3.3rem); }
+  #profile .profile-grid { display: contents; }
+  #profile .sys-term { grid-area: sys; }
+  #profile .whoami   { grid-area: who; }
+  #profile .philo    { grid-area: philo; margin-top: 0; }
+  #profile .profile-grid > .panel:not(.sys-term):not(.whoami):not(.philo) { grid-area: mind; }
+  #profile .avail-banner { grid-area: ban; margin-top: 0; padding: 14px 22px; gap: 12px 20px; flex-wrap: nowrap; }
+  #profile .panel { padding: 38px 24px 20px; }
+
+  /* SYS // STATUS — denser terminal */
+  #profile .sys-term .scan-title { font-size: 10.5px; letter-spacing: .24em; margin-bottom: 10px; padding-bottom: 10px; }
+  #profile .sys-readout { font-size: 12px; }
+  #profile .sys-line { gap: 10px; margin-bottom: 6px; }
+  #profile .sys-line .k { min-width: 158px; }
+  #profile .live-status { margin-top: 12px; padding-top: 12px; }
+  #profile .live-status .ls-line { font-size: 13px; }
+
+  /* WHO AM I — the reading column */
+  #profile .whoami h3 { margin-bottom: 10px; }
+  #profile .whoami p { font-size: .98rem; line-height: 1.62; margin-bottom: 10px; }
+  #profile .cap-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+  #profile .cap-strip .cap { padding: 9px 10px; font-size: 10.5px; }
+  #profile .cap-strip .cap b { font-size: 16px; margin-bottom: 2px; }
+
+  /* PHILOSOPHY */
+  #profile .philo .quote { font-size: clamp(1.15rem, 1.7vw, 1.5rem); }
+  #profile .philo .lines { margin-top: 10px; gap: 5px; font-size: 12px; }
+
+  /* CORE MINDSET — slim single-column list */
+  #profile .mindset-grid { grid-template-columns: 1fr; gap: 7px; margin-top: 0 !important; }
+  #profile .mindset { padding: 8px 12px; gap: 10px; }
+  #profile .mindset .bolt { font-size: 15px; }
+  #profile .mindset span { font-size: .86rem; }
+
+  /* Banner — one line */
+  #profile .avail-banner .ab-status { font-size: 11px; white-space: nowrap; }
+  #profile .avail-banner .ab-cta { font-size: clamp(1rem, 1.6vw, 1.35rem); white-space: nowrap; }
+  #profile .avail-banner .ab-go { flex: none; }
+}
+@media (min-width: 1100px) and (max-height: 820px) {
+  #profile .whoami p { font-size: .92rem; line-height: 1.5; margin-bottom: 8px; }
+  #profile .mindset { padding: 6px 12px; }
+  #profile .sec-head h2 { font-size: clamp(2rem, 3vw, 2.8rem); }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  section#profile.wrap { padding-top: 20px; gap: 12px; }
+  #profile .sec-head .eyebrow { display: none; }
+  #profile .sec-head h2 { font-size: 2rem; }
+  #profile .panel { padding: 32px 20px 14px; }
+  #profile .whoami p { font-size: .86rem; line-height: 1.45; }
+  #profile .mindset { padding: 5px 10px; }
+  #profile .mindset span { font-size: .8rem; }
+}
+@media (min-width: 1100px) {
+  section#profile.wrap { grid-template-columns: minmax(0, .95fr) minmax(0, 1.45fr) minmax(0, .8fr); }
+  /* heading on one line: eyebrow beside the title */
+  #profile > .sec-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 0; }
+  #profile > .sec-head h2 { margin: 0; order: -1; }
+  #profile .sys-readout { display: grid; gap: 4px; line-height: 1.5; }
+  #profile .sys-line { margin-bottom: 0; }
+  #profile .cap-strip .cap { display: flex; align-items: center; gap: 6px; padding: 7px 8px; line-height: 1.25; }
+  #profile .cap-strip .cap b { display: inline; margin: 0; font-size: 14px; }
+  #profile .philo .quote { font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.25; }
+}
+@media (min-width: 1100px) and (max-height: 820px) {
+  #profile .whoami p { font-size: .9rem; line-height: 1.5; }
+  #profile .panel { padding: 34px 22px 16px; }
+}
+@media (min-width: 1100px) {
+  section#profile.wrap { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.4fr) minmax(0, .8fr); }
+  #profile .live-status { display: flex; align-items: center; gap: 14px; }
+  #profile .live-status .ls-label { margin: 0; flex: none; }
+  #profile .philo .lines { font-size: 11.5px; }
+  #profile .philo .lines div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #profile .avail-banner { padding: 10px 18px; }
+  #profile .avail-banner .ab-go { padding: 9px 18px; min-height: 0; }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  #profile .panel { padding: 30px 18px 12px; }
+  #profile .whoami h3 { display: none; }
+  #profile .whoami p { font-size: .84rem; line-height: 1.42; margin-bottom: 6px; }
+  #profile .sys-term .scan-title { display: none; }
+  #profile .sys-readout { font-size: 11px; gap: 2px; }
+  #profile .philo .quote { font-size: 1rem; }
+  #profile .mindset { padding: 5px 10px; }
+  #profile .mindset-grid { gap: 5px; }
+  #profile .cap-strip { margin-top: 8px; }
+}
+
+/* ========================================================
+   ARSENAL · OFFICIAL STACK — one-viewport (desktop)
+   3 compact tiles per row inside each tier, slim headers,
+   learning strip as a single row.
+   ======================================================== */
+@media (min-width: 1100px) {
+  section#stack.wrap { padding-top: 36px; padding-bottom: 32px; }
+  #stack > .sec-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 6px; }
+  #stack > .sec-head h2 { margin: 0; order: -1; font-size: clamp(2.2rem, 3.5vw, 3.3rem); }
+  #stack > .sec-head + p { margin: 0 0 16px !important; }
+
+  #stack .command-deck-grid { gap: 16px; }
+  #stack .command-column { padding: 34px 16px 16px; }
+  #stack .command-column .col-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; padding-bottom: 8px; }
+  #stack .command-column .col-head h3 { font-size: 1.05rem; margin: 0; order: -1; }
+  #stack .command-column .col-tag { font-size: 9px; white-space: nowrap; }
+
+  #stack .command-column .col-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; flex-grow: 0; }
+  #stack .command-column .logo-tile { gap: 8px; padding: 7px 8px; min-height: 0; }
+  #stack .command-column .logo-tile img { width: 22px; height: 22px; }
+  #stack .command-column .tile-info .logo-name { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #stack .command-column .tile-info .tile-count { font-size: 9px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  #stack .lab-strip { margin-top: 14px; padding: 9px 16px; flex-wrap: nowrap; }
+  #stack .lab-strip .logo-tile.lab { padding: 5px 12px; }
+  #stack .lab-strip .logo-tile.lab img { width: 20px; height: 20px; }
+}
+@media (min-width: 1100px) and (max-height: 820px) {
+  #stack > .sec-head h2 { font-size: clamp(2rem, 3vw, 2.8rem); }
+  #stack .command-column .logo-tile { padding: 5px 7px; }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  section#stack.wrap { padding-top: 20px; }
+  #stack > .sec-head h2 { font-size: 2rem; }
+  #stack .command-column { padding: 28px 12px 12px; }
+  #stack .command-column .col-tiles { gap: 5px; }
+  #stack .lab-strip { margin-top: 10px; padding: 6px 14px; }
+  #stack .lab-note { display: none; }
+}
+@media (min-width: 1100px) {
+  #stack .command-column .logo-tile { flex-direction: row; justify-content: flex-start; align-items: center; text-align: left; }
+  #stack .command-column .tile-info { align-items: flex-start; }
+  #stack .command-column .col-head h3 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+@media (min-width: 1100px) {
+  /* columns sized to their tile counts so names don't truncate */
+  #stack .command-deck-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, .72fr) minmax(0, 1.18fr); }
+  #stack .command-column:nth-child(2) .col-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #stack .command-column:nth-child(2) .col-head .col-tag { display: none; }
+  #stack .command-column .logo-tile { gap: 7px; padding-inline: 7px; }
+}
+/* learning strip tiles: name over status, like the arsenal tiles */
+.lab-strip .logo-tile.lab .tile-info { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+.lab-strip .logo-tile.lab .logo-name { font-size: 12.5px; font-weight: 600; color: #fff; }
+.lab-strip .logo-tile.lab .tile-count { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ========================================================
+   02 · TECH CONSTELLATION — official logos + one viewport
+   ======================================================== */
+/* Logo planets instead of dots */
+.skill-node .blip.has-logo {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(4, 12, 22, 0.92);
+  border: 1.5px solid rgba(56, 224, 255, 0.55);
+  box-shadow: 0 0 14px rgba(56, 224, 255, 0.22);
+}
+.skill-node .blip.has-logo img { width: 20px; height: 20px; display: block; }
+.skill-node .blip img.inv { filter: brightness(0) invert(1); }
+.skill-node.gold .blip.has-logo { border-color: rgba(255, 196, 107, 0.75); box-shadow: 0 0 14px rgba(255, 196, 107, 0.3); }
+.skill-node:hover .blip.has-logo,
+.skill-node:focus-visible .blip.has-logo {
+  background: #0a2236;
+  border-color: var(--cy);
+  box-shadow: 0 0 20px rgba(56, 224, 255, 0.55);
+  transform: scale(1.2);
+}
+.skill-node.gold:hover .blip.has-logo { border-color: var(--gold); box-shadow: 0 0 20px rgba(255, 196, 107, 0.55); }
+.skill-node { gap: 5px; min-height: 0; padding: 4px; }
+.skill-node .sn-label { font-size: 10.5px; white-space: nowrap; text-shadow: 0 1px 6px #000; }
+
+/* One-viewport layout: constellation left, readout panel right */
+.galaxy { --gscale: 1; }
+@media (min-width: 1100px) {
+  section#skills.wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-template-areas: "head head" "gal read";
+    align-items: center;
+    gap: 12px 28px;
+    padding-top: 36px;
+    padding-bottom: 32px;
+  }
+  #skills > .sec-head { grid-area: head; display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 0; }
+  #skills > .sec-head h2 { margin: 0; order: -1; font-size: clamp(2.2rem, 3.5vw, 3.3rem); }
+  #skills .galaxy { grid-area: gal; width: 100%; max-width: none; height: calc(560px * var(--gscale)); margin: 0; }
+  #skills .galaxy-core { width: calc(130px * var(--gscale)); height: calc(130px * var(--gscale)); }
+  #skills .skill-readout {
+    grid-area: read;
+    margin-top: 0;
+    min-height: 180px;
+    padding: 22px 24px;
+    border: 1px solid rgba(56, 224, 255, 0.22);
+    border-left: 2px solid var(--cy);
+    border-radius: 0 10px 10px 0;
+    background: rgba(6, 17, 30, 0.72);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+}
+@media (min-width: 1100px) and (max-height: 820px) {
+  #skills .galaxy { --gscale: .86; }
+  #skills > .sec-head h2 { font-size: clamp(2rem, 3vw, 2.8rem); }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  section#skills.wrap { padding-top: 20px; }
+  #skills .galaxy { --gscale: .74; }
+  #skills > .sec-head h2 { font-size: 2rem; }
+  #skills .galaxy-core { font-size: 9.5px; }
+  #skills .galaxy-core b { font-size: 17px; }
+  .skill-node .blip.has-logo { width: 30px; height: 30px; }
+  .skill-node .blip.has-logo img { width: 17px; height: 17px; }
+}
+/* Legend beside the readout (desktop only) */
+.skill-legend { display: none; }
+@media (min-width: 1100px) {
+  section#skills.wrap { grid-template-areas: "head head" "gal read" "gal legend"; grid-template-rows: auto 1fr 1fr; }
+  #skills .galaxy { height: calc(500px * var(--gscale)); }
+  #skills .skill-readout { align-self: end; }
+  .skill-legend {
+    grid-area: legend; align-self: start;
+    display: grid; gap: 10px;
+    padding: 16px 24px;
+    font-family: var(--mono); font-size: 11.5px; color: var(--fg-muted);
+    border: 1px dashed rgba(56, 224, 255, 0.22); border-radius: 10px;
+  }
+  .skill-legend div { display: flex; align-items: center; gap: 12px; }
+  .skill-legend b { color: var(--fg); font-weight: 600; }
+  .skill-legend .lg-ring { flex: none; height: 12px; border: 1px solid rgba(56, 224, 255, 0.6); border-radius: 50%; }
+  .skill-legend .lg-ring.r1 { width: 12px; }
+  .skill-legend .lg-ring.r2 { width: 20px; }
+  .skill-legend .lg-ring.r3 { width: 28px; }
+  .skill-legend .lg-gold { flex: none; width: 12px; height: 12px; margin-right: 16px; border-radius: 50%; border: 1.5px solid #ffc46b; box-shadow: 0 0 8px rgba(255, 196, 107, .5); }
+}
+@media (min-width: 1100px) {
+  .skill-legend div { display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
+  .skill-legend i { justify-self: center; margin: 0 !important; }
+}
+
+/* ========================================================
+   ONE-VIEWPORT PASS — Experience, Projects, Contact (desktop)
+   Shared: heading on one line with its eyebrow.
+   ======================================================== */
+@media (min-width: 1100px) {
+  section#experience.wrap, section#projects.wrap, section#contact.wrap { padding-top: 36px; padding-bottom: 32px; }
+  #experience > .sec-head, #projects > .sec-head {
+    display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 14px;
+  }
+  #experience > .sec-head h2, #projects > .sec-head h2 { margin: 0; order: -1; font-size: clamp(2.2rem, 3.5vw, 3.3rem); }
+}
+@media (min-width: 1100px) and (max-height: 820px) {
+  #experience > .sec-head h2, #projects > .sec-head h2, #contact > .sec-head h2 { font-size: clamp(2rem, 3vw, 2.8rem); }
+}
+
+/* ---------- 03 · EXPERIENCE — role tabs + one detail panel ----------
+   JS (initExpTabs) adds .exp-tabs to the section and builds .rail-tabs-nav */
+.rail-tabs-nav { display: none; }
+@media (min-width: 1100px) {
+  #experience.exp-tabs {
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    grid-template-areas: "head head" "nav rail";
+    gap: 0 20px;
+    align-items: start;
+  }
+  #experience.exp-tabs > .sec-head { grid-area: head; }
+  #experience.exp-tabs .rail-tabs-nav { grid-area: nav; display: grid; gap: 8px; }
+  #experience.exp-tabs .rail { grid-area: rail; padding: 0; }
+  #experience.exp-tabs .rail-line,
+  #experience.exp-tabs .station .node { display: none; }
+  #experience.exp-tabs .station { display: none; padding-left: 0; margin: 0; }
+  #experience.exp-tabs .station.rt-active {
+    display: block;
+    max-height: calc(100svh - 230px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56,224,255,.45) transparent;
+    padding: 26px 28px;
+  }
+  #experience.exp-tabs .exp-head h3 { font-size: 1.35rem; }
+  #experience.exp-tabs .exp-body, #experience.exp-tabs .exp-body li { font-size: .96rem; line-height: 1.65; }
+  #experience.exp-tabs .exp-media { width: 300px; }
+  #experience.exp-tabs .exp-proof { max-width: 480px; }
+
+  .rt-tab {
+    display: grid; gap: 3px; text-align: left; cursor: pointer;
+    padding: 11px 14px 11px 16px;
+    border: 1px solid rgba(56, 224, 255, 0.18);
+    border-left: 3px solid rgba(56, 224, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(6, 17, 30, 0.6);
+    color: var(--fg-muted);
+    font: inherit;
+    transition: border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .rt-tab:hover { border-color: rgba(56, 224, 255, 0.5); transform: translateX(3px); }
+  .rt-tab:focus-visible { outline: 2px solid var(--cy); outline-offset: 2px; }
+  .rt-tab b { color: var(--fg); font-size: .9rem; line-height: 1.3; font-weight: 600; }
+  .rt-tab .rt-when { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; color: var(--fg-dim); text-transform: uppercase; }
+  .rt-tab .rt-org { font-family: var(--mono); font-size: 10.5px; color: var(--cy); line-height: 1.4; }
+  .rt-tab.now .rt-when::before { content: "● "; color: var(--gold); }
+  .rt-tab.on {
+    border-color: rgba(56, 224, 255, 0.55);
+    border-left-color: var(--cy);
+    background: rgba(10, 34, 54, 0.85);
+    box-shadow: 0 0 18px rgba(56, 224, 255, 0.15);
+  }
+  .rt-tab.on b { color: var(--cy); }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  #experience.exp-tabs .station.rt-active { max-height: calc(100svh - 190px); padding: 20px 22px; }
+  .rt-tab { padding: 8px 12px; }
+}
+
+/* ---------- 04 · PROJECTS — uniform 3 × 3 holo grid ---------- */
+@media (min-width: 1100px) {
+  #projects > .sec-head + p { margin: -6px 0 12px !important; }
+  #projects .proj-filters { margin-bottom: 8px; gap: 8px; align-items: center; }
+  #projects .pf-chip { min-height: 34px; padding: 6px 14px; font-size: 11px; }
+  #projects .project-result-count { margin-bottom: 12px; }
+  #projects .proj-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: clamp(150px, calc((100svh - 330px) / 3), 210px);
+    gap: 12px;
+  }
+  #projects .proj.feat, #projects .proj.wide, #projects .proj.half { grid-column: auto; grid-row: auto; min-height: 0; }
+  #projects .proj { padding: 30px 16px 12px; }
+  #projects .proj .hex-id { top: 10px; left: 14px; }
+  #projects .proj .live-prod-badge { transform: scale(.82); transform-origin: top right; }
+  #projects .proj .tag { font-size: 9px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #projects .proj h3, #projects .proj.feat h3 { font-size: 1.05rem; margin-bottom: 4px; }
+  #projects .proj p, #projects .proj.feat p {
+    font-size: .8rem; line-height: 1.45; max-width: none;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  #projects .proj .meta { margin-top: 8px; gap: 6px; flex-wrap: nowrap; }
+  #projects .proj .meta .stack { display: none; }
+  #projects .proj .impact-pill { font-size: 9px; padding: 3px 8px; }
+  #projects .proj .meta .live-link { min-height: 26px; padding: 3px 9px; margin-left: auto; }
+  #projects .proj .go { width: 28px; height: 28px; }
+}
+
+/* ---------- 06 · CONTACT — terminal left, form right ---------- */
+@media (min-width: 1100px) {
+  #contact > .sec-head { margin-bottom: 18px; }
+  #contact > .sec-head h2 { font-size: clamp(2.2rem, 3.5vw, 3.3rem); }
+  #contact .terminal {
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    grid-template-areas: "head head" "body form" "actions form" "meta form";
+    grid-template-rows: auto auto auto 1fr;
+    gap: 0 36px;
+    padding: 32px 30px 26px;
+  }
+  #contact .term-head { grid-area: head; margin-bottom: 18px; }
+  #contact .term-body { grid-area: body; font-size: 13px; }
+  #contact .wave { margin: 12px 0; height: 32px; }
+  #contact .comm-form { grid-area: form; margin: 0; gap: 12px; }
+  #contact .cf-field input, #contact .cf-field textarea { font-size: 15px; min-height: 42px; }
+  #contact .cf-field textarea { min-height: 112px; }
+  #contact .contact-actions { grid-area: actions; margin-top: 10px; gap: 8px; }
+  #contact .contact-actions .btn { padding: 9px 14px; min-height: 0; font-size: 11px; }
+  #contact .contact-meta { grid-area: meta; margin-top: 14px; }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  section#contact.wrap { padding-top: 20px; }
+  #contact .eyebrow { display: none !important; }
+  #contact .cf-field textarea { min-height: 80px; }
+  #contact .terminal { padding: 26px 24px 18px; }
+}
+@media (min-width: 1100px) {
+  /* Worldwide client missions = last tab, shares the detail cell */
+  #experience.exp-tabs .world-ops { grid-area: rail; display: none; margin: 0; }
+  #experience.exp-tabs .world-ops.rt-active {
+    display: block;
+    max-height: calc(100svh - 230px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56,224,255,.45) transparent;
+    padding: 30px 26px 22px;
+  }
+  #experience.exp-tabs .wo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  #experience.exp-tabs .wo-head { margin-bottom: 14px; }
+}
+@media (min-width: 1100px) and (max-height: 700px) {
+  #experience.exp-tabs .world-ops.rt-active { max-height: calc(100svh - 190px); }
+  #experience.exp-tabs .rt-tab .rt-org { display: none; }
+  section#experience.wrap, section#projects.wrap, section#stack.wrap { padding-top: 20px; }
+  #projects > .sec-head + p, #stack > .sec-head + p { display: none; }
+  #projects .project-result-count { display: none; }
+  #projects .proj-grid { grid-auto-rows: clamp(118px, calc((100svh - 250px) / 3), 160px); gap: 10px; }
+  #projects .proj p, #projects .proj.feat p { -webkit-line-clamp: 1; }
+}
+@media (min-width: 1100px) {
+  #projects .proj .tag { display: none; }  /* stack line repeats the meta; keeps every card the same rhythm */
+}

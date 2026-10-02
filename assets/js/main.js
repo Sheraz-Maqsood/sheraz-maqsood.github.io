@@ -372,6 +372,29 @@
     { n: "C# WinForms/WPF", ring: 3, exp: "Since 2018", proj: "POS · Restaurant · Institute management apps", conf: "Proficient" },
     { n: "Arduino",     ring: 3, exp: "Hands-on", proj: "Sensors · I/O · embedded C/C++", conf: "Foundational" }
   ];
+  /* Official logos for the constellation nodes (devicon / simple-icons CDN). inv = mono-dark logo, shown white */
+  var DV = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/";
+  var SKILL_ICONS = {
+    "Laravel": DV + "laravel/laravel-original.svg",
+    "PHP 8.x": DV + "php/php-original.svg",
+    "React": DV + "react/react-original.svg",
+    "Next.js": [DV + "nextjs/nextjs-original.svg", 1],
+    "Node.js": DV + "nodejs/nodejs-original.svg",
+    "NestJS": DV + "nestjs/nestjs-original.svg",
+    "PostgreSQL": DV + "postgresql/postgresql-original.svg",
+    "MySQL": DV + "mysql/mysql-original.svg",
+    "MongoDB": DV + "mongodb/mongodb-original.svg",
+    "Leaflet GIS": ["https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leaflet.svg", 1],
+    "AWS": [DV + "amazonwebservices/amazonwebservices-original-wordmark.svg", 1],
+    "CI/CD": DV + "githubactions/githubactions-original.svg",
+    "Docker": DV + "docker/docker-original.svg",
+    "Vue.js": DV + "vuejs/vuejs-original.svg",
+    "Electron": DV + "electron/electron-original.svg",
+    "Java/Android": DV + "android/android-original.svg",
+    "FastAPI": DV + "fastapi/fastapi-original.svg",
+    "C# WinForms/WPF": DV + "csharp/csharp-original.svg",
+    "Arduino": DV + "arduino/arduino-original.svg"
+  };
   function initGalaxy() {
     var g = $("#galaxy"), readout = $("#skill-readout"), list = $("#skill-list");
     if (list) list.innerHTML = SKILLS.map(function (s) {
@@ -382,10 +405,19 @@
     g.addEventListener("mouseenter", function () { hovered = true; });
     g.addEventListener("mouseleave", function () { hovered = false; });
     var rings = { 1: 130, 2: 210, 3: 285 };
+    /* --gscale (CSS) shrinks the orbit radii so the section fits short viewports */
+    var gk = 1, ringEls = [];
+    function readScale() { gk = parseFloat(getComputedStyle(g).getPropertyValue("--gscale")) || 1; }
+    readScale();
     [130, 210, 285].forEach(function (r) {
       var d = document.createElement("div"); d.className = "galaxy-ring";
-      d.style.width = d.style.height = (r * 2) + "px"; g.appendChild(d);
+      d.style.width = (r * 2 * gk) + "px"; d.style.height = (r * 2 * gk * 0.78) + "px"; g.appendChild(d); ringEls.push([d, r]);
     });
+    window.addEventListener("resize", function () {
+      readScale();
+      ringEls.forEach(function (x) { x[0].style.width = (x[1] * 2 * gk) + "px"; x[0].style.height = (x[1] * 2 * gk * 0.78) + "px"; });
+      if (reduceMotion) frame();
+    }, { passive: true });
     var perRing = { 1: [], 2: [], 3: [] };
     SKILLS.forEach(function (s) { perRing[s.ring].push(s); });
     var nodes = [];
@@ -394,7 +426,10 @@
       arr.forEach(function (s, i) {
         var node = document.createElement("button");
         node.className = "skill-node" + (s.gold ? " gold" : "");
-        node.innerHTML = "<span class='blip'></span><span>" + s.n + "</span>";
+        var ic = SKILL_ICONS[s.n], icSrc = Array.isArray(ic) ? ic[0] : ic, icInv = Array.isArray(ic) && ic[1];
+        node.innerHTML = "<span class='blip" + (icSrc ? " has-logo" : "") + "'>" +
+          (icSrc ? "<img src='" + icSrc + "' alt='' width='22' height='22' loading='lazy' decoding='async'" + (icInv ? " class='inv'" : "") + ">" : "") +
+          "</span><span class='sn-label'>" + s.n + "</span>";
         node.setAttribute("aria-label", s.n + ": " + s.conf + ", " + s.exp);
         var show = function () {
           if (readout) readout.innerHTML =
@@ -415,7 +450,7 @@
       t += reduceMotion || hovered || g.contains(document.activeElement) ? 0 : 16;
       nodes.forEach(function (o) {
         var a = o.base + t * o.speed;
-        o.el.style.transform = "translate(-50%,-50%) translate(" + (Math.cos(a) * o.ring) + "px," + (Math.sin(a) * o.ring * 0.78) + "px)";
+        o.el.style.transform = "translate(-50%,-50%) translate(" + (Math.cos(a) * o.ring * gk) + "px," + (Math.sin(a) * o.ring * gk * 0.78) + "px)";
       });
       if (!reduceMotion) raf = requestAnimationFrame(frame);
     }
@@ -431,6 +466,69 @@
       p.addEventListener("keydown", function (e) { if (e.target === p && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); go(); } });
     });
     $$(".proj").forEach(function (p) { p.addEventListener("mouseenter", function () { play("hover"); }); });
+  }
+
+  /* ========== 11b. EXPERIENCE role tabs (desktop: one role at a time, fits one viewport) ========== */
+  function initExpTabs() {
+    var sec = $("#experience"), rail = sec && $(".rail", sec);
+    if (!rail) return;
+    var stations = $$(".station", rail);
+    if (stations.length < 2) return;
+    /* The "Worldwide client missions" panel becomes the last tab */
+    var wo = $(".world-ops", sec);
+    if (wo) stations.push(wo);
+    var mq = window.matchMedia("(min-width: 1100px)");
+    var nav = document.createElement("div");
+    nav.className = "rail-tabs-nav";
+    nav.setAttribute("role", "tablist");
+    nav.setAttribute("aria-label", "Experience roles");
+    var tabs = stations.map(function (st, i) {
+      var h = $(".exp-head h3", st), org = $(".exp-head .org", st), when = $(".exp-head .when", st);
+      if (!st.id) st.id = "exp-station-" + (i + 1);
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "rt-tab" + (st.classList.contains("now") ? " now" : "");
+      b.id = "exp-tab-" + (i + 1);
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-controls", st.id);
+      var isWo = st === wo;
+      b.innerHTML = "<span class='rt-when'>" + (isWo ? "2020 — 2025 · Remote" : (when ? when.textContent : "")) + "</span><b>" +
+        (isWo ? "Worldwide client missions" : (h ? h.textContent : "")) + "</b><span class='rt-org'>" +
+        (isWo ? "Italy · Canada · USA · India · Pakistan" : (org ? org.textContent : "")) + "</span>";
+      b.addEventListener("click", function () { select(i, true); play("select"); });
+      b.addEventListener("keydown", function (e) {
+        var k = e.key, n = stations.length, j = -1;
+        if (k === "ArrowDown" || k === "ArrowRight") j = (i + 1) % n;
+        else if (k === "ArrowUp" || k === "ArrowLeft") j = (i - 1 + n) % n;
+        else if (k === "Home") j = 0; else if (k === "End") j = n - 1;
+        if (j < 0) return;
+        e.preventDefault(); select(j, true); tabs[j].focus();
+      });
+      nav.appendChild(b);
+      return b;
+    });
+    rail.parentNode.insertBefore(nav, rail);
+    function select(i) {
+      tabs.forEach(function (t, j) {
+        var on = j === i;
+        t.classList.toggle("on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+      });
+      stations.forEach(function (s, j) { s.classList.toggle("rt-active", j === i); });
+      stations[i].scrollTop = 0;
+    }
+    function apply() {
+      var on = mq.matches;
+      sec.classList.toggle("exp-tabs", on);
+      stations.forEach(function (s, i) {
+        if (on) { s.setAttribute("role", "tabpanel"); s.setAttribute("aria-labelledby", tabs[i].id); }
+        else { s.removeAttribute("role"); s.removeAttribute("aria-labelledby"); }
+      });
+    }
+    if (mq.addEventListener) mq.addEventListener("change", apply); else if (mq.addListener) mq.addListener(apply);
+    apply();
+    select(0);
   }
 
   /* ========== 12. CONTACT terminal typer + waveform ========== */
@@ -891,7 +989,7 @@
   /* ========== INIT ALL (deferred-safe) ========== */
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
-                initTyper, initOrbit, initGalaxy, initProjects, initContact, initSound,
+                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initContact, initSound,
                 initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc,
                 initPortraitReveal];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
