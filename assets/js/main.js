@@ -367,7 +367,10 @@
     { n: "Docker",      ring: 3, exp: "3+ yrs", proj: "Containerized services", conf: "Proficient" },
     { n: "Vue.js",      ring: 3, exp: "2+ yrs", proj: "Client SPAs", conf: "Proficient" },
     { n: "Electron",    ring: 3, exp: "3+ yrs", proj: "Desktop tools", conf: "Proficient" },
-    { n: "Java/Android",ring: 3, exp: "3+ yrs", proj: "Firebase mobile apps", conf: "Proficient" }
+    { n: "Java/Android",ring: 3, exp: "3+ yrs", proj: "Firebase mobile apps", conf: "Proficient" },
+    { n: "FastAPI",     ring: 2, exp: "Production", proj: "Python REST services & integrations", conf: "Advanced", gold: true },
+    { n: "C# WinForms/WPF", ring: 3, exp: "Since 2018", proj: "POS · Restaurant · Institute management apps", conf: "Proficient" },
+    { n: "Arduino",     ring: 3, exp: "Hands-on", proj: "Sensors · I/O · embedded C/C++", conf: "Foundational" }
   ];
   function initGalaxy() {
     var g = $("#galaxy"), readout = $("#skill-readout"), list = $("#skill-list");

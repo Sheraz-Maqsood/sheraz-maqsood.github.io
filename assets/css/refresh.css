@@ -985,3 +985,77 @@ a.wo-card:hover b::after {
 
 
 
+
+/* ========================================================
+   TECH ARSENAL — "In the lab" learning strip (Flask, Django)
+   ======================================================== */
+.lab-strip {
+  margin-top: 22px;
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  border: 1px dashed rgba(255, 196, 107, 0.35);
+  border-radius: 10px;
+  background: rgba(6, 17, 30, 0.55);
+}
+.lab-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+  color: #ffc46b;
+}
+.lab-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #ffc46b; box-shadow: 0 0 8px #ffc46b;
+  animation: blink 1.6s ease-in-out infinite;
+}
+.lab-tiles { display: flex; gap: 12px; flex-wrap: wrap; }
+.lab-strip .logo-tile.lab {
+  flex-direction: row; gap: 10px;
+  padding: 8px 14px; min-height: 0;
+  border-color: rgba(255, 196, 107, 0.3);
+  background: rgba(3, 11, 20, 0.65);
+}
+.lab-strip .logo-tile.lab img { width: 26px; height: 26px; }
+.lab-strip .logo-tile.lab .tile-count { color: #ffc46b; }
+.lab-note { margin: 0; font-family: var(--mono); font-size: 11px; color: var(--fg-dim); }
+@media (prefers-reduced-motion: reduce) { .lab-dot { animation: none; } }
+
+/* ========================================================
+   01 · IDENTITY — fit one viewport, no dead space in cards
+   The portrait used to set the row height (tall 520×693 photo),
+   stretching both text panels. Now the text sets the height and
+   the photo simply fills whatever space the two panels occupy.
+   ======================================================== */
+@media (min-width: 901px) {
+  #about .sec-head { margin-bottom: 26px; }
+  .about-grid.has-portrait {
+    grid-template-columns: 1.55fr 0.8fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    gap: 18px;
+  }
+  .about-grid.has-portrait > .panel { padding: 38px 30px 26px; align-self: stretch; }
+  .about-grid.has-portrait > .panel p { font-size: 1rem !important; line-height: 1.65; }
+  .about-grid.has-portrait > .panel p:last-child { margin-bottom: 0; }
+
+  /* Portrait spans both rows but never dictates their height */
+  .about-grid.has-portrait > .portrait { align-self: stretch; min-height: 0; }
+  .about-grid.has-portrait .portrait-media { min-height: 0; flex: 1 1 0; }
+  .about-grid.has-portrait .portrait-media picture,
+  .about-grid.has-portrait .portrait-media img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  .about-grid.has-portrait .portrait figcaption { padding: 14px 18px; }
+
+  /* Status: 2 × 2 instead of 4 stacked rows */
+  .about-grid.has-portrait .status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 28px !important;
+  }
+}
+@media (min-width: 901px) and (max-height: 820px) {
+  .about-grid.has-portrait > .panel { padding: 34px 26px 20px; }
+  .about-grid.has-portrait > .panel p { font-size: .94rem !important; line-height: 1.55; }
+}
