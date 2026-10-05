@@ -531,6 +531,151 @@
     select(0);
   }
 
+  /* ========== 11c. SECTION RAIL (right-side 00–08 index) ========== */
+  function initSectionRail() {
+    var defs = [
+      [".hero", "Intro"], ["#about", "Identity"], ["#profile", "Profile"], ["#skills", "Constellation"],
+      ["#stack", "Arsenal"], ["#experience", "Experience"], ["#projects", "Projects"],
+      ["#education", "Education"], ["#contact", "Contact"]
+    ];
+    var items = defs.map(function (d) { return { el: $(d[0]), label: d[1] }; }).filter(function (x) { return x.el; });
+    if (items.length < 3) return;
+    var nav = document.createElement("nav");
+    nav.className = "sec-rail";
+    nav.setAttribute("aria-label", "Section index");
+    var ol = document.createElement("ol");
+    items.forEach(function (it, i) {
+      var num = (i < 10 ? "0" : "") + i;
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = it.el.id ? "#" + it.el.id : "#";
+      a.innerHTML = "<span class='sr-label'>" + it.label + "</span><span class='sr-num'>" + num + "</span><span class='sr-dash' aria-hidden='true'></span>";
+      a.setAttribute("aria-label", num + " " + it.label);
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (i === 0) window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        else it.el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        play("select");
+      });
+      it.a = a;
+      li.appendChild(a); ol.appendChild(li);
+    });
+    nav.appendChild(ol);
+    document.body.appendChild(nav);
+    var current = -1, ticking = false;
+    function update() {
+      ticking = false;
+      var line = window.innerHeight * 0.4, idx = 0;
+      items.forEach(function (it, i) { if (it.el.getBoundingClientRect().top <= line) idx = i; });
+      if (idx === current) return;
+      current = idx;
+      items.forEach(function (it, i) {
+        it.a.classList.toggle("on", i === idx);
+        if (i === idx) it.a.setAttribute("aria-current", "true"); else it.a.removeAttribute("aria-current");
+      });
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
+  /* ========== 11d. SECTION PAGER — one wheel gesture = next / previous section (desktop) ========== */
+  function initSectionPager() {
+    var mq = window.matchMedia("(min-width: 1100px) and (min-height: 600px)");
+    var sels = [".hero", "#about", "#profile", "#skills", "#stack", "#experience", "#projects", "#education", "#contact"];
+    var secs = sels.map(function (q) { return $(q); }).filter(Boolean);
+    var foot = $(".foot");
+    if (secs.length < 3) return;
+    var OFFSET = 100;                 /* matches html { scroll-padding-top } (fixed nav) */
+    var busy = false, quietTimer = 0, acc = 0, accTimer = 0;
+
+    /* layout position (ignores reveal transforms, unlike getBoundingClientRect) */
+    function docTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
+    function targetY(i) {
+      if (i <= 0) return 0;
+      if (i >= secs.length) return document.documentElement.scrollHeight - window.innerHeight;
+      return Math.max(0, docTop(secs[i]) - OFFSET);
+    }
+    function currentIndex() {
+      var line = OFFSET + 40, idx = 0;
+      secs.forEach(function (s, i) { if (docTop(s) - window.pageYOffset <= line) idx = i; });
+      return idx;
+    }
+    function animateTo(y) {
+      busy = true;
+      var start = window.pageYOffset, dist = y - start, t0 = performance.now();
+      var dur = reduceMotion ? 0 : Math.min(900, 520 + Math.abs(dist) * 0.12);
+      function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      function step(now) {
+        var t = dur ? Math.min(1, (now - t0) / dur) : 1;
+        window.scrollTo({ top: start + dist * ease(t), behavior: "instant" });
+        if (t < 1) requestAnimationFrame(step);
+        else { clearTimeout(quietTimer); quietTimer = setTimeout(function () { busy = false; }, 220); }
+      }
+      requestAnimationFrame(step);
+    }
+    /* Let inner scrollers (experience panel, modals, galleries) keep their own scroll */
+    function innerCanScroll(el, dy) {
+      while (el && el !== document.body && el !== document.documentElement) {
+        var cs = getComputedStyle(el), oy = cs.overflowY;
+        if ((oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight + 1) {
+          if (dy > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 1) return true;
+          if (dy < 0 && el.scrollTop > 0) return true;
+        }
+        el = el.parentElement;
+      }
+      return false;
+    }
+    function go(dir) {
+      var i = currentIndex(), cur = secs[i], vh = window.innerHeight;
+      var top = docTop(cur) - window.pageYOffset, r = { top: top, bottom: top + cur.offsetHeight };
+      var contentBottom = r.bottom - (parseFloat(getComputedStyle(cur).paddingBottom) || 0);
+      /* a section taller than the screen scrolls natively until its content edge is reached */
+      if (dir > 0 && contentBottom > vh + 8 && i < secs.length) return false;
+      if (dir < 0 && r.top < OFFSET - 8 && i > 0) {
+        /* section start is above the fold: tall sections scroll natively, others snap back to their own start */
+        if (contentBottom - r.top > vh - OFFSET + 40) return false;
+        animateTo(targetY(i)); return true;
+      }
+      var next = i + dir;
+      if (next < 0) return true;
+      if (next >= secs.length) {               /* past contact: reveal the footer */
+        if (!foot) return true;
+        var end = document.documentElement.scrollHeight - vh;
+        if (window.pageYOffset >= end - 2) return true;
+        animateTo(end); return true;
+      }
+      animateTo(targetY(next));
+      return true;
+    }
+    window.addEventListener("wheel", function (e) {
+      if (!mq.matches || e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+      if (document.body.style.overflow === "hidden") return;      /* boot screen / modal open */
+      if (innerCanScroll(e.target, e.deltaY)) return;
+      var dir = e.deltaY > 0 ? 1 : -1;
+      /* past contact the footer scrolls freely */
+      if (dir > 0 && currentIndex() === secs.length - 1 && secs[secs.length - 1].getBoundingClientRect().bottom <= window.innerHeight + 8 &&
+          window.pageYOffset >= document.documentElement.scrollHeight - window.innerHeight - 2) return;
+      e.preventDefault();
+      if (busy) { clearTimeout(quietTimer); quietTimer = setTimeout(function () { busy = false; }, 220); return; }
+      acc += e.deltaY;
+      clearTimeout(accTimer); accTimer = setTimeout(function () { acc = 0; }, 160);
+      if (Math.abs(acc) < 30) return;
+      acc = 0;
+      if (!go(dir)) window.scrollBy({ top: e.deltaY, behavior: "instant" });
+    }, { passive: false });
+    document.addEventListener("keydown", function (e) {
+      if (!mq.matches || busy || e.altKey || e.ctrlKey || e.metaKey) return;
+      var t = e.target, tag = t && t.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+      if (document.body.style.overflow === "hidden") return;
+      var dir = (e.key === "PageDown" || (e.key === " " && !e.shiftKey)) ? 1 :
+                (e.key === "PageUp" || (e.key === " " && e.shiftKey)) ? -1 : 0;
+      if (!dir) return;
+      if (go(dir)) e.preventDefault();
+    });
+  }
+
   /* ========== 12. CONTACT terminal typer + waveform ========== */
   function initContact() {
     var wave = $("#contact-wave");
@@ -989,7 +1134,7 @@
   /* ========== INIT ALL (deferred-safe) ========== */
   function start() {
     var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
-                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initContact, initSound,
+                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initSectionRail, initSectionPager, initContact, initSound,
                 initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc,
                 initPortraitReveal];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
