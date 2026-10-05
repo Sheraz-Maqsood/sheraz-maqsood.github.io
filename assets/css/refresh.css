@@ -1518,3 +1518,108 @@ a.wo-card:hover b::after {
 @media (min-width: 1100px) {
   #projects .proj .tag { display: none; }  /* stack line repeats the meta; keeps every card the same rhythm */
 }
+
+/* ========================================================
+   SECTION RAIL — right-side 00–08 index (built by initSectionRail)
+   ======================================================== */
+.sec-rail { display: none; }
+@media (min-width: 1200px) and (min-height: 600px) {
+  .sec-rail {
+    display: block;
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+  }
+  .sec-rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(6px, 1.6vh, 16px); }
+  .sec-rail a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    height: 30px;
+    text-decoration: none;
+    font-family: var(--mono);
+    color: rgba(148, 178, 204, 0.55);
+  }
+  .sec-rail .sr-num { position: relative; z-index: 1; font-size: 14px; letter-spacing: .08em; transition: color .25s ease; }
+  .sec-rail .sr-dash { width: 18px; height: 1.5px; background: currentColor; transition: width .35s cubic-bezier(.16,1,.3,1), background .25s ease; }
+  .sec-rail .sr-label {
+    position: absolute;
+    right: 100%;
+    margin-right: 6px;
+    white-space: nowrap;
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--cy);
+    background: rgba(3, 11, 20, 0.88);
+    padding: 5px 10px;
+    border-radius: 4px;
+    opacity: 0;
+    transform: translateX(8px);
+    pointer-events: none;
+    transition: opacity .25s ease, transform .3s cubic-bezier(.16,1,.3,1);
+  }
+  /* focus ring around the active number */
+  .sec-rail .sr-num::before {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 58px; height: 58px;
+    margin: -29px 0 0 -29px;
+    border-radius: 50%;
+    border: 1.5px solid var(--cy);
+    background: radial-gradient(circle, rgba(56, 224, 255, 0.16), rgba(56, 224, 255, 0.04) 70%);
+    box-shadow: 0 0 18px rgba(56, 224, 255, 0.25);
+    opacity: 0;
+    transform: scale(.4);
+    transition: opacity .3s ease, transform .4s cubic-bezier(.16,1,.3,1);
+    z-index: -1;
+  }
+  .sec-rail a:hover { color: var(--fg); }
+  .sec-rail a:hover .sr-dash { width: 26px; }
+  .sec-rail a:hover .sr-label,
+  .sec-rail a:focus-visible .sr-label { opacity: 1; transform: none; }
+  .sec-rail a:focus-visible { outline: none; }
+  .sec-rail a:focus-visible .sr-num { color: var(--fg); text-decoration: underline; }
+
+  .sec-rail a.on { color: var(--cy); }
+  .sec-rail a.on .sr-dash { width: 40px; background: var(--cy); box-shadow: 0 0 8px rgba(56, 224, 255, .6); }
+  .sec-rail a.on .sr-num::before { opacity: 1; transform: none; }
+}
+/* active label stays visible where there is room beside the content */
+@media (min-width: 1480px) and (min-height: 600px) {
+  .sec-rail a.on .sr-label { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sec-rail * { transition: none !important; }
+}
+
+/* ========================================================
+   FULL-SCREEN SECTIONS (desktop) — each section fills the screen
+   below the fixed nav, so the next section never peeks in.
+   Content is centred vertically in the extra space.
+   ======================================================== */
+@media (min-width: 1100px) and (min-height: 600px) {
+  section#about.wrap, section#profile.wrap, section#skills.wrap, section#stack.wrap,
+  section#experience.wrap, section#projects.wrap, section#education.wrap, section#contact.wrap {
+    min-height: calc(100svh - 100px);       /* 100px = html scroll-padding-top (fixed nav) */
+    box-sizing: border-box;
+  }
+  /* block-flow sections: centre the stack of children */
+  section#about.wrap, section#stack.wrap, section#projects.wrap,
+  section#education.wrap, section#contact.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* grid sections: centre the grid, rows size to content */
+  section#profile.wrap { align-content: center; grid-template-rows: auto auto auto auto; }
+  section#skills.wrap { align-content: center; grid-template-rows: auto auto auto; }
+  #skills .skill-readout { align-self: end; }
+  #skills .skill-legend { align-self: start; }
+  #experience.exp-tabs { align-content: center; }
+}

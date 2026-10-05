@@ -603,14 +603,19 @@
     }
     function animateTo(y) {
       busy = true;
+      var root = document.documentElement, prevSB = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";          /* CSS smooth-scroll would fight the per-frame steps */
       var start = window.pageYOffset, dist = y - start, t0 = performance.now();
       var dur = reduceMotion ? 0 : Math.min(900, 520 + Math.abs(dist) * 0.12);
       function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
       function step(now) {
         var t = dur ? Math.min(1, (now - t0) / dur) : 1;
-        window.scrollTo({ top: start + dist * ease(t), behavior: "instant" });
+        window.scrollTo(0, start + dist * ease(t));
         if (t < 1) requestAnimationFrame(step);
-        else { clearTimeout(quietTimer); quietTimer = setTimeout(function () { busy = false; }, 220); }
+        else {
+          root.style.scrollBehavior = prevSB;
+          clearTimeout(quietTimer); quietTimer = setTimeout(function () { busy = false; }, 220);
+        }
       }
       requestAnimationFrame(step);
     }
@@ -631,8 +636,8 @@
       var top = docTop(cur) - window.pageYOffset, r = { top: top, bottom: top + cur.offsetHeight };
       var contentBottom = r.bottom - (parseFloat(getComputedStyle(cur).paddingBottom) || 0);
       /* a section taller than the screen scrolls natively until its content edge is reached */
-      if (dir > 0 && contentBottom > vh + 8 && i < secs.length) return false;
-      if (dir < 0 && r.top < OFFSET - 8 && i > 0) {
+      if (dir > 0 && contentBottom > vh + 40 && i < secs.length) return false;
+      if (dir < 0 && r.top < OFFSET - 40 && i > 0) {
         /* section start is above the fold: tall sections scroll natively, others snap back to their own start */
         if (contentBottom - r.top > vh - OFFSET + 40) return false;
         animateTo(targetY(i)); return true;
@@ -662,7 +667,7 @@
       clearTimeout(accTimer); accTimer = setTimeout(function () { acc = 0; }, 160);
       if (Math.abs(acc) < 30) return;
       acc = 0;
-      if (!go(dir)) window.scrollBy({ top: e.deltaY, behavior: "instant" });
+      if (!go(dir)) window.scrollBy({ top: e.deltaY, behavior: "auto" });
     }, { passive: false });
     document.addEventListener("keydown", function (e) {
       if (!mq.matches || busy || e.altKey || e.ctrlKey || e.metaKey) return;
