@@ -33,7 +33,7 @@
   <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/sheraz/sheraz-hero-lowkey.avif" type="image/avif" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/styles.min.css?v=a7319aa940">
-  <link rel="stylesheet" href="assets/css/refresh.min.css?v=7110620429">
+  <link rel="stylesheet" href="assets/css/refresh.min.css?v=cc6300bc05">
   <link rel="stylesheet" href="assets/css/living-network.min.css?v=5ce577fa30">
   <script type="application/ld+json">
   {
@@ -99,20 +99,6 @@
   <div class="cursor-reticle" aria-hidden="true">
     <div class="ring"></div><div class="dot"></div>
     <div class="tick t1"></div><div class="tick t2"></div><div class="tick t3"></div><div class="tick t4"></div>
-  </div>
-
-  <div id="boot" role="status" aria-label="System booting">
-    <div class="boot-core" aria-hidden="true">
-      <svg viewBox="0 0 160 160">
-        <circle cx="80" cy="80" r="74" fill="none" stroke="rgba(56,224,255,0.15)" stroke-width="1"/>
-        <g class="spin"><circle cx="80" cy="80" r="60" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="20 14" opacity="0.7"/></g>
-        <g class="spin-r"><circle cx="80" cy="80" r="44" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="6 10" opacity="0.6"/></g>
-      </svg>
-      <img class="boot-logo" src="assets/brand/logo-mark-160.webp" alt="" width="80" height="80">
-    </div>
-    <div class="boot-log" id="boot-log" aria-hidden="true"></div>
-    <div class="boot-bar" aria-hidden="true"><i id="boot-bar-fill"></i></div>
-    <button class="boot-skip" id="boot-skip">SKIP INITIALIZATION &rsaquo;</button>
   </div>
 
   <div id="site-header"></div>
@@ -244,9 +230,9 @@
           <div id="network-scene" class="project-orbit" role="group" aria-label="Project explorer. Use the project buttons or drag horizontally.">
             <div class="orbit-track" aria-hidden="true"></div>
             <div class="orbit-core" aria-hidden="true">SHERAZ<span>BUILT &amp; SHIPPED</span></div>
-            <button class="orbit-project" data-project="0" aria-pressed="true"><img src="assets/projects/lte/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>01 <b>Tree Enumeration</b><small>Next.js / NestJS / PostGIS</small></span></button>
-            <button class="orbit-project" data-project="1" aria-pressed="false"><img src="assets/projects/cms/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>02 <b>Complaint Management</b><small>React / Node.js / MongoDB</small></span></button>
-            <button class="orbit-project" data-project="2" aria-pressed="false"><img src="assets/projects/ppms/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>03 <b>Plantation Management</b><small>Laravel / Leaflet / MySQL</small></span></button>
+            <button class="orbit-project" data-project="0" aria-pressed="true"><img data-src="assets/projects/lte/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>01 <b>Tree Enumeration</b><small>Next.js / NestJS / PostGIS</small></span></button>
+            <button class="orbit-project" data-project="1" aria-pressed="false"><img data-src="assets/projects/cms/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>02 <b>Complaint Management</b><small>React / Node.js / MongoDB</small></span></button>
+            <button class="orbit-project" data-project="2" aria-pressed="false"><img data-src="assets/projects/ppms/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>03 <b>Plantation Management</b><small>Laravel / Leaflet / MySQL</small></span></button>
           </div>
           <div class="explorer-navigation"><button id="explorer-prev" aria-label="Previous project">&larr;</button><span id="explorer-position">01 / 03</span><button id="explorer-next" aria-label="Next project">&rarr;</button><span class="explorer-drag-hint">Drag to explore</span></div>
         </div>
@@ -273,8 +259,8 @@
           <span class="corner-id">OPERATOR // LIVE</span>
           <div class="portrait-media">
             <picture>
-              <source srcset="assets/sheraz/professional.webp" type="image/webp">
-              <img src="assets/sheraz/professional.png" fetchpriority="low" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" loading="lazy" decoding="async" width="520" height="693">
+              <source data-srcset="assets/sheraz/professional.webp" type="image/webp">
+              <img data-src="assets/sheraz/professional.png" fetchpriority="low" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" decoding="async" width="520" height="693">
             </picture>
             <span class="p-reveal" aria-hidden="true"></span>
             <span class="p-spot" aria-hidden="true"></span>
@@ -888,9 +874,8 @@
     <div class="cin"><span>$</span><input id="console-input" autocomplete="off" spellcheck="false" aria-label="Console input"></div>
   </div>
 
-  <script defer src="assets/vendor/anime-3.2.2.min.js"></script>
   <script defer src="assets/js/components.min.js?v=f354f32714"></script>
-  <script defer src="assets/js/main.min.js?v=ddfaa75607"></script>
+  <script defer src="assets/js/main.min.js?v=bc9db761e0"></script>
   <script defer src="assets/js/living-network.min.js?v=8bd273c05a"></script>
 </body>
 </html>

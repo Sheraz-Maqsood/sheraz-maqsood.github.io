@@ -10,7 +10,6 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-  function hasAnime() { return typeof window.anime === "function"; }
 
   // Preserve animations while avoiding per-frame work for invisible sections.
   function animateWhenVisible(el, draw) {
@@ -30,99 +29,51 @@
   }
 
   function initDeferredMedia() {
-    var targets = $$("video[data-poster], .portrait-media");
+    var targets = $$("video[data-poster], img[data-src]:not(.boot-logo)");
     function load(el) {
       if (el.dataset.poster) { el.poster = el.dataset.poster; delete el.dataset.poster; }
-      el.classList.add("media-ready");
+      if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
+      var picture = el.closest && el.closest("picture");
+      if (picture) {
+        $$("source[data-srcset]", picture).forEach(function (source) {
+          source.srcset = source.dataset.srcset;
+          delete source.dataset.srcset;
+        });
+      }
+      var media = el.closest && el.closest(".portrait-media");
+      if (media) media.classList.add("media-ready");
     }
     if (!("IntersectionObserver" in window)) { targets.forEach(load); return; }
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) { if (entry.isIntersecting) { load(entry.target); observer.unobserve(entry.target); } });
-    }, { rootMargin: "300px" });
+    }, { rootMargin: "0px" });
     targets.forEach(function (el) { observer.observe(el); });
   }
 
-  var state = { mx: 0.5, my: 0.5, soundOn: false, booted: false };
-
-  /* ========== 1. BOOT SEQUENCE ========== */
-  var boot = (function () {
-    var el = $("#boot"), log = $("#boot-log"), bar = $("#boot-bar-fill"), skip = $("#boot-skip");
-    if (!el) return { finish: function () {} };
-
-    var lines = [
-      ["INITIALIZING ARC OPERATING SYSTEM"],
-      ["Booting kernel ............ <span class='ok'>OK</span>"],
-      ["Loading neural modules .... <span class='ok'>OK</span>"],
-      ["Mounting GIS subsystems ... <span class='ok'>OK</span>"],
-      ["Scanning developer ........ <span class='ok'>IDENTIFIED</span>"],
-      ["Identity: <span class='hl'>MALIK SHERAZ MAQSOOD AHMED</span>"],
-      ["Clearance: <span class='hl'>PRINCIPAL ENGINEER</span>"],
-      ["Neural network ............ <span class='ok'>CONNECTED</span>"],
-      ["<span class='ok'>ACCESS GRANTED — ASSEMBLING HUD</span>"]
-    ];
-
-    var done = false;
-    function finish() {
-      if (done) return; done = true;
-      el.classList.add("done");
-      state.booted = true;
-      document.body.style.overflow = "";
-      window.dispatchEvent(new Event("arc:booted"));
-      setTimeout(function () { el.remove(); }, 520);
-    }
-
-    /* Repeat visitors skip the boot — instant access on return */
-    var seenBoot = false;
-    try { seenBoot = localStorage.getItem("arcBooted") === "1"; localStorage.setItem("arcBooted", "1"); } catch (err) {}
-    if (seenBoot || document.body.hasAttribute("data-instant-entry")) {
-      el.hidden = true;
-      if (bar) bar.style.width = "100%";
-      if (skip) skip.style.display = "none";
-      setTimeout(finish, 120);
-      return { finish: finish };
-    }
-
-    if (reduceMotion) {
-      log.innerHTML = lines.map(function (l) { return "<div class='line' style='opacity:1'>" + l[0] + "</div>"; }).join("");
-      if (bar) bar.style.width = "100%";
-      if (skip) skip.style.display = "none";
-      setTimeout(finish, 200);
-      return { finish: finish };
-    }
-
-    document.body.style.overflow = "hidden";
-    var i = 0;
-    function next() {
-      if (done) return;
-      if (i >= lines.length) { setTimeout(finish, 240); return; }
-      var d = document.createElement("div");
-      d.className = "line";
-      d.innerHTML = "› " + lines[i][0];
-      log.appendChild(d);
-      if (hasAnime()) anime({ targets: d, opacity: [0, 1], translateX: [-10, 0], duration: 150, easing: "easeOutQuad" });
-      else d.style.opacity = 1;
-      var pct = Math.round(((i + 1) / lines.length) * 100);
-      if (bar) { if (hasAnime()) anime({ targets: bar, width: pct + "%", duration: 200, easing: "easeOutQuad" }); else bar.style.width = pct + "%"; }
-      i++;
-      setTimeout(next, 55 + Math.random() * 45);
-    }
-    setTimeout(next, 120);
-    if (skip) skip.addEventListener("click", finish);
-    setTimeout(finish, 3200);
-    return { finish: finish };
-  })();
+  var state = { mx: 0.5, my: 0.5, soundOn: false };
 
   /* ========== 2. WEBGL PARTICLE UNIVERSE ========== */
   function initWebGL() {
     if ($("#network-scene")) return; // Keep the homepage focused on the project explorer.
     var canvas = $("#webgl-bg");
     if (!canvas || reduceMotion || innerWidth < 700) return;   /* skip decorative 3D on phones */
-    if (typeof window.THREE !== "undefined") { try { buildWebGL(canvas); } catch (e) {} return; }
-    var sc = document.createElement("script");
-    sc.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-    sc.async = true;
-    sc.onload = function () { try { buildWebGL(canvas); } catch (e) {} };
-    document.head.appendChild(sc);
+    var started = false, fallbackTimer;
+    function startWebGL() {
+      if (started) return;
+      started = true;
+      clearTimeout(fallbackTimer);
+      removeEventListener("pointermove", startWebGL);
+      removeEventListener("scroll", startWebGL);
+      if (typeof window.THREE !== "undefined") { try { buildWebGL(canvas); } catch (e) {} return; }
+      var sc = document.createElement("script");
+      sc.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+      sc.async = true;
+      sc.onload = function () { try { buildWebGL(canvas); } catch (e) {} };
+      document.head.appendChild(sc);
+    }
+    addEventListener("pointermove", startWebGL, { once: true, passive: true });
+    addEventListener("scroll", startWebGL, { once: true, passive: true });
+    fallbackTimer = setTimeout(startWebGL, 4000);
   }
   function buildWebGL(canvas) {
     var renderer;
@@ -324,8 +275,13 @@
         if (!en.isIntersecting) return;
         var el = en.target;
         el.classList.add("in");
-        if (el.hasAttribute("data-stagger") && hasAnime()) {
-          anime({ targets: el.children, translateY: [24, 0], opacity: [0, 1], delay: anime.stagger(80), duration: 620, easing: "easeOutCubic" });
+        if (el.hasAttribute("data-stagger") && el.animate) {
+          Array.prototype.forEach.call(el.children, function (child, index) {
+            child.animate(
+              [{ opacity: 0, transform: "translateY(24px)" }, { opacity: 1, transform: "translateY(0)" }],
+              { duration: 620, delay: index * 80, easing: "cubic-bezier(.22,.61,.36,1)", fill: "both" }
+            );
+          });
         }
         io.unobserve(el);
       });
@@ -337,10 +293,13 @@
       var cio = new IntersectionObserver(function (es) {
         es.forEach(function (e) {
           if (!e.isIntersecting) return;
-          if (hasAnime()) {
-            var o = { v: 0 };
-            anime({ targets: o, v: target, duration: 1600, easing: "easeOutExpo", round: 1, update: function () { el.textContent = o.v; } });
-          } else el.textContent = target;
+          var start = performance.now();
+          (function count(now) {
+            var progress = Math.min(1, (now - start) / 1600);
+            var eased = 1 - Math.pow(2, -10 * progress);
+            el.textContent = Math.round(target * (progress === 1 ? 1 : eased));
+            if (progress < 1) requestAnimationFrame(count);
+          })(start);
           cio.unobserve(el);
         });
       }, { threshold: 0.6 });
