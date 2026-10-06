@@ -12,6 +12,36 @@
   var isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   function hasAnime() { return typeof window.anime === "function"; }
 
+  // Preserve animations while avoiding per-frame work for invisible sections.
+  function animateWhenVisible(el, draw) {
+    var visible = false, raf = 0;
+    function tick() { draw(); raf = requestAnimationFrame(tick); }
+    function sync() {
+      cancelAnimationFrame(raf); raf = 0;
+      if (visible && !document.hidden) {
+        draw();
+        if (!reduceMotion) raf = requestAnimationFrame(tick);
+      }
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }).observe(el);
+    } else { visible = true; sync(); }
+    document.addEventListener("visibilitychange", sync);
+  }
+
+  function initDeferredMedia() {
+    var targets = $$("video[data-poster], .portrait-media");
+    function load(el) {
+      if (el.dataset.poster) { el.poster = el.dataset.poster; delete el.dataset.poster; }
+      el.classList.add("media-ready");
+    }
+    if (!("IntersectionObserver" in window)) { targets.forEach(load); return; }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) { load(entry.target); observer.unobserve(entry.target); } });
+    }, { rootMargin: "300px" });
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
   var state = { mx: 0.5, my: 0.5, soundOn: false, booted: false };
 
   /* ========== 1. BOOT SEQUENCE ========== */
@@ -44,7 +74,8 @@
     /* Repeat visitors skip the boot — instant access on return */
     var seenBoot = false;
     try { seenBoot = localStorage.getItem("arcBooted") === "1"; localStorage.setItem("arcBooted", "1"); } catch (err) {}
-    if (seenBoot) {
+    if (seenBoot || document.body.hasAttribute("data-instant-entry")) {
+      el.hidden = true;
       if (bar) bar.style.width = "100%";
       if (skip) skip.style.display = "none";
       setTimeout(finish, 120);
@@ -83,6 +114,7 @@
 
   /* ========== 2. WEBGL PARTICLE UNIVERSE ========== */
   function initWebGL() {
+    if ($("#network-scene")) return; // Keep the homepage focused on the project explorer.
     var canvas = $("#webgl-bg");
     if (!canvas || reduceMotion || innerWidth < 700) return;   /* skip decorative 3D on phones */
     if (typeof window.THREE !== "undefined") { try { buildWebGL(canvas); } catch (e) {} return; }
@@ -233,20 +265,24 @@
     if (isTouch) { var cc = $(".cursor-reticle"); if (cc) cc.style.display = "none"; }
     var reticle = $(".cursor-reticle");
     var cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
+    var cursorRAF = 0;
+    function moveCursor() {
+      cursorRAF = 0;
+      cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
+      reticle.style.setProperty("--cx", cx + "px");
+      reticle.style.setProperty("--cy0", cy + "px");
+      if (!document.hidden && (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1)) cursorRAF = requestAnimationFrame(moveCursor);
+    }
     addEventListener("mousemove", function (e) {
       state.mx = e.clientX / innerWidth; state.my = e.clientY / innerHeight;
       document.documentElement.style.setProperty("--mx", state.mx.toFixed(3));
       document.documentElement.style.setProperty("--my", state.my.toFixed(3));
       tx = e.clientX; ty = e.clientY;
+      if (reticle && !isTouch && !reduceMotion && !cursorRAF) cursorRAF = requestAnimationFrame(moveCursor);
     }, { passive: true });
 
     if (reticle && !isTouch && !reduceMotion) {
-      (function loop() {
-        cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22;
-        reticle.style.setProperty("--cx", cx + "px");
-        reticle.style.setProperty("--cy0", cy + "px");
-        requestAnimationFrame(loop);
-      })();
+      moveCursor();
       var hot = "a,button,.proj,.skill-node,.assistant-orb,[tabindex],[data-gallery]";
       document.addEventListener("mouseover", function (e) { if (e.target.closest(hot)) document.body.classList.add("cursor-hot"); });
       document.addEventListener("mouseout",  function (e) { if (e.target.closest(hot)) document.body.classList.remove("cursor-hot"); });
@@ -316,7 +352,7 @@
   function initTyper() {
     var el = $("#role-type");
     if (!el) return;
-    var roles = ["Principal Full-Stack Engineer", "Cloud & DevOps Architect", "Laravel · NestJS Specialist", "React · Next.js Engineer", "GIS / Geospatial Systems", "Linux / Ubuntu Server Admin", "I love programming — ready to start now"];
+    var roles = ["Principal Full-Stack & GIS Engineer", "Government GIS Platform Builder", "Laravel · NestJS · FastAPI", "React · Next.js Engineer", "CI/CD & Linux Production Ops", "C# Desktop & Embedded Systems"];
     if (reduceMotion) { el.textContent = roles[0]; return; }
     var r = 0, c = 0, del = false;
     (function tick() {
@@ -344,10 +380,8 @@
         chip.style.transform = "translate(-50%,-50%) translate(" + x + "px," + y + "px)";
         chip.style.opacity = 0.55 + 0.45 * ((Math.sin(a) + 1) / 2);
       });
-      if (!reduceMotion) raf = requestAnimationFrame(frame);
     }
-    frame();
-    document.addEventListener("visibilitychange", function () { if (!document.hidden && !reduceMotion) frame(); else cancelAnimationFrame(raf); });
+    animateWhenVisible(reactor, frame);
   }
 
   /* ========== 10. SKILLS GALAXY ========== */
@@ -372,8 +406,8 @@
     { n: "C# WinForms/WPF", ring: 3, exp: "Since 2018", proj: "POS · Restaurant · Institute management apps", conf: "Proficient" },
     { n: "Arduino",     ring: 3, exp: "Hands-on", proj: "Sensors · I/O · embedded C/C++", conf: "Foundational" }
   ];
-  /* Official logos for the constellation nodes (devicon / simple-icons CDN). inv = mono-dark logo, shown white */
-  var DV = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/";
+  /* Official logos for the constellation nodes (devicon / simple-icons, self-hosted). inv = mono-dark logo, shown white */
+  var DV = "assets/vendor/devicon/";   /* self-hosted (was jsDelivr CDN) */
   var SKILL_ICONS = {
     "Laravel": DV + "laravel/laravel-original.svg",
     "PHP 8.x": DV + "php/php-original.svg",
@@ -384,7 +418,7 @@
     "PostgreSQL": DV + "postgresql/postgresql-original.svg",
     "MySQL": DV + "mysql/mysql-original.svg",
     "MongoDB": DV + "mongodb/mongodb-original.svg",
-    "Leaflet GIS": ["https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leaflet.svg", 1],
+    "Leaflet GIS": ["assets/vendor/simple-icons/leaflet.svg", 1],
     "AWS": [DV + "amazonwebservices/amazonwebservices-original-wordmark.svg", 1],
     "CI/CD": DV + "githubactions/githubactions-original.svg",
     "Docker": DV + "docker/docker-original.svg",
@@ -452,10 +486,8 @@
         var a = o.base + t * o.speed;
         o.el.style.transform = "translate(-50%,-50%) translate(" + (Math.cos(a) * o.ring * gk) + "px," + (Math.sin(a) * o.ring * gk * 0.78) + "px)";
       });
-      if (!reduceMotion) raf = requestAnimationFrame(frame);
     }
-    frame();
-    document.addEventListener("visibilitychange", function () { if (!document.hidden && !reduceMotion) frame(); else cancelAnimationFrame(raf); });
+    animateWhenVisible(g, frame);
   }
 
   /* ========== 11. PROJECT NAV ========== */
@@ -534,7 +566,7 @@
   /* ========== 11c. SECTION RAIL (right-side 00–08 index) ========== */
   function initSectionRail() {
     var defs = [
-      [".hero", "Intro"], ["#about", "Identity"], ["#profile", "Profile"], ["#skills", "Constellation"],
+      [".hero", "Intro"], ["#network", "Explore"], ["#about", "About"], ["#profile", "Profile"], ["#skills", "Skills"],
       ["#stack", "Arsenal"], ["#experience", "Experience"], ["#projects", "Projects"],
       ["#education", "Education"], ["#contact", "Contact"]
     ];
@@ -582,7 +614,7 @@
   /* ========== 11d. SECTION PAGER — one wheel gesture = next / previous section (desktop) ========== */
   function initSectionPager() {
     var mq = window.matchMedia("(min-width: 1100px) and (min-height: 600px)");
-    var sels = [".hero", "#about", "#profile", "#skills", "#stack", "#experience", "#projects", "#education", "#contact"];
+    var sels = [".hero", "#network", "#about", "#profile", "#skills", "#stack", "#experience", "#projects", "#education", "#contact"];
     var secs = sels.map(function (q) { return $(q); }).filter(Boolean);
     var foot = $(".foot");
     if (secs.length < 3) return;
@@ -749,6 +781,17 @@
     });
   }
 
+  /* Run fn once, the first time the page is scrolled past most of the hero */
+  function afterHero(fn) {
+    var done = false;
+    function check() {
+      if (done || window.scrollY < window.innerHeight * 0.6) return;
+      done = true; window.removeEventListener("scroll", check); fn();
+    }
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+  }
+
   /* ========== 14. AI ASSISTANT ========== */
   function initAssistant() {
     var orb = $("#assistant-orb"), bubble = $("#assistant-bubble"), text = $("#assistant-text"), close = $("#assistant-close");
@@ -777,7 +820,10 @@
       else speak(greetings[idx]);
     });
     if (close) close.addEventListener("click", function (e) { e.stopPropagation(); bubble.classList.add("hidden"); open = false; });
-    window.addEventListener("arc:booted", function () { setTimeout(function () { speak(greetings[0]); }, 1400); }, { once: true });
+    // On the homepage, keep project and contact links clear until the guide is requested.
+    if (!document.body.hasAttribute("data-instant-entry")) {
+      afterHero(function () { setTimeout(function () { speak(greetings[0]); }, 600); });
+    }
   }
 
   /* ========== 15. EASTER EGGS: Konami -> matrix + console ========== */
@@ -880,10 +926,10 @@
     }
     var live = $("#live-status-text");
     if (live) {
-      var acts = ["Programming...", "Designing system architecture...", "Solving complex problems...",
-        "Building scalable solutions...", "Optimizing performance...", "Learning something new...",
-        "Exploring Linux...", "Managing servers...", "Deploying applications...",
-        "Automating infrastructure...", "Debugging until it works...", "Making it faster..."];
+      var acts = ["Routing a fire complaint...", "Indexing PostGIS geometry...", "Shipping via GitHub Actions",
+        "Fixing an N+1 query...", "Designing an API contract...", "Reviewing a pull request...",
+        "Renewing an SSL cert...", "Reading logs, not guessing", "Closing a TODO from 2019...",
+        "Not deploying on a Friday", "Explaining 'just a button'"];
       if (reduceMotion) { live.textContent = acts[0]; return; }
       var ai = 0, ci = 0, del = false;
       (function tick() {
@@ -1013,6 +1059,7 @@
 
   /* ========== 16e. FIRST-VISIT HINT ========== */
   function initHint() {
+    if (document.body.hasAttribute("data-instant-entry")) return;
     var hint = $("#first-hint"); if (!hint) return;
     var seen = false; try { seen = localStorage.getItem("arcHint") === "1"; } catch (e) {}
     if (seen) { hint.parentNode && hint.parentNode.removeChild(hint); return; }
@@ -1024,8 +1071,8 @@
       setTimeout(function () { hint.parentNode && hint.parentNode.removeChild(hint); }, 500);
     }
     function reveal() { hint.classList.add("show"); timer = setTimeout(dismiss, 13000); }
-    if (state.booted) setTimeout(reveal, 900);
-    else window.addEventListener("arc:booted", function () { setTimeout(reveal, 1800); }, { once: true });
+    // Shown a few seconds after the ARC greeting, so the two never stack
+    afterHero(function () { setTimeout(reveal, 7000); });
     var x = $("#first-hint-x"); if (x) x.addEventListener("click", dismiss);
   }
 
@@ -1136,12 +1183,21 @@
     });
   }
 
+  /* ========== PERF: pause hero backdrop animations while the hero is off-screen ========== */
+  function initHeroPause() {
+    var hero = $(".hero");
+    if (!hero || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (entries) {
+      hero.classList.toggle("is-offscreen", !entries[0].isIntersecting);
+    }).observe(hero);
+  }
+
   /* ========== INIT ALL (deferred-safe) ========== */
   function start() {
-    var mods = [initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
-                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initSectionRail, initSectionPager, initContact, initSound,
+    var mods = [initDeferredMedia, initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
+                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initSectionRail, initContact, initSound,
                 initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc,
-                initPortraitReveal];
+                initPortraitReveal, initHeroPause];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }
   }
 

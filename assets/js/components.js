@@ -8,10 +8,9 @@
 
   /* ---- ONE place to edit navigation ---- */
   var NAV = [
+    ["network", "Explore"],
     ["about", "About"],
-    ["profile", "Profile"],
-    ["skills", "Skills"],
-    ["stack", "Stack"],
+    ["stack", "Skills"],
     ["experience", "Experience"],
     ["projects", "Projects"],
     ["education", "Education"],
@@ -19,6 +18,7 @@
   ];
   var BRAND = { name: "SHERAZ", sub: "Full-Stack &middot; GIS &middot; Cloud" };
   var CV = "Sheraz%20CV%20-%20Curriculum%20vitae%2025042026.pdf";
+  var LOGO = "assets/brand/logo-mark-96.webp";   /* SM monogram — used in the header on every page */
 
   var host = document.getElementById("site-header");
   if (!host) return;
@@ -36,10 +36,9 @@
   host.innerHTML =
     "<header class='hud-header" + (sub ? " scrolled" : "") + "' id='header'>" +
       "<div class='wrap'>" +
-        "<a href='" + (sub ? "index.html" : "#top") + "' class='brand' aria-label='ARC OS home'>" +
+        "<a href='" + (sub ? "index.html" : "#top") + "' class='brand' aria-label='Sheraz — home'>" +
           "<span class='mark' aria-hidden='true'>" +
-            "<svg viewBox='0 0 40 40'><polygon points='20,2 36,11 36,29 20,38 4,29 4,11' fill='none' stroke='#38e0ff' stroke-width='1.5'/></svg>" +
-            "<span>S</span></span>" +
+            "<img src='" + LOGO + "' alt='' width='42' height='42' decoding='async'></span>" +
           "<span>" + BRAND.name + "<small>" + BRAND.sub + "</small></span>" +
         "</a>" +
         "<nav class='nav' aria-label='Primary'>" + navHtml + "</nav>" +

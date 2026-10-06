@@ -21,4 +21,10 @@ Vanilla HTML/CSS/JS — no frameworks. Three.js (WebGL background). Anime.js (sc
 
 ## Publishing
 
+Run `npm ci` once, then `npm run build` after changing CSS or JavaScript. Edit the
+readable files in `assets/css/` and `assets/js/`, not their generated `.min` siblings.
+The build regenerates minified assets and updates all three HTML pages with
+content-based cache keys. Commit the generated files and updated HTML along with
+the sources so GitHub Pages serves the latest version. No runtime server is needed.
+
 Push `main` branch to `sheraz-maqsood.github.io` — GitHub Pages serves from root.

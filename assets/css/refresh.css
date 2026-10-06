@@ -54,7 +54,19 @@ button, input, textarea { max-width: 100%; }
 .hero-stats .stat .l { font-size: 10px; line-height: 1.65; margin-top: 5px; letter-spacing: .015em; }
 .reactor { filter: drop-shadow(0 0 40px #38e0ff0a); }
 .orbit-chip { font-size: 11px; padding: 6px 10px; background: rgba(5, 17, 30, .95); }
-.scroll-cue { bottom: 24px; }
+.hero { position: relative; }
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+  display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  color: var(--fg-dim); text-decoration: none; transition: color .25s ease;
+}
+.scroll-cue:hover { color: var(--cy); }
+.scroll-cue .mouse { width: 18px; height: 28px; border: 1.5px solid currentColor; border-radius: 10px; position: relative; }
+.scroll-cue .mouse i { position: absolute; left: 50%; top: 6px; width: 2px; height: 6px; margin-left: -1px; border-radius: 2px; background: var(--cy); animation: cueDrop 1.6s ease-in-out infinite; }
+@keyframes cueDrop { 0% { opacity: 0; transform: translateY(-2px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 980px), (max-height: 760px) { .scroll-cue { display: none; } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue .mouse i { animation: none; } }
 .boot-skip { min-height: 44px; color: var(--fg-muted); font-size: 12px; letter-spacing: .12em; }
 .about-grid.has-portrait { gap: 22px; }
 .about-grid > .panel { padding-top: 42px; }
@@ -230,6 +242,7 @@ button, input, textarea { max-width: 100%; }
 .hero-telemetry-bar {
   display: inline-flex;
   flex-wrap: wrap;
+  white-space: nowrap;
   align-items: center;
   gap: 10px 14px;
   margin-top: 14px;
@@ -784,144 +797,66 @@ a.wo-card:hover b::after {
   transform: scale(1.05);
 }
 
-/* Precise Satellite Flanking Positions (Leaves central radar core 100% open) */
-.pam-top-wide {
-  top: -10px;
-  left: -25px;
-  width: 155px;
-  height: 100px;
-  transform: rotate(-5deg);
-  z-index: 2;
+/* Flagship project cards — a tidy stack down the left edge, overlapping the portrait frame */
+.pam-block { text-decoration: none; }
+.pam-card-1, .pam-card-2, .pam-card-3 {
+  left: 0;
+  width: 46%;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  z-index: 8;
 }
-.pam-top-mini {
-  top: -15px;
-  right: 80px;
-  width: 140px;
-  height: 90px;
-  transform: rotate(4deg);
-  z-index: 2;
-}
-.pam-mid-left {
-  top: 175px;
-  left: -45px;
-  width: 145px;
-  height: 105px;
-  transform: rotate(-4deg);
-  z-index: 2;
-}
-.pam-bot-left {
-  bottom: 15px;
-  left: -30px;
-  width: 155px;
-  height: 105px;
-  transform: rotate(4deg);
-  z-index: 4;
-}
-.pam-bot-right {
-  bottom: 20px;
-  right: 140px;
-  width: 140px;
-  height: 95px;
-  transform: rotate(-3deg);
-  z-index: 2;
-}
+.pam-card-1 { top: 6%;  transform: rotate(-3deg); }
+.pam-card-2 { top: 36%; left: 6%; transform: rotate(2deg); }
+.pam-card-3 { top: 66%; transform: rotate(-2deg); }
+.pam-block .pam-tag { font-size: 9px; }
 
-/* Layer 3: Cyan HUD Editorial Highlighters (Subtle Cyan Tape) */
-.pam-highlighter {
-  position: absolute;
-  pointer-events: none;
-  background: rgba(56, 224, 255, 0.15);
-  border: 1px dashed rgba(56, 224, 255, 0.35);
-  backdrop-filter: blur(4px);
-  border-radius: 2px;
-}
-.pam-highlighter-mid {
-  top: 135px;
-  left: -25px;
-  width: 180px;
-  height: 24px;
-  transform: rotate(-3deg);
-  z-index: 3;
-}
-.pam-highlighter-bot {
-  bottom: 45px;
-  right: 40px;
-  width: 180px;
-  height: 24px;
-  transform: rotate(2deg);
-  z-index: 5;
-}
-
-/* Layer 4: Cyan Cyber-Doodles */
-.pam-doodle {
-  position: absolute;
-  pointer-events: none;
-  z-index: 5;
-}
-.pam-doodle-circle {
-  bottom: 25px;
-  left: -10px;
-  width: 70px;
-  height: 70px;
-}
-.pam-doodle-zigzag {
-  top: 30px;
-  right: 10px;
-  width: 45px;
-  height: 75px;
-}
-
-/* Layer 5: 1 Straight Cutout PNG (Upright on Right Foreground, No BG) */
+/* Portrait — arched HUD frame; the photo has a real background, so we fade it out instead of faking a cutout */
 .pam-cutout-stage {
   position: absolute;
-  right: -15px;
-  bottom: 0;
-  width: 290px;
-  height: 440px;
-  z-index: 7;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  right: 0;
+  top: 2%;
+  bottom: 40px;
+  width: 64%;
+  z-index: 6;
+  border-radius: 999px 999px 14px 14px;
+  border: 1px solid rgba(56, 224, 255, 0.45);
+  overflow: hidden;
+  background: #04101c;
+  box-shadow: 0 0 0 6px rgba(56, 224, 255, 0.05), 0 0 50px rgba(56, 224, 255, 0.18);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
 }
 .pam-cutout-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: bottom right;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(56, 224, 255, 0.22));
-  pointer-events: auto;
-  transition: transform 0.3s ease;
+  object-fit: cover;
+  object-position: 60% 30%;
+  filter: saturate(0.9) contrast(1.05);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pam-cutout-stage:hover .pam-cutout-img {
-  transform: scale(1.02);
-}
-.pam-cutout-tag {
+.pam-cutout-stage::after {
+  /* cool cyan grade at the edges so the photo sits in the HUD palette */
+  content: "";
   position: absolute;
-  bottom: 12px;
-  right: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  color: var(--cy);
-  background: rgba(3, 11, 20, 0.92);
-  border: 1px solid rgba(56, 224, 255, 0.4);
-  border-radius: 4px;
-  padding: 3px 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 10px rgba(56, 224, 255, 0.2);
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 35%, transparent 55%, rgba(2, 10, 20, 0.75) 100%),
+    linear-gradient(to top, rgba(56, 224, 255, 0.12), transparent 40%);
+}
+.pam-cutout-stage:hover .pam-cutout-img { transform: scale(1.03); }
+.pam-corner {
+  position: absolute;
+  top: 34%;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--cy);
+  z-index: 2;
   pointer-events: none;
 }
-.pam-cutout-tag .dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--cy);
-  box-shadow: 0 0 6px var(--cy);
-}
+.pam-corner.tl { left: 10px;  border-right: 0; border-bottom: 0; }
+.pam-corner.tr { right: 10px; border-left: 0;  border-bottom: 0; }
 
 /* Telemetry Badge at Base (Matches media_1790665229625) */
 .pam-telemetry-badge {
@@ -954,6 +889,11 @@ a.wo-card:hover b::after {
   animation: pulseDot 2s ease-in-out infinite;
 }
 
+/* Keep clear of the fixed 00–08 section rail on the right */
+@media (min-width: 1200px) and (min-height: 600px) {
+  .pamphlet-hero-spread { margin: 0 56px 0 auto; }
+}
+
 /* Responsive adjustments */
 @media (max-width: 980px) {
   .hero {
@@ -972,12 +912,10 @@ a.wo-card:hover b::after {
     max-width: 330px;
     height: 400px;
   }
-  .pam-top-mini, .pam-bot-right { display: none; }
-  .pam-top-wide { width: 90%; }
-  .pam-mid-left { width: 50%; }
-  .pam-bot-left { width: 50%; }
-  .pam-cutout-stage { width: 75%; }
-  .pam-telemetry-badge { font-size: 8.5px; padding: 3px 10px; }
+  .pam-card-1, .pam-card-2, .pam-card-3 { width: 40%; }
+  .pam-cutout-stage { width: 70%; }
+  .spread-reactor .orbit-chip { display: none; }
+  .pam-telemetry-badge { font-size: 8px; letter-spacing: .06em; padding: 3px 10px; }
 }
 
 
@@ -1623,3 +1561,436 @@ a.wo-card:hover b::after {
   #skills .skill-legend { align-self: start; }
   #experience.exp-tabs { align-content: center; }
 }
+@media (min-width: 1100px) {
+  #profile .live-status .ls-line { white-space: nowrap; overflow: hidden; }
+}
+
+@media (min-width:1100px) and (max-height:820px){#profile .whoami p{line-height:1.45;margin-bottom:7px}#profile .whoami h3{margin-bottom:6px}}
+
+/* ========================================================
+   HERO CUTOUT — free-standing portrait (no frame) with
+   cyan glow halo, outlined word behind, circuit callouts.
+   The photo's own colours are untouched; only shadows/fade around it.
+   ======================================================== */
+.pam-cutout-stage.hero-cut {
+  right: -2%;
+  top: auto;
+  bottom: 34px;
+  width: 74%;
+  aspect-ratio: 753 / 845;
+  height: auto;
+  max-height: calc(100% - 34px);
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: none;
+  box-shadow: none;
+  -webkit-mask-image: none;
+          mask-image: none;
+  z-index: 6;
+}
+.pam-cutout-stage.hero-cut::after { content: none; }
+.hero-cut picture { position: absolute; inset: 0; z-index: 2; display: block; }
+.hero-cut .pam-cutout-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.85)) drop-shadow(-10px -4px 26px rgba(56, 224, 255, 0.28));
+  -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
+          mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
+  transform-origin: 50% 100%;
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.hero-cut:hover .pam-cutout-img { transform: scale(1.02); }
+
+/* halo behind the head */
+.hc-glow {
+  position: absolute;
+  z-index: 0;
+  left: 18%;
+  top: -6%;
+  width: 66%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 224, 255, 0.34) 0%, rgba(56, 224, 255, 0.12) 38%, transparent 68%);
+  pointer-events: none;
+}
+.hc-glow::after {               /* thin orbit ring around the head */
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 224, 255, 0.35);
+  border-top-color: rgba(255, 196, 107, 0.7);
+  animation: hcSpin 18s linear infinite;
+}
+@keyframes hcSpin { to { transform: rotate(360deg); } }
+
+/* huge outlined word sitting behind the figure */
+.hc-word {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 2%;
+  transform: translateX(-50%);
+  font-family: "Rajdhani", var(--sans, sans-serif);
+  font-weight: 700;
+  font-size: clamp(7rem, 13vw, 11.5rem);
+  line-height: .8;
+  letter-spacing: .06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(56, 224, 255, 0.32);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* circuit callouts (ref: node lines to labels) */
+.hc-links {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.hc-links polyline {
+  fill: none;
+  stroke: rgba(56, 224, 255, 0.75);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.hc-node {
+  position: absolute;
+  z-index: 4;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border: 1.5px solid var(--cy);
+  background: #04101c;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(56, 224, 255, 0.7);
+  pointer-events: none;
+}
+.hc-node.n1 { left: 80%; top: 38%; }
+.hc-node.n2 { left: 88%; top: 56%; }
+.hc-label {
+  position: absolute;
+  z-index: 4;
+  right: -2%;
+  transform: translate(100%, -50%);
+  margin-right: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg, #e6f6ff);
+  background: rgba(3, 11, 20, 0.86);
+  border: 1px solid rgba(56, 224, 255, 0.4);
+  border-radius: 4px;
+  padding: 4px 8px;
+  pointer-events: none;
+}
+.hc-label b { color: var(--cy); font-weight: 600; }
+.hc-label.l1 { top: 8%; }
+.hc-label.l2 { top: 22%; }
+.hero-cut .pam-corner { display: none; }
+
+@media (prefers-reduced-motion: reduce) { .hc-glow::after { animation: none; } }
+/* small screens: keep the figure, drop the callouts */
+@media (max-width: 980px) {
+  .pam-cutout-stage.hero-cut { width: 70%; right: 0; }
+  .hc-links, .hc-node, .hc-label { display: none; }
+  .hc-word { font-size: 6rem; }
+}
+/* hero cutout v2: larger, in front of the project cards, callouts kept inside the spread */
+@media (min-width: 981px) {
+  .pam-cutout-stage.hero-cut { width: 80%; right: -4%; z-index: 9; }
+}
+.hc-node.n1 { left: 76%; top: 40%; }
+.hc-node.n2 { left: 84%; top: 54%; }
+.hc-label { right: 0; transform: translateY(-50%); }
+.hc-label.l1 { top: 7%; }
+.hc-label.l2 { top: 21%; }
+/* callout nodes sit beside the figure, never on the uniform insignia */
+.hc-node.n1 { left: 64%; top: 28%; }
+.hc-node.n2 { left: 93%; top: 36%; }
+.hc-word { -webkit-text-stroke-color: rgba(56, 224, 255, 0.42); }
+/* narrower desktops: give the hero callouts room beside the 00–08 rail */
+@media (min-width: 1200px) and (max-width: 1479px) and (min-height: 600px) {
+  .pam-cutout-stage.hero-cut { right: 8%; }
+}
+body[data-instant-entry] #boot { display: none; }
+
+/* ========================================================
+   HERO v3 — calm, cinematic. One portrait, soft light,
+   no flicker, no neon overload.
+   ======================================================== */
+/* quiet the name: no flickering glitch layers, softer glow */
+.hero .glitch::before, .hero .glitch::after { content: none; display: none; animation: none; }
+.hero .hl-word { text-shadow: 0 0 30px rgba(56, 224, 255, 0.18); }
+.hero h1 .l2 { text-shadow: none; }
+
+.hero-portrait { position: relative; min-height: 360px; }
+.hero-portrait picture { position: absolute; inset: 0; z-index: 2; display: block; }
+.hp-img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  /* fade the shoulders into the page, light rim on the left */
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
+          mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
+  filter: drop-shadow(-12px -6px 34px rgba(56, 224, 255, 0.16));
+}
+.hp-glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 6%;
+  width: min(92%, 560px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(56, 224, 255, 0.20) 0%, rgba(56, 224, 255, 0.07) 42%, transparent 68%);
+  pointer-events: none;
+}
+.hp-ring {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 10%;
+  width: min(78%, 470px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(56, 224, 255, 0.16);
+  pointer-events: none;
+}
+.hp-ring::after {               /* one small warm marker riding the ring */
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 7px; height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: #ffc46b;
+  box-shadow: 0 0 10px rgba(255, 196, 107, 0.6);
+  transform: rotate(-30deg) translateX(calc(min(39vw, 235px)));
+  animation: hpOrbit 40s linear infinite;
+}
+@keyframes hpOrbit {
+  from { transform: rotate(-30deg) translateX(min(39vw, 235px)); }
+  to   { transform: rotate(330deg) translateX(min(39vw, 235px)); }
+}
+.hp-chip {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border-radius: 10px;
+  background: rgba(6, 17, 30, 0.78);
+  border: 1px solid rgba(56, 224, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--fg, #e6f6ff);
+  white-space: nowrap;
+}
+.hp-chip i { width: 7px; height: 7px; border-radius: 50%; background: #5dffa0; box-shadow: 0 0 8px rgba(93, 255, 160, 0.6); }
+.hp-chip-a { left: 2%; top: 30%; }
+.hp-chip-b { right: 0; bottom: 20%; flex-direction: column; align-items: flex-start; gap: 2px; }
+.hp-chip-b b { font-family: inherit; font-size: 12px; font-weight: 600; color: var(--cy); letter-spacing: .04em; }
+.hp-chip-b span { font-size: 10.5px; color: var(--fg-muted, #9fb3c8); letter-spacing: .02em; }
+
+@media (min-width: 981px) {
+  .hero-grid { align-items: stretch !important; }
+  .hero-grid > :first-child { align-self: center; }
+  .hero-portrait { align-self: stretch; height: 100%; margin-bottom: -20px; }   /* sit on the hero's bottom edge */
+  .hero-telemetry-bar { display: none !important; }                              /* redundant with the status pill */
+}
+@media (min-width: 1200px) and (min-height: 600px) {
+  .hero-portrait { margin-right: 60px; }                                         /* clear of the 00–08 rail */
+}
+@media (max-width: 980px) {
+  .hero-portrait { height: 380px; margin-top: 8px; }
+  .hp-chip-a { top: 18%; }
+}
+@media (prefers-reduced-motion: reduce) { .hp-ring::after { animation: none; } }
+/* HERO v3.1 — figure box: glow, ring and chips are positioned relative to the photo itself */
+.hp-figure {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(118%, 660px, calc((100svh - 110px) * 0.98));
+  aspect-ratio: 800 / 783;
+}
+.hp-figure picture { position: absolute; inset: 0; z-index: 2; }
+.hp-figure .hp-img { position: absolute; inset: 0; left: 0; transform: none; width: 100%; height: 100%; max-width: none; max-height: none; }
+.hp-figure .hp-glow { left: 50%; top: 42%; width: 112%; transform: translate(-50%, -50%); }
+.hp-figure .hp-ring { left: 50%; top: 42%; width: 84%; transform: translate(-50%, -50%); z-index: 1; }
+.hp-ring::after {               /* replace the dot with a slow amber arc riding the ring */
+  inset: -1px; width: auto; height: auto; margin: 0;
+  border-radius: 50%;
+  background: none; box-shadow: none;
+  border: 1.5px solid transparent;
+  border-top-color: rgba(255, 196, 107, 0.75);
+  transform: none;
+  animation: hpSpin 36s linear infinite;
+}
+@keyframes hpSpin { to { transform: rotate(360deg); } }
+.hp-figure .hp-chip-a { left: -4%; top: 22%; right: auto; bottom: auto; }
+.hp-figure .hp-chip-b { right: -8%; bottom: 20%; left: auto; top: auto; }
+/* no filter on the photo: Chrome paints drop-shadow on a masked image as a faint rectangle */
+.hp-figure .hp-img { filter: none; }
+@media (min-width: 1200px) and (max-width: 1479px) { .hp-figure .hp-chip-b { right: 4%; } }
+/* HERO v3.2 — smaller portrait (user feedback: too big) */
+.hp-figure { width: min(86%, 430px, calc((100svh - 110px) * 0.70)); bottom: 4%; }
+.hp-figure .hp-chip-a { left: -14%; top: 24%; }
+.hp-figure .hp-chip-b { right: -14%; bottom: 18%; }
+@media (min-width: 1200px) and (max-width: 1479px) { .hp-figure .hp-chip-b { right: -6%; } }
+/* portrait shadow: a deep cast shadow to the lower-right + faint cyan rim on the lit side.
+   Filter sits on the <picture> wrapper (not the masked <img>) so no rectangle artefact. */
+.hp-figure picture {
+  filter: drop-shadow(20px 22px 26px rgba(0, 0, 0, 0.78)) drop-shadow(-6px -2px 18px rgba(56, 224, 255, 0.22));
+}
+
+/* HERO v4 — uniform portrait, low-key "John Doe" lighting:
+   one side falls into shadow and melts into the dark page; light comes from the right. */
+.hp-figure {
+  aspect-ratio: 753 / 845;
+  width: min(88%, 440px, calc((100svh - 120px) * 0.80));
+  bottom: 0;
+}
+.hp-figure .hp-img {
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%);
+          mask-image: linear-gradient(to bottom, #000 70%, transparent 98%);
+}
+/* deep cast shadow to the left + a faint cool rim on the lit (right) edge */
+.hp-figure picture {
+  filter: drop-shadow(-26px 16px 34px rgba(0, 0, 0, 0.85)) drop-shadow(8px -2px 16px rgba(56, 224, 255, 0.16));
+}
+/* light source sits upper-right; the glow is dim so the shadow side stays dark */
+.hp-figure .hp-glow {
+  left: 62%; top: 30%; width: 120%;
+  background: radial-gradient(circle at 50% 45%, rgba(56, 224, 255, 0.13) 0%, rgba(56, 224, 255, 0.04) 40%, transparent 66%);
+}
+.hp-figure .hp-ring { top: 30%; width: 78%; border-color: rgba(56, 224, 255, 0.10); }
+.hp-figure .hp-chip-a { left: -18%; top: 20%; }
+.hp-figure .hp-chip-b { right: -16%; bottom: 22%; }
+@media (min-width: 1200px) and (max-width: 1479px) { .hp-figure .hp-chip-b { right: -6%; } }
+.hp-figure .hp-chip-b { bottom: 8%; }  /* sits on the faded lower body, clear of name tapes and patches */
+
+/* ========================================================
+   BRAND — SM monogram logo (header, boot screen, footer)
+   ======================================================== */
+.brand .mark { width: 42px; height: 42px; }
+.brand .mark img { width: 100%; height: 100%; object-fit: contain; display: block; transition: filter .3s ease, transform .3s ease; }
+.brand:hover .mark { box-shadow: none; }
+.brand:hover .mark img { filter: drop-shadow(0 0 10px rgba(56, 224, 255, 0.55)); transform: rotate(-4deg) scale(1.04); }
+
+.boot-core { display: grid; place-items: center; }
+.boot-core svg { position: absolute; inset: 0; }
+.boot-logo {
+  position: relative;
+  width: 82px; height: 82px;
+  filter: drop-shadow(0 0 18px rgba(56, 224, 255, 0.45));
+  animation: bootLogo 2.4s ease-in-out infinite;
+}
+@keyframes bootLogo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+.foot-brand { display: inline-flex; align-items: center; gap: 10px; }
+.foot-brand img { width: 26px; height: 26px; object-fit: contain; opacity: .9; }
+@media (prefers-reduced-motion: reduce) { .boot-logo { animation: none; } }
+.boot-logo { width: 72px; height: 72px; }  /* sits just inside the amber ring */
+
+/* ========================================================
+   HERO BACKDROP — logo-matched light ribbon, orbit ring,
+   circuit traces and icon nodes behind the portrait
+   ======================================================== */
+.hp-figure .hp-ring { display: none; }            /* replaced by the logo-style orbit */
+.hp-deco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+  pointer-events: none;
+}
+.hp-deco path, .hp-deco circle { fill: none; }
+
+/* ribbon */
+.hp-ribbon .rb-glow  { stroke: url(#hpBlue); stroke-width: 22; opacity: .45; stroke-linecap: round; }
+.hp-ribbon .rb-core  { stroke: url(#hpBlue); stroke-width: 3.2; stroke-linecap: round; }
+.hp-ribbon .rb-thin  { stroke: url(#hpBlue); stroke-width: 1.4; opacity: .55; stroke-linecap: round; }
+.hp-ribbon .rb-spark {
+  stroke: #e8fbff; stroke-width: 3.2; stroke-linecap: round;
+  stroke-dasharray: 70 930; stroke-dashoffset: 1000;
+  animation: hpSpark 5.5s cubic-bezier(.45, 0, .55, 1) infinite;
+  filter: drop-shadow(0 0 6px #38e0ff);
+}
+@keyframes hpSpark { to { stroke-dashoffset: 0; } }
+
+/* orbit ring */
+.hp-orbit { transform-origin: 385px 190px; transform-box: view-box; animation: hpOrbitSpin 80s linear infinite; }
+.hp-orbit path { stroke: url(#hpRing); stroke-width: 3.5; stroke-linecap: round; opacity: .8; }
+.hp-orbit circle { fill: #38e0ff; filter: drop-shadow(0 0 6px #38e0ff); }
+@keyframes hpOrbitSpin { to { transform: rotate(360deg); } }
+
+/* circuit traces */
+.hp-traces path { stroke: #38e0ff; stroke-width: 2.6; opacity: .75; stroke-linejoin: round; stroke-linecap: round; }
+.hp-traces circle { stroke: #38e0ff; stroke-width: 2.6; fill: #04101c; }
+.hp-traces-l path { stroke: rgba(56, 224, 255, .55); stroke-width: 2.2; stroke-dasharray: 5 6; animation: hpFlow 2.4s linear infinite; }
+@keyframes hpFlow { to { stroke-dashoffset: -22; } }
+
+/* icon nodes */
+.hp-node rect { fill: rgba(4, 16, 28, .9); stroke: #38e0ff; stroke-width: 2; filter: drop-shadow(0 0 8px rgba(56, 224, 255, .45)); }
+.hp-node path { stroke: #9ff4ff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+
+/* sparks */
+.hp-sparks circle { fill: #9ff4ff; animation: hpTwinkle 3.2s ease-in-out infinite; }
+.hp-sparks circle:nth-child(2) { animation-delay: .8s; }
+.hp-sparks circle:nth-child(3) { animation-delay: 1.6s; }
+.hp-sparks circle:nth-child(4) { animation-delay: 2.2s; }
+.hp-sparks circle:nth-child(5) { animation-delay: 2.8s; }
+@keyframes hpTwinkle { 0%, 100% { opacity: .15; } 50% { opacity: .95; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-ribbon .rb-spark, .hp-orbit, .hp-traces-l path, .hp-sparks circle { animation: none; }
+  .hp-ribbon .rb-spark { display: none; }
+}
+@media (max-width: 980px) {
+  .hp-traces-l, .hp-node { display: none; }
+}
+
+/* ========================================================
+   PERFORMANCE — cheaper hero backdrop + pause off-screen
+   (filters on animated SVG force a repaint every frame)
+   ======================================================== */
+.hp-ribbon .rb-spark { filter: none; stroke-width: 4; }
+.hp-orbit circle { filter: none; }
+.hero.is-offscreen .hp-deco *,
+.hero.is-offscreen .hp-ring::after,
+.hero.is-offscreen .hp-sparks circle { animation-play-state: paused !important; }
+
+/* hero portrait raised a little (user request) */
+@media (min-width: 981px) { .hp-figure { bottom: clamp(36px, 7vh, 70px); } }

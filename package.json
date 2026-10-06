@@ -4,6 +4,7 @@
   "description": "Personal portfolio for **Malik Sheraz Maqsood Ahmed** — Principal Full-Stack & GIS Engineer.   Hosted at [sheraz.is-a.dev](https://sheraz.is-a.dev).",
   "main": "index.js",
   "scripts": {
+    "build": "node scripts/build-assets.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seo": "node scripts/seo-audit.mjs"
   },
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/Sheraz-Maqsood/sheraz-maqsood.github.io#readme",
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "seo-analyzer": "^3.2.0"
   }
 }

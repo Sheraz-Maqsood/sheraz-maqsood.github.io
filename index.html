@@ -23,17 +23,18 @@
   <meta name="twitter:title" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
   <meta name="twitter:description" content="A JARVIS-class HUD portfolio. Government-scale, GIS-enabled platforms.">
   <meta name="twitter:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,2 36,11 36,29 20,38 4,29 4,11' fill='%2302040a' stroke='%2338e0ff' stroke-width='2'/%3E%3Ctext x='20' y='26' text-anchor='middle' fill='%2338e0ff' font-family='monospace' font-size='17' font-weight='700'%3ES%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="apple-touch-icon" href="/assets/icons/icon-180.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
-  <link rel="preload" as="image" href="assets/sheraz/professional.webp" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="assets/css/refresh.css">
+  <!-- Self-hosted fonts (no third-party connection) — the two faces used above the fold load first -->
+  <link rel="preload" href="assets/fonts/rajdhani-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/sheraz/sheraz-hero-lowkey.avif" type="image/avif" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/styles.min.css?v=a7319aa940">
+  <link rel="stylesheet" href="assets/css/refresh.min.css?v=7110620429">
+  <link rel="stylesheet" href="assets/css/living-network.min.css?v=5ce577fa30">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,7 +86,7 @@
   -->
   <noscript><style>#boot { display:none; } [data-reveal] { opacity:1; transform:none; }</style></noscript>
 </head>
-<body>
+<body data-instant-entry>
   <a href="#main" class="skip-link">Skip to content</a>
 
   <canvas id="webgl-bg" aria-hidden="true"></canvas>
@@ -106,9 +107,8 @@
         <circle cx="80" cy="80" r="74" fill="none" stroke="rgba(56,224,255,0.15)" stroke-width="1"/>
         <g class="spin"><circle cx="80" cy="80" r="60" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="20 14" opacity="0.7"/></g>
         <g class="spin-r"><circle cx="80" cy="80" r="44" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="6 10" opacity="0.6"/></g>
-        <circle cx="80" cy="80" r="22" fill="none" stroke="#38e0ff" stroke-width="2"/>
-        <circle cx="80" cy="80" r="8" fill="#38e0ff"/>
       </svg>
+      <img class="boot-logo" src="assets/brand/logo-mark-160.webp" alt="" width="80" height="80">
     </div>
     <div class="boot-log" id="boot-log" aria-hidden="true"></div>
     <div class="boot-bar" aria-hidden="true"><i id="boot-bar-fill"></i></div>
@@ -123,133 +123,145 @@
     <section class="hero wrap" aria-label="Introduction">
       <div class="hero-grid">
         <div data-reveal>
-          <div class="hero-status"><span class="pulse"></span> Open to New Opportunities &middot; Based in Lahore, PK</div>
+          <div class="hero-status"><span class="pulse"></span> Open to senior roles &amp; contracts &middot; Lahore, PK &middot; Remote-ready</div>
           <h1>
             <span class="l1">Malik <span class="glitch hl-word" data-text="Sheraz">Sheraz</span></span>
             <span class="l2"><span class="glitch hl-word" data-text="Maqsood">Maqsood</span> Ahmed</span>
           </h1>
-          <div class="roles"><span id="role-type">Principal Full-Stack &amp; GIS Engineer</span><span class="cursor-blink"></span></div>
+          <div class="roles"><span>Principal Full-Stack &amp; GIS Engineer</span></div>
           <p class="hero-sub">
-            I architect and ship <b>enterprise &amp; government-scale systems</b> — specializing in
-            <b>Laravel, NestJS, React, Next.js, PostgreSQL</b> and <b>GIS platforms</b> with full CI/CD and cloud deployment.
-            I love programming — and I'm ready to start on your project <b>right now</b>.
+            I turn complex workflows and map data into <b>software people use every day.</b>
+            From database and API to interface and deployment, I build and run
+            <b>government, healthcare and enterprise platforms</b> — including <b>8 live systems</b> for the Punjab Forest Department.
           </p>
           <div class="hero-cta">
-            <a href="#projects" class="btn btn-primary magnetic">&#9672; Explore Work</a>
+            <a href="#network" class="btn btn-primary magnetic">Explore my projects &darr;</a>
             <a href="Sheraz%20CV%20-%20Curriculum%20vitae%2025042026.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Download CV</a>
             <a href="https://wa.me/+923481655055" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
           </div>
           <div class="hero-telemetry-bar" aria-label="System telemetry">
-            <span class="telem-item"><i class="t-dot live"></i> SYS ONLINE: 99.98%</span>
+            <span class="telem-item"><i class="t-dot live"></i> STATUS: AVAILABLE</span>
             <span class="telem-sep">//</span>
-            <span class="telem-item"><i class="t-dot geo"></i> GIS COORD: 31.52° N, 74.35° E</span>
+            <span class="telem-item"><i class="t-dot geo"></i> 31.52° N, 74.35° E</span>
             <span class="telem-sep">//</span>
-            <span class="telem-item"><i class="t-dot gov"></i> 15+ PRODUCTION PLATFORMS</span>
+            <span class="telem-item"><i class="t-dot gov"></i> PKT · UTC+5</span>
           </div>
           <div class="hero-stats">
             <div class="stat"><div class="n"><span class="text-cy" data-count="2018">2018</span></div><div class="l">Coding since</div></div>
             <div class="stat"><div class="n"><span class="text-cy" data-count="15">15</span>+</div><div class="l">Production systems</div></div>
-            <div class="stat"><div class="n text-cy">GOV</div><div class="l">+ Enterprise scale</div></div>
             <div class="stat"><div class="n"><span class="text-cy" data-count="8">8</span></div><div class="l">Live gov systems</div></div>
+            <div class="stat"><div class="n"><span class="text-cy" data-count="5">5</span></div><div class="l">Countries served</div></div>
           </div>
         </div>
 
-        <!-- EDITORIAL PAMPHLET HERO SPREAD (No Scroll 100vh · Cyan HUD + Orbital Radar + 5 Editorial Photos + 1 Straight Cutout) -->
-        <div class="pamphlet-hero-spread" data-reveal aria-label="Editorial Visual Showcase">
-          
-          <!-- Layer 1: Background Orbital Reactor Watermark & Tech Orbit -->
-          <div class="reactor spread-reactor" aria-hidden="true">
-            <svg viewBox="0 0 500 500">
+        <!-- HERO PORTRAIT — calm, cinematic cutout (no frames, no clutter) -->
+        <div class="hero-portrait" data-reveal>
+          <div class="hp-figure">
+            <div class="hp-glow" aria-hidden="true"></div>
+            <!-- Logo-matched backdrop: light ribbon, split orbit ring, circuit traces with icon nodes -->
+            <svg class="hp-deco" viewBox="0 0 753 845" aria-hidden="true" focusable="false">
               <defs>
-                <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#7fefff"/>
-                  <stop offset="60%" stop-color="#38e0ff"/>
-                  <stop offset="100%" stop-color="#0a6f8f"/>
-                </radialGradient>
+                <linearGradient id="hpBlue" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0" stop-color="#1d4fff" stop-opacity="0"/>
+                  <stop offset=".35" stop-color="#2f6bff"/>
+                  <stop offset=".7" stop-color="#38e0ff"/>
+                  <stop offset="1" stop-color="#9ff4ff" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="hpRing" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#2f6bff"/>
+                  <stop offset="1" stop-color="#38e0ff"/>
+                </linearGradient>
+                <filter id="hpBlur" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
               </defs>
-              <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(56,224,255,0.14)" stroke-width="1"/>
-              <g class="r-spin-rev"><circle cx="250" cy="250" r="200" fill="none" stroke="#38e0ff" stroke-width="1" stroke-dasharray="2 8" opacity="0.55"/></g>
-              <g class="r-spin">
-                <circle cx="250" cy="250" r="170" fill="none" stroke="#38e0ff" stroke-width="1.5" stroke-dasharray="40 18" opacity="0.75"/>
-                <circle cx="250" cy="80" r="4" fill="#ffc46b"/>
-                <circle cx="250" cy="420" r="3" fill="#38e0ff"/>
+
+              <!-- light ribbon sweeping behind the shoulders (like the S ribbon in the logo) -->
+              <g class="hp-ribbon">
+                <path class="rb-glow" d="M-250 500 C 20 450, 170 280, 400 250 S 760 180, 935 95" filter="url(#hpBlur)"/>
+                <path class="rb-core" d="M-250 500 C 20 450, 170 280, 400 250 S 760 180, 935 95"/>
+                <path class="rb-spark" pathLength="1000" d="M-250 500 C 20 450, 170 280, 400 250 S 760 180, 935 95"/>
+                <path class="rb-thin" d="M-210 560 C 60 520, 210 330, 430 300 S 770 235, 925 170"/>
               </g>
-              <g class="r-spin-fast"><circle cx="250" cy="250" r="130" fill="none" stroke="#ffc46b" stroke-width="1" stroke-dasharray="3 12" opacity="0.6"/></g>
-              <polygon class="core-pulse" points="250,160 328,205 328,295 250,340 172,295 172,205" fill="none" stroke="#38e0ff" stroke-width="1.5"/>
-              <circle class="core-pulse" cx="250" cy="250" r="58" fill="url(#coreGrad)" opacity="0.88"/>
-              <circle cx="250" cy="250" r="58" fill="none" stroke="#7fefff" stroke-width="1"/>
-              <text x="250" y="246" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">FULL</text>
-              <text x="250" y="264" text-anchor="middle" fill="#02121a" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700">STACK</text>
+
+              <!-- split orbit ring with dot terminals (logo ring) -->
+              <g class="hp-orbit">
+                <path d="M 66.3 103.3 A 330 330 0 0 1 630.2 -30.8"/>
+                <path d="M 683.9 50.5 A 330 330 0 0 1 711.8 235.9"/>
+                <path d="M 75.9 302.9 A 330 330 0 0 1 56.3 161.2"/>
+                <circle cx="630.2" cy="-30.8" r="9"/>
+                <circle cx="711.8" cy="235.9" r="7"/>
+                <circle cx="56.3" cy="161.2" r="7"/>
+              </g>
+
+              <!-- circuit traces on the right (logo's circuit legs) -->
+              <g class="hp-traces">
+                <path d="M600 420 H760 L790 390 V338"/>
+                <path d="M600 452 H782 L816 418 V386"/>
+                <path d="M600 484 H804 L842 446"/>
+                <circle cx="790" cy="330" r="8"/>
+                <circle cx="816" cy="378" r="8"/>
+                <circle cx="848" cy="440" r="8"/>
+              </g>
+
+              <!-- left traces: status chip → icon nodes → into the shoulder -->
+              <g class="hp-traces hp-traces-l">
+                <path d="M-40 236 V330"/>
+                <path d="M-40 376 V420 H-110 V446"/>
+                <path d="M-86 470 H30"/>
+              </g>
+              <g class="hp-node" transform="translate(-63 330)">
+                <rect width="46" height="46" rx="10"/>
+                <path d="M18 15 L11 23 L18 31 M28 15 L35 23 L28 31"/>
+              </g>
+              <g class="hp-node" transform="translate(-133 447)">
+                <rect width="46" height="46" rx="10"/>
+                <path d="M23 34 C 17 27 14 23 14 19 A 9 9 0 0 1 32 19 C 32 23 29 27 23 34 Z M23 22.5 A 3.2 3.2 0 1 0 23 16.1 A 3.2 3.2 0 1 0 23 22.5"/>
+              </g>
+
+              <!-- a few soft sparks -->
+              <g class="hp-sparks">
+                <circle cx="150" cy="40" r="3"/><circle cx="600" cy="120" r="2.5"/>
+                <circle cx="96" cy="230" r="2"/><circle cx="700" cy="330" r="2.5"/>
+                <circle cx="520" cy="-20" r="2"/>
+              </g>
             </svg>
-            <div class="orbit-chip" data-orbit="0">Laravel</div>
-            <div class="orbit-chip" data-orbit="1">React</div>
-            <div class="orbit-chip" data-orbit="2">Next.js</div>
-            <div class="orbit-chip" data-orbit="3">NestJS</div>
-            <div class="orbit-chip" data-orbit="4">Node.js</div>
-            <div class="orbit-chip" data-orbit="5">PostgreSQL</div>
-            <div class="orbit-chip" data-orbit="6">GIS</div>
-            <div class="orbit-chip" data-orbit="7">Quantum</div>
+            <picture>
+              <source srcset="assets/sheraz/sheraz-hero-lowkey.avif" type="image/avif">
+              <source srcset="assets/sheraz/sheraz-hero-lowkey.webp" type="image/webp">
+              <img class="hp-img" src="assets/sheraz/sheraz-hero-lowkey.png" alt="Malik Sheraz Maqsood Ahmed — Assistant Director, GIS Lab, Punjab Forest Department" width="753" height="845" loading="eager" decoding="async" fetchpriority="high">
+            </picture>
+            <div class="hp-chip hp-chip-a"><i aria-hidden="true"></i>8 gov systems live</div>
+            <div class="hp-chip hp-chip-b"><b>Asst. Director</b><span>GIS Lab &middot; Punjab Forest Dept.</span></div>
           </div>
-
-          <!-- Layer 2: Editorial Photo Montage (Faithful to Reference Pamphlet) -->
-          <!-- 1. Top Wide Panorama Strip -->
-          <div class="pam-block pam-top-wide" title="Linear Tree Enumeration GIS Platform">
-            <img src="assets/projects/lte/shot-01.webp" alt="Linear Tree Enumeration GIS Platform" loading="eager" width="320" height="120">
-            <span class="pam-tag">// 01 GIS ENGINE</span>
-          </div>
-
-          <!-- 2. Top-Right Frame -->
-          <div class="pam-block pam-top-mini" title="IUCN Forest Operations">
-            <img src="assets/sheraz/gislab-forest-iucn.webp" alt="Field Ops at IUCN" loading="eager" width="160" height="110">
-            <span class="pam-tag">// 02 OPS</span>
-          </div>
-
-          <!-- 3. Mid-Left Vertical Frame (Like subway in pamphlet) -->
-          <div class="pam-block pam-mid-left" title="Complaint Management System">
-            <img src="assets/projects/cms/shot-01.webp" alt="Complaint Management System" loading="eager" width="200" height="160">
-            <span class="pam-tag">// 03 WORKFLOW</span>
-          </div>
-
-          <!-- 4. Bottom-Left Frame (Like walking legs in pamphlet) -->
-          <div class="pam-block pam-bot-left" title="Pakistan Plantation Management System">
-            <img src="assets/projects/ppms/shot-01.webp" alt="Pakistan Plantation MS" loading="eager" width="200" height="170">
-            <span class="pam-tag">// 04 NATIONWIDE</span>
-          </div>
-
-          <!-- 5. Bottom-Right Architecture Frame -->
-          <div class="pam-block pam-bot-right" title="Enterprise Systems at CMH Lahore">
-            <img src="assets/sheraz/cmh-lahore-medical-college-developer-at-work.webp" alt="Developer at work CMH" loading="eager" width="220" height="140">
-            <span class="pam-tag">// 05 ENTERPRISE</span>
-          </div>
-
-          <!-- Layer 3: Cyan HUD Editorial Highlighters (Translucent Film Screen Blend) -->
-          <div class="pam-highlighter pam-highlighter-mid" aria-hidden="true"></div>
-          <div class="pam-highlighter pam-highlighter-bot" aria-hidden="true"></div>
-
-          <!-- Layer 4: Cyan Cyber-Doodles (Pamphlet Accents) -->
-          <svg class="pam-doodle pam-doodle-circle" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-            <ellipse cx="50" cy="50" rx="42" ry="34" stroke="#38e0ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-15 50 50)"/>
-          </svg>
-          <svg class="pam-doodle pam-doodle-zigzag" viewBox="0 0 60 110" fill="none" aria-hidden="true">
-            <path d="M50 10 L15 35 L48 65 L10 95" stroke="#38e0ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-
-          <!-- Layer 5: 1 Straight Cutout PNG (Upright on Right, No BG) -->
-          <div class="pam-cutout-stage" aria-label="Malik Sheraz Maqsood Ahmed">
-            <img src="assets/sheraz/professional.png" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" class="pam-cutout-img" width="460" height="580" loading="eager" decoding="async">
-            <div class="pam-cutout-tag">
-              <span class="dot"></span> MALIK SHERAZ // LEAD ARCHITECT
-            </div>
-          </div>
-
-          <!-- Telemetry Pill at Base -->
-          <div class="pam-telemetry-badge">
-            <span class="t-pulse"></span> GIS RADAR &middot; 31.52&deg; N 74.35&deg; E &middot; SELECTED WORKS 2018-2026
-          </div>
-
         </div>
       </div>
-      <a href="#about" class="scroll-cue" aria-label="Scroll to About"><span class="mouse"><i></i></span>SCROLL TO EXPLORE</a>
+      <a href="#network" class="scroll-cue" aria-label="Explore selected projects"><span class="mouse"><i></i></span>MY SKILLS, IN REAL PROJECTS</a>
+    </section>
+
+<section id="network" class="wrap network-section" aria-labelledby="network-title">
+      <div class="network-heading"><div><span class="eyebrow">Built by Sheraz / Explore the work</span><h2 id="network-title">Choose a system.<br>Go inside.</h2></div><p>Drag the projects. Find the engineering behind them.</p></div>
+      <div class="project-explorer">
+        <div class="explorer-visual">
+          <div id="network-scene" class="project-orbit" role="group" aria-label="Project explorer. Use the project buttons or drag horizontally.">
+            <div class="orbit-track" aria-hidden="true"></div>
+            <div class="orbit-core" aria-hidden="true">SHERAZ<span>BUILT &amp; SHIPPED</span></div>
+            <button class="orbit-project" data-project="0" aria-pressed="true"><img src="assets/projects/lte/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>01 <b>Tree Enumeration</b><small>Next.js / NestJS / PostGIS</small></span></button>
+            <button class="orbit-project" data-project="1" aria-pressed="false"><img src="assets/projects/cms/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>02 <b>Complaint Management</b><small>React / Node.js / MongoDB</small></span></button>
+            <button class="orbit-project" data-project="2" aria-pressed="false"><img src="assets/projects/ppms/shot-01-card.webp" alt="" loading="lazy" decoding="async"><span>03 <b>Plantation Management</b><small>Laravel / Leaflet / MySQL</small></span></button>
+          </div>
+          <div class="explorer-navigation"><button id="explorer-prev" aria-label="Previous project">&larr;</button><span id="explorer-position">01 / 03</span><button id="explorer-next" aria-label="Next project">&rarr;</button><span class="explorer-drag-hint">Drag to explore</span></div>
+        </div>
+        <div class="explorer-detail" id="explorer-detail" aria-live="polite" aria-atomic="true">
+          <span class="explorer-sector" id="explorer-sector">GIS / GOVERNMENT</span>
+          <h3 id="explorer-title">Linear Tree Enumeration</h3>
+          <p class="explorer-question" id="explorer-question">How do you make plantation records useful on a map?</p>
+          <p id="explorer-description">Interactive mapping, spatial queries and role-based access bring field records into one platform for tracking trees along roads, canals and forest boundaries.</p>
+          <div class="explorer-stack" id="explorer-stack">Next.js · NestJS · PostgreSQL · PostGIS · Leaflet</div>
+          <a class="btn btn-primary" id="explorer-link" href="project.html?id=lte">Go inside this project &nearr;</a>
+          <span class="explorer-evidence" id="explorer-evidence">2 video walkthroughs · 27 screenshots · 5 reports</span>
+        </div>
+      </div>
+      <div class="explorer-footer"><span>Real interfaces. Real engineering. Your own pace.</span><a href="#projects">Browse all 9 projects &rarr;</a></div>
+      <noscript><p>Explore <a href="project.html?id=lte">Tree Enumeration</a>, <a href="project.html?id=cms">Complaint Management</a>, <a href="project.html?id=ppms">Plantation Management</a>.</p></noscript>
     </section>
 
     <div class="radar-div" aria-hidden="true"><div class="r"><i></i></div></div>
@@ -262,7 +274,7 @@
           <div class="portrait-media">
             <picture>
               <source srcset="assets/sheraz/professional.webp" type="image/webp">
-              <img src="assets/sheraz/professional.png" fetchpriority="high" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" loading="eager" decoding="async" width="520" height="693">
+              <img src="assets/sheraz/professional.png" fetchpriority="low" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" loading="lazy" decoding="async" width="520" height="693">
             </picture>
             <span class="p-reveal" aria-hidden="true"></span>
             <span class="p-spot" aria-hidden="true"></span>
@@ -280,16 +292,16 @@
         <div class="panel hud-frame">
           <span class="corner-id">DOSSIER // SHRZ-001</span>
           <p class="muted" style="font-size:1.08rem; margin-bottom:16px;">
-            I'm a <b style="color:var(--fg)">Principal Full-Stack Engineer</b> working heavily with
-            <b style="color:var(--cy)">Laravel, React, Node.js, NestJS</b> and <b style="color:var(--cy)">GIS platforms</b>.
-            My work spans government, healthcare and enterprise sectors — building scalable systems,
-            orchestrating complex workflows and deploying robust CI/CD pipelines.
+            I'm a <b style="color:var(--fg)">Principal Full-Stack Engineer</b> who turns complex public-sector and enterprise
+            workflows into dependable software. I own systems end to end — <b style="color:var(--cy)">Laravel, React, Node.js, NestJS</b>
+            and <b style="color:var(--cy)">GIS platforms</b> — from data model and API to the deployment pipeline, across
+            government, healthcare and enterprise.
           </p>
           <p class="muted" style="font-size:1.08rem;">
-            On the backend I also ship <b style="color:var(--cy)">Python FastAPI</b> services in production, alongside my PHP and Node.js stack.
-            Beyond core full-stack and GIS work, I build Windows desktop software in <b style="color:var(--fg)">C# (WinForms &amp; WPF)</b>
-            and cross-platform apps with Electron.js, develop for mobile (Android, Firebase, Java) and program
-            <b style="color:var(--fg)">Arduino embedded systems</b> in C/C++: sensors, I/O and hardware integration.
+            My backend range includes <b style="color:var(--cy)">Python FastAPI</b> services in production alongside PHP and Node.js.
+            Beyond the web I build Windows software in <b style="color:var(--fg)">C# (WinForms &amp; WPF)</b>, cross-platform apps in
+            Electron.js, Android apps with Firebase and <b style="color:var(--fg)">Arduino embedded systems</b> in C/C++ — so I can own
+            the whole chain, from hardware signal to dashboard.
           </p>
         </div>
         <div class="panel hud-frame">
@@ -311,11 +323,11 @@
           <span class="corner-id">SYS // STATUS</span>
           <div class="scan-title">&mdash; AI DEVELOPER PROFILE &mdash;</div>
           <div class="sys-readout" id="sys-readout">
-            <div class="sys-line"><span class="k">MISSION STATUS</span><span class="v on">ONLINE</span></div>
-            <div class="sys-line"><span class="k">PROGRAMMING PASSION</span><span class="v max">MAXIMUM</span></div>
-            <div class="sys-line"><span class="k">PROBLEM SOLVING MODE</span><span class="v fire">ALWAYS ACTIVE</span></div>
-            <div class="sys-line"><span class="k">LEARNING STATE</span><span class="v fire">NEVER COMPLETE</span></div>
-            <div class="sys-line"><span class="k">CURRENT OBJECTIVE</span><span class="v obj">READY TO BUILD THE IMPOSSIBLE<span class="sys-caret"></span></span></div>
+            <div class="sys-line"><span class="k">LIVE IN PRODUCTION</span><span class="v on">8 GOV &middot; 9 COLLEGE</span></div>
+            <div class="sys-line"><span class="k">CLIENT FOOTPRINT</span><span class="v max">5 COUNTRIES</span></div>
+            <div class="sys-line"><span class="k">SHIPPING SINCE</span><span class="v fire">2018</span></div>
+            <div class="sys-line"><span class="k">DEFAULT STACK</span><span class="v fire">LARAVEL &middot; NEST &middot; GIS</span></div>
+            <div class="sys-line"><span class="k">CURRENT OBJECTIVE</span><span class="v obj">YOUR NEXT SYSTEM<span class="sys-caret"></span></span></div>
           </div>
           <div class="live-status">
             <div class="ls-label">LIVE STATUS</div>
@@ -326,10 +338,10 @@
         <div class="panel hud-frame whoami">
           <span class="corner-id">DOSSIER // WHO AM I</span>
           <h3>Who am I?</h3>
-          <p>Programming isn't just what I do &mdash; it's what I <b>love</b>. I don't count the hours; I enjoy every line of code I write.</p>
-          <p>Fueled by curiosity, driven by challenges, and happiest when I'm building solutions. Every problem is another opportunity to write better software.</p>
-          <p>I don't just develop applications &mdash; I <b>engineer solutions with passion</b>. Turning <span class="coffee">coffee into code</span>, ideas into products, and challenges into opportunities.</p>
-          <p>From the <b>network layer to the application layer</b>, I engineer infrastructure and get the most out of available resources to solve real problems &mdash; full-stack across <b>web, desktop, Android and GIS</b>, plus <b>Linux / Ubuntu</b> server administration in production environments.</p>
+          <p>I build the software that <b>public institutions and growing businesses actually run on</b> &mdash; and I stay accountable for it after launch.</p>
+          <p>My strength is turning messy, multi-stakeholder workflows &mdash; forest-fire complaints routed across <b>seven official roles</b>, assets tracked by QR, plantations verified by GPS &mdash; into secure systems people actually adopt.</p>
+          <p>I've <b>led the team when the lead was away</b>, automated releases with GitHub Actions, and kept production healthy on <b>Linux, DirectAdmin and AWS</b>.</p>
+          <p>From the <b>network layer to the application layer</b> &mdash; across <b>web, desktop, Android, GIS and embedded</b> &mdash; I can take a problem from first sketch to a running, monitored system.</p>
           <div class="cap-strip">
             <div class="cap"><b>&#8734;</b>Full-Stack Web</div>
             <div class="cap"><b>&#8984;</b>Desktop &amp; Android</div>
@@ -342,39 +354,39 @@
       <div class="profile-grid" style="margin-top:18px;">
         <div class="panel hud-frame philo">
           <span class="corner-id">PHILOSOPHY</span>
-          <div class="quote">"Problem solving is my <span class="text-cy">greatest fuel</span>."</div>
+          <div class="quote">"Software is only finished when <span class="text-cy">people rely on it</span>."</div>
           <div class="lines">
-            <div>Every challenge teaches something new.</div>
-            <div>Every project is an opportunity to improve.</div>
-            <div>Every line of code should have a purpose.</div>
+            <div>Model the real workflow before the code.</div>
+            <div>Ship small, deploy often, watch production.</div>
+            <div>Every line of code should earn its place.</div>
           </div>
         </div>
         <div class="panel hud-frame">
           <span class="corner-id">CORE MINDSET</span>
           <div class="mindset-grid" data-stagger style="margin-top:6px;">
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Passionate about Programming</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Obsessed with Learning</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Driven by Curiosity</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Ready for Any Challenge</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Focused on Performance</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Building with Purpose</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>Engineering the Future</span></div>
-            <div class="mindset"><span class="bolt">&#9889;</span><span>All-Rounder Engineer</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Security &amp; RBAC by default</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Spatial data done right</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>CI/CD on every project</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Queries tuned for scale</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Clean, documented APIs</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Built around real users</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Owns it after launch</span></div>
+            <div class="mindset"><span class="bolt">&#9889;</span><span>Learns fast, ships faster</span></div>
           </div>
         </div>
       </div>
 
       <div class="avail-banner">
-        <div class="ab-status"><i></i> STATUS: AVAILABLE FOR AMAZING PROJECTS</div>
-        <div class="ab-cta">&gt; Ready to build the <span class="text-cy">impossible</span>.</div>
+        <div class="ab-status"><i></i> STATUS: OPEN FOR NEW PROJECTS</div>
+        <div class="ab-cta">&gt; Let&rsquo;s ship your <span class="text-cy">next system</span>.</div>
         <a href="#contact" class="btn btn-primary magnetic ab-go">&#9672; Start a mission</a>
       </div>
     </section>
 
     <section id="skills" class="wrap" data-reveal aria-label="Skills">
-      <div class="sec-head"><span class="eyebrow">02 &middot; Capability matrix</span><h2>Tech constellation</h2></div>
+      <div class="sec-head"><span class="eyebrow">02 &middot; Capability matrix</span><h2>Explore my skills</h2></div>
       <div class="galaxy" id="galaxy" role="group" aria-label="Interactive technology constellation">
-        <div class="galaxy-core"><b>14+</b>core systems<br>online</div>
+        <div class="galaxy-core"><b>19</b>technologies<br>in orbit</div>
       </div>
       <div class="skill-readout" id="skill-readout" aria-live="polite">
         <span class="rk">// Hover a node to query the matrix.</span> Each technology reports experience, projects and confidence level.
@@ -389,7 +401,7 @@
     </section>
 
     <section id="stack" class="wrap" data-reveal aria-label="Technology arsenal">
-      <div class="sec-head"><span class="eyebrow">Arsenal &middot; Official stack</span><h2>Tech arsenal</h2></div>
+      <div class="sec-head"><span class="eyebrow">Arsenal &middot; Official stack</span><h2>Tools I use in production</h2></div>
       <p class="muted" style="margin-top:-34px; margin-bottom:34px; font-family:var(--mono); font-size:12px;">// Network layer to application layer &mdash; the full toolkit I build and ship with.</p>
       <div class="command-deck-grid" data-stagger>
         <!-- TIER 1 -->
@@ -400,22 +412,22 @@
             <h3>Backend &amp; GIS Core</h3>
           </div>
           <div class="col-tiles">
-            <div class="logo-tile" title="Laravel"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Laravel</span><span class="tile-count">5+ Systems</span></div></div>
-            <div class="logo-tile" title="NestJS"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" alt="NestJS logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">NestJS</span><span class="tile-count">Enterprise API</span></div></div>
-            <div class="logo-tile" title="PHP"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">PHP 8+</span><span class="tile-count">Core Engine</span></div></div>
-            <div class="logo-tile" title="Node.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Node.js</span><span class="tile-count">Async Runtime</span></div></div>
-            <div class="logo-tile" title="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Python</span><span class="tile-count">Services &amp; Scripts</span></div></div>
-            <div class="logo-tile" title="FastAPI"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">FastAPI</span><span class="tile-count">Production APIs</span></div></div>
-            <div class="logo-tile" title="CodeIgniter"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">CodeIgniter</span><span class="tile-count">Legacy Apps</span></div></div>
-            <div class="logo-tile inv" title="Composer"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg" alt="Composer logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Composer</span><span class="tile-count">PHP Packages</span></div></div>
-            <div class="logo-tile" title="PostgreSQL"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">PostGIS / PG</span><span class="tile-count">Spatial DB</span></div></div>
-            <div class="logo-tile" title="MySQL"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MySQL</span><span class="tile-count">Relational</span></div></div>
-            <div class="logo-tile" title="MariaDB"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg" alt="MariaDB logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MariaDB</span><span class="tile-count">Portal DB</span></div></div>
-            <div class="logo-tile inv" title="Microsoft SQL Server"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="Microsoft SQL Server logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MS SQL</span><span class="tile-count">Enterprise Data</span></div></div>
-            <div class="logo-tile" title="Redis"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Redis</span><span class="tile-count">Cache &amp; Queue</span></div></div>
-            <div class="logo-tile" title="MongoDB"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MongoDB</span><span class="tile-count">NoSQL Cluster</span></div></div>
-            <div class="logo-tile inv" title="Leaflet"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/leaflet.svg" alt="Leaflet logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Leaflet GIS</span><span class="tile-count">Map Engines</span></div></div>
-            <div class="logo-tile" title="Swagger"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="Swagger logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Swagger</span><span class="tile-count">API Docs</span></div></div>
+            <div class="logo-tile" title="Laravel"><img src="assets/vendor/devicon/laravel/laravel-original.svg" alt="Laravel logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Laravel</span><span class="tile-count">5+ Systems</span></div></div>
+            <div class="logo-tile" title="NestJS"><img src="assets/vendor/devicon/nestjs/nestjs-original.svg" alt="NestJS logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">NestJS</span><span class="tile-count">Enterprise API</span></div></div>
+            <div class="logo-tile" title="PHP"><img src="assets/vendor/devicon/php/php-original.svg" alt="PHP logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">PHP 8+</span><span class="tile-count">Core Engine</span></div></div>
+            <div class="logo-tile" title="Node.js"><img src="assets/vendor/devicon/nodejs/nodejs-original.svg" alt="Node.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Node.js</span><span class="tile-count">Async Runtime</span></div></div>
+            <div class="logo-tile" title="Python"><img src="assets/vendor/devicon/python/python-original.svg" alt="Python logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Python</span><span class="tile-count">Services &amp; Scripts</span></div></div>
+            <div class="logo-tile" title="FastAPI"><img src="assets/vendor/devicon/fastapi/fastapi-original.svg" alt="FastAPI logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">FastAPI</span><span class="tile-count">Production APIs</span></div></div>
+            <div class="logo-tile" title="CodeIgniter"><img src="assets/vendor/devicon/codeigniter/codeigniter-plain.svg" alt="CodeIgniter logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">CodeIgniter</span><span class="tile-count">Legacy Apps</span></div></div>
+            <div class="logo-tile inv" title="Composer"><img src="assets/vendor/devicon/composer/composer-original.webp" alt="Composer logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Composer</span><span class="tile-count">PHP Packages</span></div></div>
+            <div class="logo-tile" title="PostgreSQL"><img src="assets/vendor/devicon/postgresql/postgresql-original.svg" alt="PostgreSQL logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">PostGIS / PG</span><span class="tile-count">Spatial DB</span></div></div>
+            <div class="logo-tile" title="MySQL"><img src="assets/vendor/devicon/mysql/mysql-original.svg" alt="MySQL logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MySQL</span><span class="tile-count">Relational</span></div></div>
+            <div class="logo-tile" title="MariaDB"><img src="assets/vendor/devicon/mariadb/mariadb-original.svg" alt="MariaDB logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MariaDB</span><span class="tile-count">Portal DB</span></div></div>
+            <div class="logo-tile inv" title="Microsoft SQL Server"><img src="assets/vendor/devicon/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="Microsoft SQL Server logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MS SQL</span><span class="tile-count">Enterprise Data</span></div></div>
+            <div class="logo-tile" title="Redis"><img src="assets/vendor/devicon/redis/redis-original.svg" alt="Redis logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Redis</span><span class="tile-count">Cache &amp; Queue</span></div></div>
+            <div class="logo-tile" title="MongoDB"><img src="assets/vendor/devicon/mongodb/mongodb-original.svg" alt="MongoDB logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">MongoDB</span><span class="tile-count">NoSQL Cluster</span></div></div>
+            <div class="logo-tile inv" title="Leaflet"><img src="assets/vendor/simple-icons/leaflet.svg" alt="Leaflet logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Leaflet GIS</span><span class="tile-count">Map Engines</span></div></div>
+            <div class="logo-tile" title="Swagger"><img src="assets/vendor/devicon/swagger/swagger-original.svg" alt="Swagger logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Swagger</span><span class="tile-count">API Docs</span></div></div>
           </div>
         </div>
 
@@ -427,18 +439,18 @@
             <h3>Frontend &amp; Geospatial UI</h3>
           </div>
           <div class="col-tiles">
-            <div class="logo-tile" title="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">React</span><span class="tile-count">HUD &amp; Dashboards</span></div></div>
-            <div class="logo-tile inv" title="Next.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Next.js</span><span class="tile-count">Full-Stack SSR</span></div></div>
-            <div class="logo-tile" title="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">TypeScript</span><span class="tile-count">Type-Safe</span></div></div>
-            <div class="logo-tile" title="JavaScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">JavaScript</span><span class="tile-count">ES6+ / Modern</span></div></div>
-            <div class="logo-tile" title="HTML5"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">HTML5</span><span class="tile-count">Semantic UI</span></div></div>
-            <div class="logo-tile" title="CSS3"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">CSS3</span><span class="tile-count">Responsive UI</span></div></div>
-            <div class="logo-tile" title="Vue.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Vue.js</span><span class="tile-count">Reactive UI</span></div></div>
-            <div class="logo-tile" title="Tailwind"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Tailwind</span><span class="tile-count">Utility Styling</span></div></div>
-            <div class="logo-tile" title="Bootstrap"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Bootstrap</span><span class="tile-count">Admin Panels</span></div></div>
-            <div class="logo-tile" title="jQuery"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" alt="jQuery logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">jQuery</span><span class="tile-count">Legacy UI</span></div></div>
-            <div class="logo-tile" title="Vite"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" alt="Vite logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Vite</span><span class="tile-count">Fast Builds</span></div></div>
-            <div class="logo-tile" title="NPM"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" alt="NPM logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">NPM</span><span class="tile-count">JS Packages</span></div></div>
+            <div class="logo-tile" title="React"><img src="assets/vendor/devicon/react/react-original.svg" alt="React logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">React</span><span class="tile-count">HUD &amp; Dashboards</span></div></div>
+            <div class="logo-tile inv" title="Next.js"><img src="assets/vendor/devicon/nextjs/nextjs-original.svg" alt="Next.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Next.js</span><span class="tile-count">Full-Stack SSR</span></div></div>
+            <div class="logo-tile" title="TypeScript"><img src="assets/vendor/devicon/typescript/typescript-original.svg" alt="TypeScript logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">TypeScript</span><span class="tile-count">Type-Safe</span></div></div>
+            <div class="logo-tile" title="JavaScript"><img src="assets/vendor/devicon/javascript/javascript-original.svg" alt="JavaScript logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">JavaScript</span><span class="tile-count">ES6+ / Modern</span></div></div>
+            <div class="logo-tile" title="HTML5"><img src="assets/vendor/devicon/html5/html5-original.svg" alt="HTML5 logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">HTML5</span><span class="tile-count">Semantic UI</span></div></div>
+            <div class="logo-tile" title="CSS3"><img src="assets/vendor/devicon/css3/css3-original.svg" alt="CSS3 logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">CSS3</span><span class="tile-count">Responsive UI</span></div></div>
+            <div class="logo-tile" title="Vue.js"><img src="assets/vendor/devicon/vuejs/vuejs-original.svg" alt="Vue.js logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Vue.js</span><span class="tile-count">Reactive UI</span></div></div>
+            <div class="logo-tile" title="Tailwind"><img src="assets/vendor/devicon/tailwindcss/tailwindcss-original.svg" alt="Tailwind logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Tailwind</span><span class="tile-count">Utility Styling</span></div></div>
+            <div class="logo-tile" title="Bootstrap"><img src="assets/vendor/devicon/bootstrap/bootstrap-original.svg" alt="Bootstrap logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Bootstrap</span><span class="tile-count">Admin Panels</span></div></div>
+            <div class="logo-tile" title="jQuery"><img src="assets/vendor/devicon/jquery/jquery-original.svg" alt="jQuery logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">jQuery</span><span class="tile-count">Legacy UI</span></div></div>
+            <div class="logo-tile" title="Vite"><img src="assets/vendor/devicon/vitejs/vitejs-original.svg" alt="Vite logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Vite</span><span class="tile-count">Fast Builds</span></div></div>
+            <div class="logo-tile" title="NPM"><img src="assets/vendor/devicon/npm/npm-original-wordmark.svg" alt="NPM logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">NPM</span><span class="tile-count">JS Packages</span></div></div>
           </div>
         </div>
 
@@ -450,40 +462,40 @@
             <h3>Cloud, Systems &amp; Ops</h3>
           </div>
           <div class="col-tiles">
-            <div class="logo-tile" title="Docker"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Docker</span><span class="tile-count">Containers</span></div></div>
-            <div class="logo-tile inv" title="AWS"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">AWS</span><span class="tile-count">Cloud Deploy</span></div></div>
-            <div class="logo-tile" title="Ubuntu"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-original.svg" alt="Ubuntu logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Ubuntu</span><span class="tile-count">Production OS</span></div></div>
-            <div class="logo-tile" title="Linux"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Linux</span><span class="tile-count">Server Admin</span></div></div>
-            <div class="logo-tile" title="Nginx"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Nginx</span><span class="tile-count">Proxy &amp; SSL</span></div></div>
-            <div class="logo-tile" title="Git"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Git &amp; GitHub</span><span class="tile-count">CI/CD Automate</span></div></div>
-            <div class="logo-tile inv" title="GitHub Actions"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="GitHub Actions logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Actions</span><span class="tile-count">Auto Deploy</span></div></div>
-            <div class="logo-tile" title="Postman"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Postman</span><span class="tile-count">API Testing</span></div></div>
-            <div class="logo-tile" title="VS Code"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">VS Code</span><span class="tile-count">Dev Console</span></div></div>
-            <div class="logo-tile" title="Apache"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" alt="Apache logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Apache</span><span class="tile-count">Web Server</span></div></div>
-            <div class="logo-tile" title="Electron"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" alt="Electron logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Electron</span><span class="tile-count">Cross-Platform</span></div></div>
-            <div class="logo-tile" title="Android"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="Android logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Android / Java</span><span class="tile-count">Native Apps</span></div></div>
-            <div class="logo-tile" title="Java"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Java</span><span class="tile-count">Android Core</span></div></div>
-            <div class="logo-tile" title="Firebase"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Firebase</span><span class="tile-count">Realtime Auth</span></div></div>
-            <div class="logo-tile" title="C#"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C# logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C# .NET</span><span class="tile-count">WinForms &middot; WPF</span></div></div>
-            <div class="logo-tile" title="WPF"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt="WPF logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">WPF / XAML</span><span class="tile-count">Windows Desktop</span></div></div>
-            <div class="logo-tile" title="C"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C</span><span class="tile-count">Embedded Base</span></div></div>
-            <div class="logo-tile" title="C++"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++ logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C++</span><span class="tile-count">Firmware Logic</span></div></div>
-            <div class="logo-tile" title="Arduino"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Arduino</span><span class="tile-count">Embedded &middot; Sensors</span></div></div>
+            <div class="logo-tile" title="Docker"><img src="assets/vendor/devicon/docker/docker-original.svg" alt="Docker logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Docker</span><span class="tile-count">Containers</span></div></div>
+            <div class="logo-tile inv" title="AWS"><img src="assets/vendor/devicon/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">AWS</span><span class="tile-count">Cloud Deploy</span></div></div>
+            <div class="logo-tile" title="Ubuntu"><img src="assets/vendor/devicon/ubuntu/ubuntu-original.svg" alt="Ubuntu logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Ubuntu</span><span class="tile-count">Production OS</span></div></div>
+            <div class="logo-tile" title="Linux"><img src="assets/vendor/devicon/linux/linux-original.webp" alt="Linux logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Linux</span><span class="tile-count">Server Admin</span></div></div>
+            <div class="logo-tile" title="Nginx"><img src="assets/vendor/devicon/nginx/nginx-original.svg" alt="Nginx logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Nginx</span><span class="tile-count">Proxy &amp; SSL</span></div></div>
+            <div class="logo-tile" title="Git"><img src="assets/vendor/devicon/git/git-original.svg" alt="Git logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Git &amp; GitHub</span><span class="tile-count">CI/CD Automate</span></div></div>
+            <div class="logo-tile inv" title="GitHub Actions"><img src="assets/vendor/devicon/githubactions/githubactions-original.svg" alt="GitHub Actions logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Actions</span><span class="tile-count">Auto Deploy</span></div></div>
+            <div class="logo-tile" title="Postman"><img src="assets/vendor/devicon/postman/postman-original.svg" alt="Postman logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Postman</span><span class="tile-count">API Testing</span></div></div>
+            <div class="logo-tile" title="VS Code"><img src="assets/vendor/devicon/vscode/vscode-original.svg" alt="VS Code logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">VS Code</span><span class="tile-count">Dev Console</span></div></div>
+            <div class="logo-tile" title="Apache"><img src="assets/vendor/devicon/apache/apache-original.svg" alt="Apache logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Apache</span><span class="tile-count">Web Server</span></div></div>
+            <div class="logo-tile" title="Electron"><img src="assets/vendor/devicon/electron/electron-original.svg" alt="Electron logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Electron</span><span class="tile-count">Cross-Platform</span></div></div>
+            <div class="logo-tile" title="Android"><img src="assets/vendor/devicon/android/android-original.svg" alt="Android logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Android / Java</span><span class="tile-count">Native Apps</span></div></div>
+            <div class="logo-tile" title="Java"><img src="assets/vendor/devicon/java/java-original.svg" alt="Java logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Java</span><span class="tile-count">Android Core</span></div></div>
+            <div class="logo-tile" title="Firebase"><img src="assets/vendor/devicon/firebase/firebase-plain.svg" alt="Firebase logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Firebase</span><span class="tile-count">Realtime Auth</span></div></div>
+            <div class="logo-tile" title="C#"><img src="assets/vendor/devicon/csharp/csharp-original.svg" alt="C# logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C# .NET</span><span class="tile-count">WinForms &middot; WPF</span></div></div>
+            <div class="logo-tile" title="WPF"><img src="assets/vendor/devicon/dotnetcore/dotnetcore-original.svg" alt="WPF logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">WPF / XAML</span><span class="tile-count">Windows Desktop</span></div></div>
+            <div class="logo-tile" title="C"><img src="assets/vendor/devicon/c/c-original.svg" alt="C logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C</span><span class="tile-count">Embedded Base</span></div></div>
+            <div class="logo-tile" title="C++"><img src="assets/vendor/devicon/cplusplus/cplusplus-original.svg" alt="C++ logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">C++</span><span class="tile-count">Firmware Logic</span></div></div>
+            <div class="logo-tile" title="Arduino"><img src="assets/vendor/devicon/arduino/arduino-original.svg" alt="Arduino logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Arduino</span><span class="tile-count">Embedded &middot; Sensors</span></div></div>
           </div>
         </div>
       </div>
       <div class="lab-strip" aria-label="Currently learning">
         <span class="lab-tag"><i class="lab-dot"></i> IN THE LAB &middot; CURRENTLY LEARNING</span>
         <div class="lab-tiles">
-          <div class="logo-tile inv lab" title="Flask"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Flask</span><span class="tile-count">Learning</span></div></div>
-          <div class="logo-tile inv lab" title="Django"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Django</span><span class="tile-count">Learning</span></div></div>
+          <div class="logo-tile inv lab" title="Flask"><img src="assets/vendor/devicon/flask/flask-original.svg" alt="Flask logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Flask</span><span class="tile-count">Learning</span></div></div>
+          <div class="logo-tile inv lab" title="Django"><img src="assets/vendor/devicon/django/django-plain.svg" alt="Django logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Django</span><span class="tile-count">Learning</span></div></div>
         </div>
         <p class="lab-note">// Expanding my Python stack beyond FastAPI.</p>
       </div>
     </section>
 
     <section id="experience" class="wrap" data-reveal aria-label="Experience">
-      <div class="sec-head"><span class="eyebrow">03 &middot; Mission log</span><h2>Experience railway</h2></div>
+      <div class="sec-head"><span class="eyebrow">03 &middot; Mission log</span><h2>Where I have delivered</h2></div>
       <div class="rail" data-stagger>
         <div class="rail-line" aria-hidden="true"></div>
 
@@ -502,7 +514,7 @@
               <span class="em-tag">FIELD OPS // GIS LAB × IUCN 2024</span>
               <div class="em-frame">
                 <picture>
-                  <source srcset="assets/sheraz/gislab-forest-iucn.webp" type="image/webp">
+                  <source srcset="assets/sheraz/gislab-forest-iucn-card.webp" type="image/webp">
                   <img src="assets/sheraz/gislab-forest-iucn.jpeg" data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-iucn.jpeg" data-cap="LiDAR drone fleet, biomass estimation &amp; satellite forest cover assessment — GIS Lab, Punjab Forest Department at IUCN 2024" alt="Sheraz on-site representing GIS Lab, Punjab Forest Department at IUCN 2024 — LiDAR drones, biomass estimation and forest cover assessment exhibits" loading="lazy" decoding="async" width="1600" height="1200">
                 </picture>
                 <span class="em-scan" aria-hidden="true"></span>
@@ -517,19 +529,20 @@
               <img data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-services-academy-murree-training-certificate.jpg" data-cap="Receiving the certificate of participation — GIS &amp; forestry systems training, Forest Services Academy, Murree" alt="Sheraz receiving a training certificate at the Forest Services Academy, Murree — Punjab Forest Department" width="1200" height="1600" loading="lazy" decoding="async">
               <img data-gallery="fieldops" data-full="assets/sheraz/recieving_apprication_certificate_from_ex_cheif_conservator_of_forest  .jpeg" data-cap="Receiving an appreciation certificate from the ex-Chief Conservator of Forest — GIS Lab, Punjab Forest Department" alt="Sheraz receiving an appreciation certificate from the ex-Chief Conservator of Forest" width="1600" height="1200" loading="lazy" decoding="async">
             </div>
-            <p>Architecting, building and deploying full-scale, GIS-enabled web platforms for government-scale forestry operations, monitoring and decision-making — in production across administrative and field stakeholders.</p>
+            <p>Lead engineer behind the GIS Lab&rsquo;s web platforms &mdash; architecting, building and deploying the GIS-enabled systems that run Punjab&rsquo;s forestry operations, in production with administrative and field staff across the department.</p>
             <ul>
-              <li>Delivered end-to-end systems: Complaint Management (React + Node.js) and Asset Management (Laravel) tailored to operational workflows.</li>
-              <li>Implemented web GIS: spatial storage, interactive map rendering, layer overlays and QR-based geospatial tagging.</li>
-              <li>Engineered role-based access control across hierarchical government structures for secure deployments.</li>
+              <li>Shipped the <b>Complaint Management System</b> (React + Node.js on AWS): forest-fire, illegal-logging and encroachment reports routed across 7 official roles, with WhatsApp alerts to Conservators and DFOs.</li>
+              <li>Built the <b>Asset Management System</b> (Laravel 11): QR-tagged assets, consumable requests, low-stock alerts and procurement records.</li>
+              <li>Modernised legacy PostgreSQL GIS datasets into web GIS &mdash; fire, nursery and forest-change dashboards with boundary overlays and QR plantation markers.</li>
+              <li>Designed role-based access across the government hierarchy &mdash; from the Secretariat down to field DFOs.</li>
               <li>Represented the GIS Lab at <b class="text-cy">IUCN 2024</b> — showcasing LiDAR-based biomass estimation, AI drone forestry monitoring and satellite forest cover assessment covering <b class="text-cy">67% of Punjab's forests</b>.</li>
             </ul>
 
             <figure class="exp-proof">
               <span class="em-tag">RECOGNITION // FOREST DEPARTMENT</span>
               <div class="proof-frame">
-                <video controls preload="metadata" poster="assets/sheraz/recieving_apprication_certificate_from_ex_cheif_conservator_of_forest  .jpeg" aria-label="Sheraz receiving an appreciation certificate from the ex-Chief Conservator of Forest">
-                  <source src="assets/sheraz/recieving_apprication_certificate_from_ex_cheif_conservator_of_forest.MP4" type="video/mp4">
+                <video controls preload="none" data-poster="assets/sheraz/certificate-recognition-poster.webp" aria-label="Sheraz receiving an appreciation certificate from the ex-Chief Conservator of Forest">
+                  <source src="assets/sheraz/certificate-recognition-1080p.mp4" type="video/mp4">
                 </video>
                 <span class="em-corner tl" aria-hidden="true"></span><span class="em-corner tr" aria-hidden="true"></span>
                 <span class="em-corner bl" aria-hidden="true"></span><span class="em-corner br" aria-hidden="true"></span>
@@ -560,10 +573,10 @@
             <span class="when">Nov 2024 — Mar 2025</span>
           </div>
           <div class="exp-body">
-            <p>Maintained and expanded interconnected logistics products (Global Shopaholics Portal, Ship6) powering international shipping and package forwarding.</p>
+            <p>Shipped new modules and performance work on <b>Global Shopaholics</b> and <b>Ship6</b> &mdash; the international shipping and package-forwarding platforms essential to company operations.</p>
             <ul>
-              <li>Conducted speed and code optimizations for high-performance applications.</li>
-              <li>Executed work via Jira and implemented CI/CD workflows over SSH to production servers.</li>
+              <li>Built new modules and optimised slow code paths for faster, more stable releases.</li>
+              <li>Ran delivery with the Product Manager in Jira; released to production through CI/CD over SSH.</li>
             </ul>
           </div>
         </article>
@@ -579,7 +592,7 @@
               <span class="em-tag">SOFTWARE TEAM // CMH LAHORE</span>
               <div class="em-frame">
                 <picture>
-                  <source srcset="assets/sheraz/cmh-lahore-medical-college-software-team-with-hod.webp" type="image/webp">
+                  <source srcset="assets/sheraz/cmh-lahore-medical-college-software-team-with-hod-card.webp" type="image/webp">
                   <img src="assets/sheraz/cmh-lahore-medical-college-software-team-with-hod.jpg" data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-software-team-with-hod.jpg" data-cap="Software development team with the Head of Department — CMH Lahore Medical College" alt="Sheraz with the software development team and Head of Department at CMH Lahore Medical College" loading="lazy" decoding="async" width="1600" height="1200">
                 </picture>
                 <span class="em-scan" aria-hidden="true"></span>
@@ -594,11 +607,12 @@
               <img data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-developer-at-work.jpg" data-cap="Developing and maintaining institutional portals at CMH Lahore Medical College" alt="Sheraz developing web portals at his workstation, CMH Lahore Medical College" width="720" height="1280" loading="lazy" decoding="async">
               <img data-gallery="cmh" data-full="assets/sheraz/two_senior_devs_in_one_frame_CMH.jpeg" data-cap="Two senior developers in one frame — CMH Lahore Medical College software team" alt="Sheraz with another senior developer at CMH Lahore Medical College" width="1600" height="1200" loading="lazy" decoding="async">
             </div>
-            <p>Managed and enhanced 9 interconnected portals (Student Management, Admissions, HR, Employee, Library, Hostel, FCPS/HO Induction, Evaluation) essential to institutional operations.</p>
+            <p>Owned <b>9 interconnected portals</b> that run the college &mdash; admissions, students, HR, employees, library, hostel, FCPS/HO induction and evaluation. <b>Promoted from Mid to Senior in 10 months.</b></p>
             <ul>
-              <li>Built CI/CD pipelines with GitHub Actions, automating critical deployment tasks.</li>
-              <li>Managed server configuration in DirectAdmin, improving portal stability.</li>
-              <li>Hardware integration: configured ZKTeco attendance machines with web applications.</li>
+              <li>Automated deployments with GitHub Actions CI/CD, removing manual release steps.</li>
+              <li>Led the development team in the team lead&rsquo;s absence &mdash; delegation, continuity and deadlines.</li>
+              <li>Tuned DirectAdmin server configuration for faster, more stable portals.</li>
+              <li>Integrated ZKTeco biometric attendance machines directly with the web apps.</li>
             </ul>
           </div>
         </article>
@@ -610,7 +624,7 @@
             <span class="when">Nov 2021 — Feb 2023</span>
           </div>
           <div class="exp-body">
-            <p>Built mobile and desktop applications in Java and C#, then transitioned to scalable backend-driven web systems with Laravel (PHP).</p>
+            <p>Started on Java and C# mobile and desktop apps, then moved into backend-driven <b>Laravel</b> web systems &mdash; the start of my web specialisation.</p>
           </div>
         </article>
 
@@ -621,16 +635,16 @@
             <span class="when">2018 — Present</span>
           </div>
           <div class="exp-body">
-            <p>Delivered complete multi-platform solutions — from C# WinForms and Electron.js desktop apps, to Android with Firebase, evolving into Laravel/Node.js cloud platforms.</p>
+            <p>Delivered <b>point-of-sale, restaurant, institute-management and cross-platform note apps</b> for local and international clients &mdash; C# WinForms, Electron.js and Android/Firebase, growing into Laravel and Node.js cloud platforms.</p>
           </div>
         </article>
       </div>
 
       <div class="world-ops panel hud-frame" data-reveal>
-        <span class="corner-id">GLOBAL OPS // 4 CONTINENTS</span>
+        <span class="corner-id">GLOBAL OPS // 3 CONTINENTS</span>
         <div class="wo-head">
           <span class="eyebrow">Worldwide client missions</span>
-          <p class="muted">// Shipped for clients across Italy, Canada, USA, India &amp; Pakistan — remote-first, production-proven.</p>
+          <p class="muted">// Delivered remotely for clients in Italy, Canada, the USA, India &amp; Pakistan &mdash; built, launched and supported in production.</p>
         </div>
         <div class="wo-grid" data-stagger>
           <a class="wo-card" href="https://sporteuropa-online.com/" target="_blank" rel="noopener">
@@ -662,7 +676,7 @@
     </section>
 
     <section id="projects" class="wrap" data-reveal aria-label="Projects">
-      <div class="sec-head"><span class="eyebrow">04 &middot; Deployed platforms</span><h2>Project holograms</h2></div>
+      <div class="sec-head"><span class="eyebrow">04 &middot; Deployed platforms</span><h2>Explore the work</h2></div>
       <p class="muted" style="margin-top:-34px; margin-bottom:22px; font-family:var(--mono); font-size:12px;">// Open any system to view the video proof, screenshots and documentation.</p>
       <div class="proj-filters" id="proj-filters" role="group" aria-label="Filter projects">
         <button class="pf-chip on" data-filter="all" aria-pressed="true">All</button>
@@ -675,7 +689,7 @@
       <div class="proj-grid" data-stagger>
 
         <article class="proj feat panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=lte">
-          <img class="proj-img" src="assets/projects/lte/shot-01.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+          <img class="proj-img" src="assets/projects/lte/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-01 // LTE</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
@@ -683,11 +697,11 @@
           <span class="tag">Gov Tech &middot; Next.js &middot; NestJS &middot; PostgreSQL</span>
           <h3><a class="project-detail-link" href="project.html?id=lte">Linear Tree Enumeration System</a></h3>
           <p>A modern, GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries and interactive geospatial visualization over large datasets.</p>
-          <div class="meta"><span class="impact-pill">67% Forest Coverage</span><span class="stack">Open dossier &middot; video proof</span><a class="live-link" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener" aria-label="Open live deployment of Linear Tree Enumeration"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">67% Forest Coverage</span><span class="stack">View project &middot; watch demo</span><a class="live-link" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener" aria-label="Open live deployment of Linear Tree Enumeration"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
         <article class="proj half panel hud-frame" tabindex="0" data-cat="gov" data-href="project.html?id=cms">
-          <img class="proj-img" src="assets/projects/cms/shot-01.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+          <img class="proj-img" src="assets/projects/cms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-02</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
@@ -709,7 +723,7 @@
         </article>
 
         <article class="proj wide panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=ppms">
-          <img class="proj-img" src="assets/projects/ppms/shot-01.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+          <img class="proj-img" src="assets/projects/ppms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-04</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
@@ -760,7 +774,7 @@
         </article>
 
         <article class="proj wide panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=gis-portal">
-          <img class="proj-img" src="assets/sheraz/gislab-forest-iucn.webp" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+          <img class="proj-img" src="assets/sheraz/gislab-forest-iucn-card.webp" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-09</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
@@ -775,7 +789,7 @@
     </section>
 
     <section id="education" class="wrap" data-reveal aria-label="Education">
-      <div class="sec-head"><span class="eyebrow">05 &middot; Foundation</span><h2>Academic core</h2></div>
+      <div class="sec-head"><span class="eyebrow">05 &middot; Foundation</span><h2>Education</h2></div>
       <div class="edu-grid" data-stagger>
         <article class="panel hud-frame">
           <span class="corner-id">DEGREE // CS-01</span>
@@ -793,7 +807,7 @@
     </section>
 
     <section id="contact" class="wrap" data-reveal aria-label="Contact">
-      <div class="sec-head" style="text-align:center;"><span class="eyebrow" style="justify-content:center;">06 &middot; Open channel</span><h2>Transmission terminal</h2></div>
+      <div class="sec-head" style="text-align:center;"><span class="eyebrow" style="justify-content:center;">06 &middot; Open channel</span><h2>Let&#39;s talk about your team</h2></div>
       <div class="terminal panel hud-frame">
         <span class="corner-id">SECURE LINK // AES-256</span>
         <div class="term-head">
@@ -835,9 +849,9 @@
 
   <footer class="foot">
     <div class="wrap">
-      <span>&copy; <span id="year"></span> Malik Sheraz Maqsood Ahmed &middot; ARC OS v2.0</span>
+      <span class="foot-brand"><img src="assets/brand/logo-mark-96.webp" alt="" width="26" height="26" loading="lazy">&copy; <span id="year"></span> Malik Sheraz Maqsood Ahmed</span>
       <span class="foot-social"><a href="https://github.com/Sheraz-Maqsood" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a> &middot; <a href="https://www.linkedin.com/in/sheraz-maqsood-b991361a4/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> &middot; <a href="mailto:sherii55055@gmail.com" aria-label="Email">Email</a></span>
-      <span>Built with love, not just frameworks &middot; Every line, a quiet act of passion &middot; Lahore, Pakistan <span style="color:var(--red)">&hearts;</span> &middot; <a href="#top">&uarr; Return to orbit</a></span>
+      <span>Compiled in Lahore with 0 errors, 3 warnings and 1 TODO from 2019 &middot; Works on my machine <i>and</i> in production <span style="color:var(--red)">&hearts;</span> &middot; <a href="#top">&uarr; git checkout top</a></span>
     </div>
   </footer>
 
@@ -874,8 +888,9 @@
     <div class="cin"><span>$</span><input id="console-input" autocomplete="off" spellcheck="false" aria-label="Console input"></div>
   </div>
 
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-  <script defer src="assets/js/components.js"></script>
-  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/vendor/anime-3.2.2.min.js"></script>
+  <script defer src="assets/js/components.min.js?v=f354f32714"></script>
+  <script defer src="assets/js/main.min.js?v=ddfaa75607"></script>
+  <script defer src="assets/js/living-network.min.js?v=8bd273c05a"></script>
 </body>
 </html>
