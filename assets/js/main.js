@@ -1,6 +1,6 @@
 /* ============================================================
-   ARC // JARVIS-class HUD Portfolio — Engine
-   Boot · WebGL background · Anime.js · interactions · sound · easter eggs
+   Portfolio engine — Malik Sheraz Maqsood Ahmed
+   Starfield · reveal · header · tabs · section pager · sound · easter eggs
    Defensive: every module guarded so one failure never blocks the rest.
    ============================================================ */
 (function () {
@@ -28,113 +28,58 @@
     document.addEventListener("visibilitychange", sync);
   }
 
+  /* Video posters load shortly before they scroll into view (images use native loading="lazy"). */
   function initDeferredMedia() {
-    var targets = $$("video[data-poster], img[data-src]:not(.boot-logo)");
+    var targets = $$("video[data-poster], img[data-src]");
     function load(el) {
       if (el.dataset.poster) { el.poster = el.dataset.poster; delete el.dataset.poster; }
       if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
-      var picture = el.closest && el.closest("picture");
-      if (picture) {
-        $$("source[data-srcset]", picture).forEach(function (source) {
-          source.srcset = source.dataset.srcset;
-          delete source.dataset.srcset;
-        });
-      }
-      var media = el.closest && el.closest(".portrait-media");
-      if (media) media.classList.add("media-ready");
     }
     if (!("IntersectionObserver" in window)) { targets.forEach(load); return; }
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) { if (entry.isIntersecting) { load(entry.target); observer.unobserve(entry.target); } });
-    }, { rootMargin: "0px" });
+    }, { rootMargin: "600px 0px" });
     targets.forEach(function (el) { observer.observe(el); });
+    var portrait = $(".portrait-media");
+    if (portrait) portrait.classList.add("media-ready");
   }
 
   var state = { mx: 0.5, my: 0.5, soundOn: false };
 
-  /* ========== 2. WEBGL PARTICLE UNIVERSE ========== */
-  function initWebGL() {
-    if ($("#network-scene")) return; // Keep the homepage focused on the project explorer.
-    var canvas = $("#webgl-bg");
-    if (!canvas || reduceMotion || innerWidth < 700) return;   /* skip decorative 3D on phones */
-    var started = false, fallbackTimer;
-    function startWebGL() {
-      if (started) return;
-      started = true;
-      clearTimeout(fallbackTimer);
-      removeEventListener("pointermove", startWebGL);
-      removeEventListener("scroll", startWebGL);
-      if (typeof window.THREE !== "undefined") { try { buildWebGL(canvas); } catch (e) {} return; }
-      var sc = document.createElement("script");
-      sc.src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-      sc.async = true;
-      sc.onload = function () { try { buildWebGL(canvas); } catch (e) {} };
-      document.head.appendChild(sc);
-    }
-    addEventListener("pointermove", startWebGL, { once: true, passive: true });
-    addEventListener("scroll", startWebGL, { once: true, passive: true });
-    fallbackTimer = setTimeout(startWebGL, 4000);
-  }
-  function buildWebGL(canvas) {
-    var renderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: "high-performance" });
-    } catch (e) { return; }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(70, innerWidth / innerHeight, 1, 1400);
-    camera.position.z = 420;
-
-    var COUNT = innerWidth < 700 ? 900 : 1700;
-    var geo = new THREE.BufferGeometry();
-    var pos = new Float32Array(COUNT * 3);
-    var col = new Float32Array(COUNT * 3);
-    var cyan = new THREE.Color(0x38e0ff), gold = new THREE.Color(0xffc46b), blue = new THREE.Color(0x1d6fff);
-    for (var i = 0; i < COUNT; i++) {
-      pos[i * 3]     = (Math.random() - 0.5) * 1600;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 1000;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 1200;
-      var c = Math.random() < 0.12 ? gold : (Math.random() < 0.4 ? blue : cyan);
-      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
-    }
-    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
-    var mat = new THREE.PointsMaterial({ size: 2.2, vertexColors: true, transparent: true, opacity: 0.85, depthWrite: false, blending: THREE.AdditiveBlending });
-    var points = new THREE.Points(geo, mat);
-    scene.add(points);
-
-    var ring = new THREE.Mesh(
-      new THREE.TorusGeometry(260, 2, 8, 90),
-      new THREE.MeshBasicMaterial({ color: 0x38e0ff, wireframe: true, transparent: true, opacity: 0.08 })
-    );
-    ring.position.z = -300; scene.add(ring);
-
+  /* ========== 2. STARFIELD (project pages) ==========
+     Replaces the old three.js particle scene: same drifting cyan/gold points,
+     ~2 KB of code instead of a 600 KB library. Desktop only, paused when hidden. */
+  function initStarfield() {
+    var canvas = $("#bg-stars");
+    if (!canvas || !canvas.getContext || innerWidth < 900 || isTouch) return;
+    var ctx = canvas.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var W = 0, H = 0, stars = [], raf = 0, t = 0;
+    var COLORS = ["#38e0ff", "#38e0ff", "#1d6fff", "#ffc46b"];
     function resize() {
-      renderer.setSize(innerWidth, innerHeight, false);
-      camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+      W = innerWidth; H = innerHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(W * H / 9000);
+      stars = [];
+      for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, z: 0.3 + Math.random() * 0.7, c: COLORS[(Math.random() * COLORS.length) | 0] });
     }
-    resize();
-    addEventListener("resize", resize, { passive: true });
-
-    var raf, running = true, t = 0;
-    function render() {
-      if (!running) return;
-      t += 0.0016;
-      points.rotation.y = t * 0.5;
-      points.rotation.x = Math.sin(t * 0.3) * 0.08;
-      ring.rotation.x = t * 0.6; ring.rotation.y = t * 0.4;
-      camera.position.x += ((state.mx - 0.5) * 160 - camera.position.x) * 0.04;
-      camera.position.y += (-(state.my - 0.5) * 120 - camera.position.y) * 0.04;
-      camera.lookAt(scene.position);
-      renderer.render(scene, camera);
-      raf = requestAnimationFrame(render);
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var px = (state.mx - 0.5) * 24, py = (state.my - 0.5) * 16;
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        var x = (s.x + t * 6 * s.z + px * s.z) % W, y = s.y + py * s.z;
+        ctx.globalAlpha = 0.35 + 0.5 * s.z;
+        ctx.fillStyle = s.c;
+        ctx.fillRect(x < 0 ? x + W : x, y, 1.6 * s.z, 1.6 * s.z);
+      }
+      ctx.globalAlpha = 1;
     }
-    render();
-    document.addEventListener("visibilitychange", function () {
-      running = !document.hidden;
-      if (running) render(); else cancelAnimationFrame(raf);
-    });
+    function loop() { t += 0.016; draw(); raf = requestAnimationFrame(loop); }
+    function sync() { cancelAnimationFrame(raf); raf = 0; if (!document.hidden && !reduceMotion) loop(); else draw(); }
+    resize(); sync();
+    addEventListener("resize", function () { resize(); draw(); }, { passive: true });
+    document.addEventListener("visibilitychange", sync);
   }
 
   /* ========== 3. HEADER + SCROLL PROGRESS + ACTIVE NAV ========== */
@@ -199,7 +144,7 @@
       if (!m.classList.contains("open")) return;
       if (e.key === "Escape") { e.preventDefault(); toggle(false); }
       if (e.key === "Tab") {
-        var items = [t].concat($$("a", m));
+        var items = [t].concat($$("a, button", m));
         var index = items.indexOf(document.activeElement);
         e.preventDefault();
         items[(index + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
@@ -324,25 +269,6 @@
     })();
   }
 
-  /* ========== 9. HERO ORBIT CHIPS ========== */
-  function initOrbit() {
-    var reactor = $(".reactor");
-    var chips = $$(".orbit-chip");
-    if (!reactor || !chips.length) return;
-    var N = chips.length, t = 0, raf;
-    function frame() {
-      var R = reactor.clientWidth * 0.46;
-      t += reduceMotion ? 0 : 0.0024;
-      chips.forEach(function (chip, i) {
-        var a = (i / N) * Math.PI * 2 + t;
-        var x = Math.cos(a) * R, y = Math.sin(a) * R * 0.62;
-        chip.style.transform = "translate(-50%,-50%) translate(" + x + "px," + y + "px)";
-        chip.style.opacity = 0.55 + 0.45 * ((Math.sin(a) + 1) / 2);
-      });
-    }
-    animateWhenVisible(reactor, frame);
-  }
-
   /* ========== 10. SKILLS GALAXY ========== */
   var SKILLS = [
     { n: "Laravel",     ring: 1, exp: "6+ yrs", proj: "AMS · Shopaholics · CMH portals", conf: "Expert", gold: true },
@@ -451,6 +377,11 @@
 
   /* ========== 11. PROJECT NAV ========== */
   function initProjects() {
+    $$("img.proj-img").forEach(function (img) {
+      function fallback() { img.removeEventListener("error", fallback); img.src = "assets/projects/_placeholder.svg"; }
+      if (img.complete && img.naturalWidth === 0 && img.currentSrc) fallback();
+      else img.addEventListener("error", fallback);
+    });
     $$(".proj[data-href]").forEach(function (p) {
       var go = function () { play("select"); var href = p.getAttribute("data-href"); if (/^https?:/i.test(href)) window.open(href, "_blank", "noopener"); else window.location.href = href; };
       p.addEventListener("click", function (e) { if (!e.target.closest("a, button, input")) go(); });
@@ -459,67 +390,145 @@
     $$(".proj").forEach(function (p) { p.addEventListener("mouseenter", function () { play("hover"); }); });
   }
 
-  /* ========== 11b. EXPERIENCE role tabs (desktop: one role at a time, fits one viewport) ========== */
+  /* ========== 11b. EXPERIENCE — accessible tabs on every screen size ==========
+     Without JavaScript every role stays visible as a timeline. With it:
+       · one role at a time: tabs on the left (desktop) or a swipeable chip row (tablet / phone)
+       · arrow keys, Home / End, plus "previous / next role" buttons under every role
+       · deep links: /#exp-cmh opens that role, and the address follows the selected tab
+       · long roles show a "more below" fade on desktop, where the panel scrolls inside */
   function initExpTabs() {
     var sec = $("#experience"), rail = sec && $(".rail", sec);
     if (!rail) return;
-    var stations = $$(".station", rail);
-    if (stations.length < 2) return;
-    /* The "Worldwide client missions" panel becomes the last tab */
+    var panels = $$(".station", rail);
     var wo = $(".world-ops", sec);
-    if (wo) stations.push(wo);
-    var mq = window.matchMedia("(min-width: 1100px)");
-    var nav = document.createElement("div");
-    nav.className = "rail-tabs-nav";
+    if (wo) panels.push(wo);
+    if (panels.length < 2) return;
+    var wide = window.matchMedia("(min-width: 1100px)");
+    var n = panels.length, current = -1;
+
+    function el(tag, cls, text) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    function txt(scope, q) { var e = $(q, scope); return e ? e.textContent.replace(/\s+/g, " ").trim() : ""; }
+    var meta = panels.map(function (st) {
+      if (st === wo) return { title: "Worldwide client missions", org: "Italy · Canada · USA · India · Pakistan", when: "2020 — 2025 · Remote" };
+      return { title: txt(st, ".exp-head h3"), org: txt(st, ".exp-head .org"), when: txt(st, ".exp-head .when") };
+    });
+
+    var nav = el("div", "rail-tabs-nav");
     nav.setAttribute("role", "tablist");
     nav.setAttribute("aria-label", "Experience roles");
-    var tabs = stations.map(function (st, i) {
-      var h = $(".exp-head h3", st), org = $(".exp-head .org", st), when = $(".exp-head .when", st);
-      if (!st.id) st.id = "exp-station-" + (i + 1);
-      var b = document.createElement("button");
+    var tabs = panels.map(function (st, i) {
+      var b = el("button", "rt-tab" + (st.classList.contains("now") ? " now" : ""));
       b.type = "button";
-      b.className = "rt-tab" + (st.classList.contains("now") ? " now" : "");
-      b.id = "exp-tab-" + (i + 1);
+      b.id = "tab-" + st.id;
       b.setAttribute("role", "tab");
       b.setAttribute("aria-controls", st.id);
-      var isWo = st === wo;
-      b.innerHTML = "<span class='rt-when'>" + (isWo ? "2020 — 2025 · Remote" : (when ? when.textContent : "")) + "</span><b>" +
-        (isWo ? "Worldwide client missions" : (h ? h.textContent : "")) + "</b><span class='rt-org'>" +
-        (isWo ? "Italy · Canada · USA · India · Pakistan" : (org ? org.textContent : "")) + "</span>";
-      b.addEventListener("click", function () { select(i, true); play("select"); });
+      b.appendChild(el("span", "rt-idx", (i < 9 ? "0" : "") + (i + 1))).setAttribute("aria-hidden", "true");
+      b.appendChild(el("span", "rt-when", meta[i].when));
+      b.appendChild(el("b", "", meta[i].title));
+      b.appendChild(el("span", "rt-org", meta[i].org));
+      b.addEventListener("click", function () { select(i, { hash: true }); play("select"); });
       b.addEventListener("keydown", function (e) {
-        var k = e.key, n = stations.length, j = -1;
-        if (k === "ArrowDown" || k === "ArrowRight") j = (i + 1) % n;
-        else if (k === "ArrowUp" || k === "ArrowLeft") j = (i - 1 + n) % n;
-        else if (k === "Home") j = 0; else if (k === "End") j = n - 1;
+        var k = e.key, j = -1;
+        if (k === "ArrowRight" || k === "ArrowDown") j = (i + 1) % n;
+        else if (k === "ArrowLeft" || k === "ArrowUp") j = (i - 1 + n) % n;
+        else if (k === "Home") j = 0;
+        else if (k === "End") j = n - 1;
         if (j < 0) return;
-        e.preventDefault(); select(j, true); tabs[j].focus();
+        e.preventDefault(); select(j, { hash: true }); tabs[j].focus();
       });
       nav.appendChild(b);
       return b;
     });
     rail.parentNode.insertBefore(nav, rail);
-    function select(i) {
+
+    panels.forEach(function (st, i) {
+      st.setAttribute("role", "tabpanel");
+      st.setAttribute("aria-labelledby", tabs[i].id);
+      st.tabIndex = 0;
+      var pager = el("div", "rt-pager");
+      if (i > 0) {
+        var prev = el("button", "rt-step rt-prev");
+        prev.type = "button";
+        prev.appendChild(el("span", "rt-step-k", "← Previous role"));
+        prev.appendChild(el("b", "", meta[i - 1].title));
+        prev.addEventListener("click", function () { select(i - 1, { hash: true, scroll: true, focusTab: true }); });
+        pager.appendChild(prev);
+      }
+      pager.appendChild(el("span", "rt-count", (i + 1) + " / " + n));
+      if (i < n - 1) {
+        var next = el("button", "rt-step rt-next");
+        next.type = "button";
+        next.appendChild(el("span", "rt-step-k", "Next role →"));
+        next.appendChild(el("b", "", meta[i + 1].title));
+        next.addEventListener("click", function () { select(i + 1, { hash: true, scroll: true, focusTab: true }); });
+        pager.appendChild(next);
+      }
+      st.appendChild(pager);
+      st.addEventListener("scroll", updateFade, { passive: true });
+    });
+
+    function updateFade() {
+      panels.forEach(function (p, j) {
+        var more = j === current && wide.matches && p.scrollHeight - p.clientHeight - p.scrollTop > 24;
+        p.classList.toggle("has-more", more);
+      });
+    }
+    function select(i, o) {
+      o = o || {};
+      if (i < 0 || i >= n) return;
+      current = i;
       tabs.forEach(function (t, j) {
         var on = j === i;
         t.classList.toggle("on", on);
         t.setAttribute("aria-selected", on ? "true" : "false");
         t.tabIndex = on ? 0 : -1;
       });
-      stations.forEach(function (s, j) { s.classList.toggle("rt-active", j === i); });
-      stations[i].scrollTop = 0;
+      panels.forEach(function (p, j) { var on = j === i; p.classList.toggle("rt-active", on); p.hidden = !on; });
+      panels[i].scrollTop = 0;
+      if (!wide.matches && nav.scrollWidth > nav.clientWidth) {
+        var t = tabs[i];
+        nav.scrollTo({ left: t.offsetLeft - (nav.clientWidth - t.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+      if (o.hash && history.replaceState) history.replaceState(null, "", "#" + panels[i].id);
+      if (o.scroll) {
+        var top = nav.getBoundingClientRect().top;
+        if (top < 60 || top > innerHeight * 0.6) {
+          window.scrollTo({ top: Math.max(0, top + window.pageYOffset - 110), behavior: reduceMotion ? "auto" : "smooth" });
+        }
+      }
+      if (o.focusTab) tabs[i].focus({ preventScroll: true });
+      updateFade();
     }
-    function apply() {
-      var on = mq.matches;
-      sec.classList.toggle("exp-tabs", on);
-      stations.forEach(function (s, i) {
-        if (on) { s.setAttribute("role", "tabpanel"); s.setAttribute("aria-labelledby", tabs[i].id); }
-        else { s.removeAttribute("role"); s.removeAttribute("aria-labelledby"); }
-      });
+    function fromHash(scroll) {
+      var id = decodeURIComponent(location.hash.slice(1));
+      for (var i = 0; i < n; i++) {
+        if (panels[i].id === id) {
+          select(i);
+          if (scroll) {
+            var jump = function () { if (location.hash.slice(1) === id) sec.scrollIntoView({ block: "start", behavior: "instant" }); };
+            jump();
+            /* lazily rendered sections above can change height while the page settles */
+            if (document.readyState !== "complete") window.addEventListener("load", function () { setTimeout(jump, 60); }, { once: true });
+            setTimeout(jump, 450);
+          }
+          return true;
+        }
+      }
+      return false;
     }
-    if (mq.addEventListener) mq.addEventListener("change", apply); else if (mq.addListener) mq.addListener(apply);
-    apply();
-    select(0);
+    function layout() { nav.setAttribute("aria-orientation", wide.matches ? "vertical" : "horizontal"); updateFade(); }
+
+    sec.classList.add("exp-tabs");
+    if (wide.addEventListener) wide.addEventListener("change", layout); else if (wide.addListener) wide.addListener(layout);
+    window.addEventListener("resize", updateFade, { passive: true });
+    window.addEventListener("hashchange", function () { fromHash(true); });
+    layout();
+    if (!fromHash(true)) select(0);
   }
 
   /* ========== 11c. SECTION RAIL (right-side 00–08 index) ========== */
@@ -570,7 +579,9 @@
     update();
   }
 
-  /* ========== 11d. SECTION PAGER — one wheel gesture = next / previous section (desktop) ========== */
+  /* ========== 11d. SECTION PAGER — one mouse-wheel notch = next / previous section (desktop) ==========
+     Only classic notched mouse wheels are paged. Trackpads, touch and free-spin wheels send
+     small or fractional deltas — they keep native, smooth scrolling (and PageUp/PageDown/Space page). */
   function initSectionPager() {
     var mq = window.matchMedia("(min-width: 1100px) and (min-height: 600px)");
     var sels = [".hero", "#network", "#about", "#profile", "#skills", "#stack", "#experience", "#projects", "#education", "#contact"];
@@ -644,8 +655,22 @@
       animateTo(targetY(next));
       return true;
     }
+    var trackpadUntil = 0;
+    function isMouseWheel(e) {
+      if (e.deltaMode === 1 || e.deltaMode === 2) return true;               /* line / page units: classic wheel */
+      if (e.deltaX !== 0) return false;                                       /* two-finger diagonal = trackpad */
+      var w = e.wheelDeltaY;
+      if (typeof w === "number" && w !== 0) {
+        if (Math.abs(w) === Math.abs(e.deltaY) * 3) return false;              /* Chromium / Safari trackpad signature */
+        return Math.abs(w) % 120 === 0;                                       /* whole notches (Windows, Linux, most Macs) */
+      }
+      return Math.abs(e.deltaY) >= 50 && e.deltaY % 1 === 0;                   /* Firefox pixel mode */
+    }
     window.addEventListener("wheel", function (e) {
       if (!mq.matches || e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+      var now = performance.now();
+      if (now < trackpadUntil) return;
+      if (!isMouseWheel(e)) { trackpadUntil = now + 1200; return; }
       if (document.body.style.overflow === "hidden") return;      /* boot screen / modal open */
       if (innerCanScroll(e.target, e.deltaY)) return;
       var dir = e.deltaY > 0 ? 1 : -1;
@@ -654,7 +679,7 @@
           window.pageYOffset >= document.documentElement.scrollHeight - window.innerHeight - 2) return;
       e.preventDefault();
       if (busy) { clearTimeout(quietTimer); quietTimer = setTimeout(function () { busy = false; }, 220); return; }
-      acc += e.deltaY;
+      acc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * window.innerHeight : e.deltaY;
       clearTimeout(accTimer); accTimer = setTimeout(function () { acc = 0; }, 160);
       if (Math.abs(acc) < 30) return;
       acc = 0;
@@ -732,12 +757,23 @@
   function initSound() {
     var btn = $("#sound-toggle");
     if (!btn) return;
-    btn.addEventListener("click", function () {
+    /* phones: the floating toggle is hidden by CSS, the same switch lives in the menu */
+    var menu = $("#mobile-nav"), mBtn = null;
+    if (menu) {
+      mBtn = document.createElement("button");
+      mBtn.type = "button"; mBtn.className = "mn-sound"; mBtn.setAttribute("aria-pressed", "false");
+      mBtn.innerHTML = "<span class='idx' aria-hidden='true'>&#9835;</span><span class='mn-sound-l'>UI sound: off</span>";
+      mBtn.addEventListener("click", toggle);
+      menu.appendChild(mBtn);
+    }
+    function toggle() {
       state.soundOn = !state.soundOn;
       btn.classList.toggle("active", state.soundOn);
       btn.setAttribute("aria-pressed", String(state.soundOn));
+      if (mBtn) { mBtn.setAttribute("aria-pressed", String(state.soundOn)); $(".mn-sound-l", mBtn).textContent = "UI sound: " + (state.soundOn ? "on" : "off"); }
       if (state.soundOn) { ensureCtx(); play("ping"); }
-    });
+    }
+    btn.addEventListener("click", toggle);
   }
 
   /* Run fn once, the first time the page is scrolled past most of the hero */
@@ -834,10 +870,18 @@
     function toggleConsole() {
       if (!box) return;
       cOpen = !cOpen;
-      box.classList.toggle("open", cOpen);
-      box.setAttribute("aria-hidden", String(!cOpen));
-      if (cOpen) { if (input) input.focus(); play("select"); }
+      if (cOpen) {
+        box.hidden = false;
+        void box.offsetWidth;                       /* let the open transition run */
+        box.classList.add("open");
+        if (input) input.focus();
+        play("select");
+      } else {
+        box.classList.remove("open");
+        box.hidden = true;
+      }
     }
+    if (input) input.addEventListener("keydown", function (e) { if (e.key === "Escape") { e.preventDefault(); if (cOpen) toggleConsole(); } });
     function print(s, cls) {
       if (!out) return;
       var d = document.createElement("div"); d.className = cls || ""; d.innerHTML = s; out.appendChild(d); out.scrollTop = out.scrollHeight;
@@ -856,7 +900,7 @@
       if (e.key !== "Enter") return;
       var v = input.value.trim().toLowerCase(); input.value = "";
       if (!v) return;
-      print("<span style='color:var(--cy)'>$ " + v + "</span>");
+      print("<span class='text-cy'>$ " + v + "</span>");
       (cmds[v] || function () { print("Unknown command. Type <span class='out'>help</span>."); })();
     });
 
@@ -958,6 +1002,7 @@
     function go(d) { if (!cur.length) return; idx = (idx + d + cur.length) % cur.length; show(d); }
 
     nodes.forEach(function (n) {
+      if (n.closest("[hidden]")) return;
       n.style.cursor = "zoom-in";
       n.setAttribute("tabindex", "0");
       n.setAttribute("role", "button");
@@ -1042,7 +1087,8 @@
     var btn = form.querySelector("#cf-send");
     var status = form.querySelector("#cf-status");
     if (!status) return;
-    var sending = false;
+    var sending = false, shownAt = Date.now();
+    var honey = form.querySelector("[name='_honey']");
 
     function setState(state, msg) {
       status.className = "cf-status show " + state;
@@ -1054,6 +1100,11 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (sending || !form.reportValidity()) return;
+      if ((honey && honey.value) || Date.now() - shownAt < 3000) {   /* spam bot: pretend success, send nothing */
+        setState("success", "✓ Message accepted. I'll get back to you shortly.");
+        form.reset();
+        return;
+      }
       sending = true;
       setState("sending", "▶ Transmitting…");
       var controller = new AbortController();
@@ -1153,8 +1204,8 @@
 
   /* ========== INIT ALL (deferred-safe) ========== */
   function start() {
-    var mods = [initDeferredMedia, initWebGL, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
-                initTyper, initOrbit, initGalaxy, initProjects, initExpTabs, initSectionRail, initContact, initSound,
+    var mods = [initDeferredMedia, initStarfield, initScroll, initMobileNav, initMouse, initMagnetic, initReveal,
+                initTyper, initGalaxy, initProjects, initExpTabs, initSectionRail, initSectionPager, initContact, initSound,
                 initAssistant, initEasterEggs, initManifesto, initGallery, initFilters, initHint, initForm, initMisc,
                 initPortraitReveal, initHeroPause];
     for (var i = 0; i < mods.length; i++) { try { mods[i](); } catch (e) { /* isolate */ } }

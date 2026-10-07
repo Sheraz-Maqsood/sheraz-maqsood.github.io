@@ -67,7 +67,7 @@
         document.getElementById("explorer-" + field).textContent = p[i + 1];
       },
     );
-    document.getElementById("explorer-link").href = "project.html?id=" + p[0];
+    document.getElementById("explorer-link").href = "projects/" + p[0] + "/";
     document.getElementById("explorer-position").textContent =
       "0" + (selected + 1) + " / 03";
   }

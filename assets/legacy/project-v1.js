@@ -1,0 +1,576 @@
+/* ============================================================
+   ARC // Project Dossier engine — data-driven detail pages
+   URL:  project.html?id=<slug>
+   Layout order (blog-style):  Video(s) → Screenshot gallery → PDF docs
+   To customize a project: edit the PROJECTS map below.
+     videos: [{ src, label }]     one or more .mp4 demos (played inline)
+     shots : [{ src, cap }]       screenshots (scrollable gallery + lightbox)
+     docs  : [{ href, label }]    zero or more PDF documents
+     poster: still image shown before a video plays
+     domain: "https://..."  | null  (live site, may be offline)
+   Back-compat: single `video` / `doc` still supported.
+   ============================================================ */
+(function () {
+  "use strict";
+  /* Resilient query helper.
+     Previously a single missing element (e.g. #p-title) threw a TypeError that
+     aborted this whole IIFE, leaving every project.html?id= page blank. Now a
+     missing mount point degrades to a detached node: that one block silently
+     renders nowhere, and the rest of the page still builds. */
+  var $ = function (s, c) {
+    var el = (c || document).querySelector(s);
+    if (el) return el;
+    if (window.console && console.warn) console.warn("[ARC] missing mount point:", s);
+    return document.createElement("div");
+  };
+  var DUMMY = "assets/_dummy/";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Helper: build an ordered list of screenshot objects for a project dir */
+  function mkShots(dir, n, ext) {
+    ext = ext || "webp";
+    var out = [];
+    for (var i = 1; i <= n; i++) {
+      var nn = (i < 10 ? "0" : "") + i;
+      out.push({ src: dir + "shot-" + nn + "." + ext, cap: "Frame " + nn });
+    }
+    return out;
+  }
+
+  /* ---------- DATA ---------- */
+  var PROJECTS = {
+    "lte": {
+      code: "SYS-01", title: ["Linear Tree", "Enumeration System"], hl: 1,
+      tagline: "A GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries over very large datasets.",
+      year: "2025", sector: "Government / Forestry",
+      domain: "https://punjabtreeenumeration.com",
+      poster: "assets/projects/lte/shot-01.webp",
+      videos: [
+        { src: "assets/projects/lte/video-01.mp4", label: "Platform walkthrough" },
+        { src: "assets/projects/lte/video-02.mp4", label: "Field & reporting flow" }
+      ],
+      shots: mkShots("assets/projects/lte/", 27),
+      docs: [
+        { href: "assets/projects/lte/doc-04.pdf", label: "Division-Wise Report" },
+        { href: "assets/projects/lte/doc-05.pdf", label: "Enumeration Aggregate Report" },
+        { href: "assets/projects/lte/doc-01.pdf", label: "Field Report A" },
+        { href: "assets/projects/lte/doc-02.pdf", label: "Field Report B" },
+        { href: "assets/projects/lte/doc-03.pdf", label: "Field Report C" }
+      ],
+      overview: "Built to enumerate and monitor linear plantations at provincial scale, the LTE platform combines interactive geospatial visualization with optimized spatial querying so field and admin users can track millions of records without performance loss.",
+      highlights: ["Interactive map rendering with layered overlays", "High-performance spatial queries on large datasets", "Role-based access across government hierarchy", "QR-based geospatial tagging of records"],
+      stack: ["Next.js", "NestJS", "PostgreSQL", "PostGIS", "Leaflet", "CI/CD"]
+    },
+    "cms": {
+      code: "SYS-02", title: ["Complaint", "Management System"], hl: 0,
+      tagline: "Multi-role routing platform for forest incidents with WhatsApp API alerts to Conservators and DFOs.",
+      year: "2025", sector: "Government / Workflow",
+      domain: "https://cms.gisforestry.com",
+      poster: "assets/projects/cms/shot-01.webp",
+      videos: [
+        { src: "assets/projects/cms/video-01.mp4", label: "System demonstration" }
+      ],
+      shots: mkShots("assets/projects/cms/", 14),
+      docs: [
+        { href: "assets/projects/cms/doc-01.pdf", label: "Example Complaint Report" }
+      ],
+      overview: "A routing system that moves forest incident complaints through the right administrative chain, with automated WhatsApp notifications so officers are alerted the moment action is required.",
+      highlights: ["Multi-role complaint routing", "WhatsApp API notifications", "Audit trail and status tracking", "Mongo-backed flexible records"],
+      stack: ["React", "Node.js", "MongoDB", "WhatsApp API"]
+    },
+    "ams": {
+      code: "SYS-03", title: ["Asset", "Management System"], hl: 0,
+      tagline: "Internal IT / consumables tracking with QR generation, low-stock alerts and role-based assignment.",
+      year: "2025", sector: "Government / Operations",
+      domain: "https://ams.gisforestry.com",
+      poster: "assets/projects/ams/preview.webp",
+      videos: [],
+      shots: [
+        { src: "assets/projects/ams/preview.webp", cap: "Asset Management System preview" }
+      ],
+      docs: [],
+      overview: "Tracks assets and consumables across departments, generating QR codes for every item, raising low-stock alerts, and enforcing role-based assignment so accountability is always clear.",
+      highlights: ["QR code generation per asset", "Low-stock threshold alerts", "Role-based assignment & accountability", "Laravel 11 + MySQL backend"],
+      stack: ["Laravel 11", "MySQL", "Blade", "QR"]
+    },
+    "ppms": {
+      code: "SYS-04", title: ["Pakistan Plantation", "Management System"], hl: 1,
+      tagline: "Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.",
+      year: "2024", sector: "Government / Public",
+      domain: "https://ppms.gisforestry.com",
+      poster: "assets/projects/ppms/shot-01.webp",
+      videos: [
+        { src: "assets/projects/ppms/video-01.mp4", label: "Platform demonstration" }
+      ],
+      shots: mkShots("assets/projects/ppms/", 18),
+      docs: [],
+      overview: "A public-facing geospatial platform that lets citizens and departments log tree plantation activity with GPS coordinates and photo evidence, feeding national environmental policy with verifiable field data.",
+      highlights: ["Nationwide GPS-tagged reporting", "Photographic evidence capture", "Citizen + department workflows", "Policy-grade data aggregation"],
+      stack: ["Laravel", "GIS", "Leaflet", "MySQL"]
+    },
+    "gis-suite": {
+      code: "SYS-05", title: ["GIS Spatial", "Monitoring Suite"], hl: 0,
+      tagline: "A suite of spatial systems — Fire Management, Nursery Tracking and Forest Change Analysis — built on Leaflet mapping with QR markers.",
+      year: "2025", sector: "Government / GIS",
+      domain: null,
+      video: null, poster: DUMMY + "poster.svg",
+      shots: [{ src: DUMMY + "shot1.svg", cap: "Fire management" }, { src: DUMMY + "shot2.svg", cap: "Nursery tracking" }, { src: DUMMY + "shot3.svg", cap: "Change analysis" }],
+      doc: null,
+      overview: "A connected family of spatial monitoring tools covering fire incidents, nursery inventory and forest change detection — all sharing a Leaflet-based mapping core and QR-marker tagging.",
+      highlights: ["Fire management mapping", "Nursery inventory tracking", "Forest change analysis", "Shared Leaflet + PostGIS core"],
+      stack: ["Leaflet", "PostGIS", "PostgreSQL", "Node.js"]
+    },
+    "jotly": {
+      code: "SYS-06", title: ["Jotly", ".ai"], hl: 1,
+      tagline: "Full-stack AI application offering image generation, voiceovers and AI chat.",
+      year: "2024", sector: "AI / SaaS · Canada",
+      domain: null,
+      video: null, poster: DUMMY + "poster.svg",
+      shots: [{ src: DUMMY + "shot1.svg", cap: "AI chat" }, { src: DUMMY + "shot2.svg", cap: "Image generation" }, { src: DUMMY + "shot3.svg", cap: "Voiceover studio" }],
+      doc: null,
+      overview: "An AI SaaS product bundling generative image creation, text-to-speech voiceovers and conversational AI chat into a single full-stack experience.",
+      highlights: ["AI image generation", "Voiceover / TTS pipeline", "Conversational AI chat", "Full-stack SaaS architecture"],
+      stack: ["React", "Node.js", "AI APIs", "PostgreSQL"]
+    },
+    "sportseuropa": {
+      code: "SYS-07", title: ["Sportseuropa", "Suite"], hl: 0,
+      tagline: "Team registration and live scoring apps for Olympic-level games, managing judges and championships.",
+      year: "2023", sector: "Sports Management · Italy",
+      domain: null,
+      video: null, poster: DUMMY + "poster.svg",
+      shots: [{ src: DUMMY + "shot1.svg", cap: "Registration" }, { src: DUMMY + "shot2.svg", cap: "Live scoring" }, { src: DUMMY + "shot3.svg", cap: "Judge console" }],
+      doc: null,
+      overview: "A suite handling team registration and real-time scoring for championship-level sporting events, coordinating judges, brackets and live results.",
+      highlights: ["Team registration workflows", "Real-time live scoring", "Judge & championship management", "Event bracket handling"],
+      stack: ["Laravel", "PHP", "MySQL", "Realtime"]
+    },
+    "shopaholics": {
+      code: "SYS-08", title: ["Global Shopaholics", "& Ship6"], hl: 0,
+      tagline: "Core international shipping, package forwarding and e-commerce logistics platform infrastructure.",
+      year: "2024", sector: "Logistics SaaS",
+      domain: null,
+      video: null, poster: DUMMY + "poster.svg",
+      shots: [{ src: DUMMY + "shot1.svg", cap: "Shipment dashboard" }, { src: DUMMY + "shot2.svg", cap: "Package forwarding" }, { src: DUMMY + "shot3.svg", cap: "Logistics ops" }],
+      doc: null,
+      overview: "Logistics infrastructure for international shipping and package forwarding, with performance optimization and CI/CD deployment to production servers.",
+      highlights: ["International shipping flows", "Package forwarding engine", "Speed & code optimization", "SSH / CI-CD deployments"],
+      stack: ["Laravel", "PHP", "MySQL", "CI/CD"]
+    },
+    "gis-portal": {
+      code: "SYS-09", title: ["GIS Forestry", "Public Web Portal"], hl: 1,
+      tagline: "Public-facing Next.js portal for the Punjab Forest, Wildlife & Fisheries Department — showcasing forests, national parks and zoos, drone echo-tech and citizen e-services, backed by a custom admin panel.",
+      year: "2026", sector: "Government / Public Portal",
+      domain: "https://gisforestry.com",
+      poster: "assets/sheraz/gislab-forest-iucn.webp",
+      videos: [],
+      shots: [
+        { src: "assets/sheraz/gislab-forest-iucn.webp", cap: "GIS Lab forestry technology showcase" }
+      ],
+      docs: [],
+      overview: "The public web presence for the Punjab Forest, Wildlife & Fisheries Department (GIS Lab, F&W Lahore), served on gisforestry.com and punjabeforest.gop.pk. Built with Next.js, it presents the department's forests, national parks and zoos alongside an 'Echo-Tech' section on drone-based multi-spectral, LiDAR and thermal forest monitoring, plus citizen e-services — all managed through a custom admin panel.",
+      highlights: ["Server-rendered Next.js front end", "Echo-Tech: multi-spectral, LiDAR & thermal drone monitoring", "Forests, national parks & zoo showcase", "Citizen e-services & social integration", "Custom secure admin panel"],
+      stack: ["Next.js", "React", "Node.js", "Tailwind"]
+    }
+  };
+
+  function getId() {
+    var m = location.search.match(/[?&]id=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : "lte";
+  }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var MEDIA_REV = "media-20260928";
+  function mediaUrl(src) {
+    if (!src || src.indexOf("assets/projects/") !== 0 || src.indexOf("?") !== -1) return src;
+    return src + "?v=" + MEDIA_REV;
+  }
+  function refreshProjectMedia(project) {
+    project.poster = mediaUrl(project.poster);
+    (project.videos || []).forEach(function (item) { item.src = mediaUrl(item.src); });
+    (project.shots || []).forEach(function (item) { item.src = mediaUrl(item.src); });
+    (project.docs || []).forEach(function (item) {
+      item.href = mediaUrl(item.href);
+      item.thumb = mediaUrl(item.thumb);
+    });
+    if (project.video) project.video = mediaUrl(project.video);
+    if (project.doc && project.doc.href) project.doc.href = mediaUrl(project.doc.href);
+  }
+
+  /* Keep the existing viewers, with keyboard focus contained and restored. */
+  function dialogFocus(lb, label, closeSelector) {
+    var previousFocus = null, previousOverflow = "";
+    var background = Array.prototype.slice.call(document.querySelectorAll("#main, #site-header, .foot"));
+    lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true"); lb.setAttribute("aria-label", label);
+    lb.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var items = Array.prototype.slice.call(lb.querySelectorAll("button, a[href], iframe"))
+        .filter(function (el) { return !el.hidden && !el.disabled && !el.closest("[hidden]"); });
+      if (!items.length) return;
+      var i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(i + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+    });
+    return {
+      open: function () {
+        previousFocus = document.activeElement; previousOverflow = document.body.style.overflow;
+        lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+        background.forEach(function (el) { el.inert = true; });
+        var close = lb.querySelector(closeSelector); if (close) close.focus();
+      },
+      close: function () {
+        lb.setAttribute("aria-hidden", "true"); document.body.style.overflow = previousOverflow;
+        background.forEach(function (el) { el.inert = false; });
+        if (previousFocus) previousFocus.focus({ preventScroll: true });
+      }
+    };
+  }
+
+  var RESOLVED_ID = PROJECTS[getId()] ? getId() : "lte";
+  var p = PROJECTS[RESOLVED_ID];
+  refreshProjectMedia(p);
+  document.title = p.title.join(" ") + " — Sheraz // ARC OS";
+
+  /* ---------- SEO META (unique per project, prevents duplicate-content) ----------
+     Each ?id=<slug> URL must expose its own title, description, canonical and OG
+     tags, otherwise every dossier URL looks identical to a crawler and only one
+     of them gets indexed. Purely additive to <head> — no layout impact. */
+  (function seoMeta() {
+    var SITE = "https://sheraz.is-a.dev/";
+    var pageUrl = SITE + "project.html?id=" + encodeURIComponent(RESOLVED_ID);
+    var name = p.title.join(" ");
+    var desc = (p.tagline || p.overview || "").replace(/\s+/g, " ").trim();
+    if (desc.length > 300) desc = desc.slice(0, 297).replace(/\s+\S*$/, "") + "…";
+    var img = SITE + (p.poster || "assets/sheraz/og-card.jpg");
+
+    function setMeta(attr, key, val) {
+      if (!val) return;
+      var el = document.head.querySelector("meta[" + attr + '="' + key + '"]');
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", val);
+    }
+    function setLink(rel, href) {
+      var el = document.head.querySelector('link[rel="' + rel + '"]');
+      if (!el) {
+        el = document.createElement("link");
+        el.setAttribute("rel", rel);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("href", href);
+    }
+
+    setLink("canonical", pageUrl);
+    setMeta("name", "description", desc);
+    setMeta("property", "og:title", name + " — Sheraz // ARC OS");
+    setMeta("property", "og:description", desc);
+    setMeta("property", "og:url", pageUrl);
+    setMeta("property", "og:image", img);
+    setMeta("name", "twitter:title", name + " — Sheraz // ARC OS");
+    setMeta("name", "twitter:description", desc);
+    setMeta("name", "twitter:image", img);
+
+    /* BreadcrumbList + CreativeWork structured data for this dossier */
+    try {
+      var ld = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE },
+              { "@type": "ListItem", "position": 2, "name": "Projects", "item": SITE + "#projects" },
+              { "@type": "ListItem", "position": 3, "name": name, "item": pageUrl }
+            ]
+          },
+          {
+            "@type": "CreativeWork",
+            "name": name,
+            "description": desc,
+            "url": pageUrl,
+            "dateCreated": String(p.year || ""),
+            "genre": p.sector || "",
+            "keywords": (p.stack || []).join(", "),
+            "author": { "@type": "Person", "name": "Malik Sheraz Maqsood Ahmed", "url": SITE }
+          }
+        ]
+      };
+      var s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
+    } catch (e) { /* structured data is optional — never block rendering */ }
+  })();
+
+  /* Normalize to arrays (back-compat with single video / doc) */
+  var VIDEOS = (p.videos && p.videos.length) ? p.videos : (p.video ? [{ src: p.video, label: "" }] : []);
+  var DOCS = (p.docs && p.docs.length) ? p.docs : (p.doc ? [p.doc] : []);
+
+  /* ---------- HEADER ---------- */
+  var titleHtml = "<span>" + esc(p.title[0]) + "</span> " +
+    (p.hl === 1 ? "<span class='glitch hl-word' data-text='" + esc(p.title[1]) + "'>" + esc(p.title[1]) + "</span>"
+                : "<span class='hl-word'>" + esc(p.title[1]) + "</span>");
+  $("#p-title").innerHTML = titleHtml;
+  $("#p-tagline").textContent = p.tagline;
+  $("#p-code").textContent = p.code + " // DOSSIER";
+  $("#p-meta").innerHTML =
+    "<span class='p-chip gold'>" + esc(p.sector) + "</span>" +
+    "<span class='p-chip'>YEAR " + esc(p.year) + "</span>" +
+    "<span class='p-chip'>" + p.stack.length + " TECH MODULES</span>" +
+    (VIDEOS.length ? "<span class='p-chip'>" + VIDEOS.length + " VIDEO" + (VIDEOS.length > 1 ? "S" : "") + "</span>" : "");
+
+  /* ---------- ACTIONS ---------- */
+  var actions = "";
+  if (p.domain) actions += "<a class='btn btn-primary magnetic' href='" + esc(p.domain) + "' target='_blank' rel='noopener'>&#9673; Visit Live Platform</a>";
+  if (DOCS.length) actions += "<a class='btn btn-ghost magnetic' href='" + esc(DOCS[0].href) + "' target='_blank' rel='noopener'>&darr; Documentation (PDF)</a>";
+  actions += "<a class='btn btn-ghost magnetic' href='index.html#projects'>&larr; All systems</a>";
+  $("#p-actions").innerHTML = actions;
+
+  /* ---------- VIDEO PLAYER(S) ---------- */
+  (function buildVideo() {
+    var rack = $("#video-stage");
+    rack.classList.remove("video-stage");
+    rack.className = "video-rack";
+
+    function corners() { return "<span class='v-corner v-tl'></span><span class='v-corner v-tr'></span><span class='v-corner v-bl'></span><span class='v-corner v-br'></span>"; }
+    function timeline() { return "<div class='v-timeline'><span>00:00</span><span class='bar'><i></i></span><span>LIVE</span></div>"; }
+    function topbar(label, idx) {
+      return "<div class='v-hud-top'><span class='v-rec'><i></i> REC &middot; " + esc(p.code) +
+        (VIDEOS.length > 1 ? " &middot; " + (idx + 1) + "/" + VIDEOS.length : "") + "</span>" +
+        "<span>" + (label ? esc(label) : "CH-0" + (idx + 1) + " // DEMO REEL") + "</span></div>";
+    }
+
+    if (!VIDEOS.length) {
+      var st = document.createElement("div");
+      st.className = "video-stage";
+      st.innerHTML = corners() + topbar("", 0) +
+        "<div class='v-poster' style=\"background-image:url('" + esc(p.poster) + "')\"></div>" +
+        "<button class='v-playbtn' aria-label='Video pending'><span class='ring'><span class='tri'></span></span><span class='lbl v-standby'>Demo recording soon</span></button>" +
+        timeline();
+      st.querySelector(".v-playbtn").addEventListener("click", function () {
+        st.querySelector(".lbl").textContent = "Demo video coming soon — the deployment proof is on its way.";
+      });
+      rack.appendChild(st);
+      return;
+    }
+
+    VIDEOS.forEach(function (vObj, idx) {
+      var st = document.createElement("div");
+      st.className = "video-stage";
+      st.innerHTML = corners() + topbar(vObj.label, idx) +
+        "<video poster='" + esc(p.poster) + "' preload='none' playsinline></video>" +
+        "<button class='v-playbtn' aria-label='Play video'><span class='ring'><span class='tri'></span></span><span class='lbl'>Play " + (vObj.label ? esc(vObj.label) : "demo") + "</span></button>" +
+        timeline();
+      var v = st.querySelector("video");
+      var src = document.createElement("source"); src.src = vObj.src; src.type = "video/mp4"; v.appendChild(src);
+      var btn = st.querySelector(".v-playbtn");
+      btn.addEventListener("click", function () {
+        v.setAttribute("controls", "");
+        var playback = v.play();
+        if (playback && playback.then) {
+          playback.then(function () { btn.style.display = "none"; }).catch(function () {
+            btn.style.display = "";
+            btn.querySelector(".lbl").textContent = "Recording unavailable — retry or visit the live platform above.";
+          });
+        } else btn.style.display = "none";
+      });
+      rack.appendChild(st);
+    });
+  })();
+
+  /* ---------- SCREENSHOT GALLERY (scrollable) + LIGHTBOX ---------- */
+  (function buildGallery() {
+    var host = $("#shot-grid");
+    host.classList.remove("shot-grid");
+    host.className = "gallery";
+
+    var figures = p.shots.map(function (s, i) {
+      var nn = (i < 9 ? "0" : "") + (i + 1);
+      return "<figure class='shot' data-idx='" + i + "' data-full='" + esc(s.src) + "' tabindex='0' role='button' aria-label='" + esc(s.cap || ("View " + nn)) + "'>" +
+        "<span class='zoom'>&#9974;</span>" +
+        "<img src='" + esc(s.src) + "' alt='" + esc(p.title.join(" ")) + " — " + esc(s.cap || nn) + "' loading='lazy'>" +
+        "<figcaption class='cap'>" + nn + " &middot; " + esc(s.cap || "View") + "</figcaption></figure>";
+    }).join("");
+
+    host.innerHTML =
+      "<button class='g-nav g-prev' aria-label='Previous screenshots'>&lsaquo;</button>" +
+      "<div class='g-track' id='g-track'>" + figures + "</div>" +
+      "<button class='g-nav g-next' aria-label='Next screenshots'>&rsaquo;</button>" +
+      "<div class='g-count' id='g-count'></div>";
+
+    var track = $("#g-track");
+    var prev = host.querySelector(".g-prev");
+    var next = host.querySelector(".g-next");
+    var count = $("#g-count");
+    count.textContent = p.shots.length + " frames · scroll or drag";
+
+    function step() {
+      var card = track.querySelector(".shot");
+      return card ? card.getBoundingClientRect().width + 16 : 320;
+    }
+    function updateNav() {
+      var maxS = track.scrollWidth - track.clientWidth - 2;
+      prev.classList.toggle("off", track.scrollLeft <= 2);
+      next.classList.toggle("off", track.scrollLeft >= maxS);
+    }
+    prev.addEventListener("click", function () { track.scrollBy({ left: -step() * 1.5, behavior: reduceMotion ? "auto" : "smooth" }); });
+    next.addEventListener("click", function () { track.scrollBy({ left: step() * 1.5, behavior: reduceMotion ? "auto" : "smooth" }); });
+    track.addEventListener("scroll", updateNav, { passive: true });
+    window.addEventListener("resize", updateNav);
+    updateNav();
+
+    /* drag-to-scroll (mouse) */
+    var down = false, sx = 0, sl = 0, moved = false;
+    track.addEventListener("mousedown", function (e) { down = true; moved = false; sx = e.pageX; sl = track.scrollLeft; track.classList.add("drag"); });
+    window.addEventListener("mousemove", function (e) { if (!down) return; var dx = e.pageX - sx; if (Math.abs(dx) > 4) moved = true; track.scrollLeft = sl - dx; });
+    window.addEventListener("mouseup", function () { down = false; track.classList.remove("drag"); });
+
+    /* ---------- LIGHTBOX with prev / next ---------- */
+    var lb = $("#lightbox"), lbImg = $("#lb-img");
+    var cur = 0;
+    if (lb && !lb.querySelector(".lb-prev")) {
+      var bp = document.createElement("button"); bp.className = "lb-nav lb-prev"; bp.setAttribute("aria-label", "Previous"); bp.innerHTML = "&lsaquo;";
+      var bn = document.createElement("button"); bn.className = "lb-nav lb-next"; bn.setAttribute("aria-label", "Next"); bn.innerHTML = "&rsaquo;";
+      var cc = document.createElement("div"); cc.className = "lb-count"; cc.id = "lb-count";
+      lb.appendChild(bp); lb.appendChild(bn); lb.appendChild(cc);
+    }
+    var lbPrev = lb.querySelector(".lb-prev"), lbNext = lb.querySelector(".lb-next"), lbCount = $("#lb-count");
+    var focus = dialogFocus(lb, "Project screenshots", ".lb-close");
+
+    function show(i) {
+      cur = (i + p.shots.length) % p.shots.length;
+      lbImg.src = p.shots[cur].src;
+      lbImg.alt = p.title.join(" ") + " — " + (p.shots[cur].cap || "Screenshot " + (cur + 1));
+      if (lbCount) lbCount.textContent = (cur + 1) + " / " + p.shots.length;
+    }
+    function open(i) { show(i); lb.classList.add("open"); focus.open(); }
+    function close() { lb.classList.remove("open"); lbImg.src = ""; focus.close(); }
+
+    Array.prototype.forEach.call(track.querySelectorAll(".shot"), function (el) {
+      el.addEventListener("click", function () { if (moved) return; el.focus({ preventScroll: true }); open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
+    });
+    if (lbPrev) lbPrev.addEventListener("click", function (e) { e.stopPropagation(); show(cur - 1); });
+    if (lbNext) lbNext.addEventListener("click", function (e) { e.stopPropagation(); show(cur + 1); });
+    $("#lb-close").addEventListener("click", close);
+    lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(cur - 1);
+      else if (e.key === "ArrowRight") show(cur + 1);
+    });
+  })();
+
+  /* ---------- OVERVIEW + STACK ---------- */
+  $("#p-overview").textContent = p.overview;
+  $("#p-highlights").innerHTML = p.highlights.map(function (h) { return "<li>" + esc(h) + "</li>"; }).join("");
+  $("#p-stack").innerHTML = p.stack.map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("");
+
+  /* ---------- DOCUMENTATION: preview cards + in-page PDF carousel ---------- */
+  (function buildDocs() {
+    var host = $("#doc-card");
+    host.classList.remove("panel", "hud-frame", "doc-card");
+    host.className = "doc-rack";
+
+    if (!DOCS.length) {
+      host.className = "";
+      host.innerHTML = "<div class='panel hud-frame doc-card'>" +
+        "<div class='doc-icon' style='opacity:.6'>PDF</div>" +
+        "<div class='doc-meta'><h4>Project Documentation</h4><p>No documents attached for this system.</p></div>" +
+        "<span class='btn btn-ghost disabled'>None</span></div>";
+      return;
+    }
+
+    function thumbOf(d) { return d.thumb || (d.href ? d.href.replace(/\.pdf(\?|$)/i, "-thumb.webp$1") : ""); }
+
+    host.innerHTML = DOCS.map(function (d, i) {
+      var th = thumbOf(d);
+      return "<figure class='doc-preview' data-idx='" + i + "' tabindex='0' role='button' aria-label='Open " + esc(d.label || ("Document " + (i + 1))) + "'>" +
+        "<div class='dp-thumb'>" +
+          (th ? "<img src='" + esc(th) + "' alt='First page of " + esc(d.label || "document") + "' loading='lazy'>" : "<span class='dp-ph'>PDF</span>") +
+          "<span class='dp-badge'>PDF</span><span class='dp-open'>&#9672; VIEW</span>" +
+        "</div>" +
+        "<figcaption><b>" + esc(d.label || ("Document " + (i + 1))) + "</b><span>Page 1 preview &middot; click to read</span></figcaption>" +
+        "</figure>";
+    }).join("");
+
+    /* ----- build the full-screen PDF viewer overlay once ----- */
+    var lb = document.createElement("div");
+    lb.className = "pdf-lb"; lb.setAttribute("aria-hidden", "true"); lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Document viewer");
+    lb.innerHTML =
+      "<div class='pdf-head'>" +
+        "<span class='pdf-title'></span>" +
+        "<span class='pdf-count'></span>" +
+        "<a class='pdf-btn pdf-dl' target='_blank' rel='noopener'>&darr; Download</a>" +
+        "<button class='pdf-btn pdf-x' aria-label='Close viewer'>&times;</button>" +
+      "</div>" +
+      "<div class='pdf-stage'>" +
+        "<button class='pdf-nav pdf-prev' aria-label='Previous document'>&#8249;</button>" +
+        "<div class='pdf-frame-wrap'><div class='pdf-load'>Loading document&hellip;</div><iframe class='pdf-frame' title='PDF document' loading='lazy'></iframe></div>" +
+        "<button class='pdf-nav pdf-next' aria-label='Next document'>&#8250;</button>" +
+      "</div>" +
+      "<div class='pdf-dots'></div>";
+    document.body.appendChild(lb);
+
+    var frame = lb.querySelector(".pdf-frame"),
+        titleEl = lb.querySelector(".pdf-title"),
+        countEl = lb.querySelector(".pdf-count"),
+        dlEl = lb.querySelector(".pdf-dl"),
+        prevB = lb.querySelector(".pdf-prev"),
+        nextB = lb.querySelector(".pdf-next"),
+        dots = lb.querySelector(".pdf-dots"),
+        loadEl = lb.querySelector(".pdf-load");
+    var idx = 0;
+    var focus = dialogFocus(lb, "Project documents", ".pdf-x");
+
+    dots.innerHTML = DOCS.map(function (d, i) { return "<button class='pdf-dot' data-i='" + i + "' aria-label='Document " + (i + 1) + "'></button>"; }).join("");
+    var dotEls = Array.prototype.slice.call(dots.querySelectorAll(".pdf-dot"));
+
+    function show(i) {
+      idx = (i + DOCS.length) % DOCS.length;
+      var d = DOCS[idx];
+      loadEl.style.display = "grid";
+      frame.style.opacity = "0";
+      frame.src = esc(d.href) + "#view=FitH&toolbar=1";
+      titleEl.textContent = d.label || ("Document " + (idx + 1));
+      countEl.textContent = (idx + 1) + " / " + DOCS.length;
+      dlEl.setAttribute("href", d.href);
+      dlEl.setAttribute("download", "");
+      var multi = DOCS.length > 1;
+      prevB.hidden = !multi; nextB.hidden = !multi; dots.style.display = multi ? "flex" : "none";
+      dotEls.forEach(function (el, k) { el.classList.toggle("on", k === idx); });
+    }
+    frame.addEventListener("load", function () { loadEl.style.display = "none"; frame.style.opacity = "1"; });
+    function open(i) { show(i); lb.classList.add("open"); focus.open(); }
+    function close() { lb.classList.remove("open"); frame.src = "about:blank"; focus.close(); }
+    function go(step) { show(idx + step); }
+
+    Array.prototype.forEach.call(host.querySelectorAll(".doc-preview"), function (el) {
+      el.addEventListener("click", function () { el.focus({ preventScroll: true }); open(parseInt(el.getAttribute("data-idx"), 10)); });
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(parseInt(el.getAttribute("data-idx"), 10)); } });
+    });
+    prevB.addEventListener("click", function () { go(-1); });
+    nextB.addEventListener("click", function () { go(1); });
+    lb.querySelector(".pdf-x").addEventListener("click", close);
+    dotEls.forEach(function (el) { el.addEventListener("click", function () { show(parseInt(el.getAttribute("data-i"), 10)); }); });
+    document.addEventListener("keydown", function (e) {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") go(-1);
+      else if (e.key === "ArrowRight") go(1);
+    });
+  })();
+
+  /* ---------- REVEAL (self-contained) ---------- */
+  (function reveal() {
+    var items = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
+    if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach(function (el) { el.classList.add("in"); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---------- year ---------- */
+  var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
+})();

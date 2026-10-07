@@ -1,8 +1,8 @@
 {
   "name": "sheraz-maqsood.github.io",
   "version": "1.0.0",
-  "description": "Personal portfolio for **Malik Sheraz Maqsood Ahmed** — Principal Full-Stack & GIS Engineer.   Hosted at [sheraz.is-a.dev](https://sheraz.is-a.dev).",
-  "main": "index.js",
+  "description": "Portfolio of Malik Sheraz Maqsood Ahmed, Principal Full-Stack & GIS Engineer (sheraz.is-a.dev).",
+  "private": true,
   "scripts": {
     "build": "node scripts/build-assets.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",

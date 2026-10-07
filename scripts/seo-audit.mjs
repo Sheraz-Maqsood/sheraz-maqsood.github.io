@@ -4,7 +4,7 @@ import SeoAnalyzer from 'seo-analyzer';
 
 const rootDir = process.cwd();
 const indexHtmlPath = path.join(rootDir, 'index.html');
-const projectHtmlPath = path.join(rootDir, 'project.html');
+const projectHtmlPath = path.join(rootDir, 'projects', 'lte', 'index.html');   /* one generated dossier page as a sample */
 const sitemapPath = path.join(rootDir, 'sitemap.xml');
 const robotsPath = path.join(rootDir, 'robots.txt');
 

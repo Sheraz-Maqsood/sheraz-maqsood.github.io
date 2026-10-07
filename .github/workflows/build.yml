@@ -1,0 +1,47 @@
+# Rebuilds the minified CSS/JS, the per-project pages (/projects/<id>/) and sitemap.xml
+# on every push, and commits the result back — so the live site never serves a stale build.
+name: Build site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # the bot's own commit carries [skip ci]; this guard is a second safety net against loops
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # --ignore-scripts: skips browser downloads from dev-only tools; esbuild ships its binary as a package
+      - name: Install build tools
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Build
+        run: npm run build
+
+      - name: Commit rebuilt files
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Build output already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: rebuild assets, project pages and sitemap [skip ci]"
+          git push

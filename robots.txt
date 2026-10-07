@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assets/legacy/
 
 Sitemap: https://sheraz.is-a.dev/sitemap.xml

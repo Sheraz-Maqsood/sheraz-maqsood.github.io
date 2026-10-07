@@ -9,19 +9,22 @@
   <meta name="author" content="Malik Sheraz Maqsood Ahmed">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#02040a">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src 'self'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; manifest-src 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests">
   <link rel="canonical" href="https://sheraz.is-a.dev/">
   <meta property="og:type" content="profile">
-  <meta property="og:site_name" content="Malik Sheraz Maqsood Ahmed — ARC OS">
+  <meta property="og:site_name" content="Malik Sheraz Maqsood Ahmed">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
-  <meta property="og:description" content="A JARVIS-class HUD portfolio. Government-scale, GIS-enabled platforms built with Laravel, NestJS, React &amp; PostgreSQL.">
+  <meta property="og:description" content="Principal Full-Stack &amp; GIS Engineer in Lahore (UTC+5). 10+ government systems live — Laravel, NestJS, FastAPI, React &amp; PostGIS. Open to remote roles and contracts.">
   <meta property="og:url" content="https://sheraz.is-a.dev/">
   <meta property="og:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer">
-  <meta name="twitter:description" content="A JARVIS-class HUD portfolio. Government-scale, GIS-enabled platforms.">
+  <meta name="twitter:description" content="Principal Full-Stack &amp; GIS Engineer. 10+ government systems live. Open to remote roles and contracts.">
   <meta name="twitter:image" content="https://sheraz.is-a.dev/assets/sheraz/og-card.jpg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
@@ -31,10 +34,9 @@
   <!-- Self-hosted fonts (no third-party connection) — the two faces used above the fold load first -->
   <link rel="preload" href="assets/fonts/rajdhani-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/rajdhani-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/sheraz/sheraz-hero-lowkey.avif" type="image/avif" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.min.css?v=a7319aa940">
-  <link rel="stylesheet" href="assets/css/refresh.min.css?v=cf0de6163e">
-  <link rel="stylesheet" href="assets/css/living-network.min.css?v=5ce577fa30">
+  <link rel="stylesheet" href="assets/css/site.min.css?v=a8991e9fd6">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,7 +66,7 @@
         "@type": "WebSite",
         "@id": "https://sheraz.is-a.dev/#website",
         "url": "https://sheraz.is-a.dev/",
-        "name": "Malik Sheraz Maqsood Ahmed — ARC OS",
+        "name": "Malik Sheraz Maqsood Ahmed — Portfolio",
         "inLanguage": "en",
         "publisher": { "@id": "https://sheraz.is-a.dev/#person" }
       },
@@ -80,16 +82,11 @@
     ]
   }
   </script>
-  <!-- Privacy-friendly analytics (no cookies). To activate: sign up free at goatcounter.com,
-       then replace YOURCODE below and uncomment.
-  <script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  -->
-  <noscript><style>#boot { display:none; } [data-reveal] { opacity:1; transform:none; }</style></noscript>
+  <noscript><style>[data-reveal], [data-stagger] > * { opacity:1; transform:none; }</style></noscript>
 </head>
 <body data-instant-entry>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <canvas id="webgl-bg" aria-hidden="true"></canvas>
   <div class="bg-aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-vignette" aria-hidden="true"></div>
@@ -101,7 +98,7 @@
     <div class="tick t1"></div><div class="tick t2"></div><div class="tick t3"></div><div class="tick t4"></div>
   </div>
 
-  <div id="site-header"></div>
+  <div id="site-header"><!--header--><header class="hud-header" id="header"><div class="wrap"><a href="#top" class="brand"><span class="mark" aria-hidden="true"><img src="assets/brand/logo-mark-96.webp" alt="" width="42" height="42" decoding="async"></span><span>SHERAZ<small>Full-Stack &middot; GIS &middot; Cloud</small></span><span class="sr-only"> — home</span></a><nav class="nav" aria-label="Primary"><a href="#network">Explore</a><a href="#about">About</a><a href="#stack">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a></nav><a href="assets/files/Malik-Sheraz-Maqsood-Ahmed-CV.pdf" target="_blank" rel="noopener" class="btn btn-primary header-cta">Resume &darr;</a><button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button></div></header><nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true" inert><a href="#network"><span class="idx">01</span>Explore</a><a href="#about"><span class="idx">02</span>About</a><a href="#stack"><span class="idx">03</span>Skills</a><a href="#experience"><span class="idx">04</span>Experience</a><a href="#projects"><span class="idx">05</span>Projects</a><a href="#education"><span class="idx">06</span>Education</a><a href="#contact"><span class="idx">07</span>Contact</a><a href="assets/files/Malik-Sheraz-Maqsood-Ahmed-CV.pdf" target="_blank" rel="noopener"><span class="idx">08</span>Resume &darr;</a></nav><!--/header--></div>
 
   <main id="main">
     <span id="top"></span>
@@ -109,7 +106,7 @@
     <section class="hero wrap" aria-label="Introduction">
       <div class="hero-grid">
         <div data-reveal>
-          <div class="hero-status"><span class="pulse"></span> Open to senior roles &amp; contracts &middot; Lahore, PK &middot; Remote-ready</div>
+          <div class="hero-status"><span class="pulse" aria-hidden="true"></span><span class="hs-text"><span>Open to senior roles &amp; contracts</span><span>Lahore, PK &middot; Remote-ready</span></span></div>
           <h1>
             <span class="l1">Malik <span class="glitch hl-word" data-text="Sheraz">Sheraz</span></span>
             <span class="l2"><span class="glitch hl-word" data-text="Maqsood">Maqsood</span> Ahmed</span>
@@ -122,10 +119,10 @@
           </p>
           <div class="hero-cta">
             <a href="#network" class="btn btn-primary magnetic">Explore my projects &darr;</a>
-            <a href="Sheraz%20CV%20-%20Curriculum%20vitae%2025042026.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Download CV</a>
+            <a href="assets/files/Malik-Sheraz-Maqsood-Ahmed-CV.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Download CV</a>
             <a href="https://wa.me/+923481655055" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
           </div>
-          <div class="hero-telemetry-bar" aria-label="System telemetry">
+          <div class="hero-telemetry-bar">
             <span class="telem-item"><i class="t-dot live"></i> STATUS: AVAILABLE</span>
             <span class="telem-sep">//</span>
             <span class="telem-item"><i class="t-dot geo"></i> 31.52° N, 74.35° E</span>
@@ -220,7 +217,7 @@
           </div>
         </div>
       </div>
-      <a href="#network" class="scroll-cue" aria-label="Explore selected projects"><span class="mouse"><i></i></span>MY SKILLS, IN REAL PROJECTS</a>
+      <a href="#network" class="scroll-cue"><span class="mouse" aria-hidden="true"><i></i></span>My skills, in real projects</a>
     </section>
 
 <section id="network" class="wrap network-section" aria-labelledby="network-title">
@@ -230,11 +227,11 @@
           <div id="network-scene" class="project-orbit" role="group" aria-label="Project explorer. Use the project buttons or drag horizontally.">
             <div class="orbit-track" aria-hidden="true"></div>
             <div class="orbit-core" aria-hidden="true">SHERAZ<span>BUILT &amp; SHIPPED</span></div>
-            <button class="orbit-project" data-project="0" aria-pressed="true"><img data-src="assets/projects/lte/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>01 <b>Tree Enumeration</b><small>Next.js / NestJS / PostGIS</small></span></button>
-            <button class="orbit-project" data-project="1" aria-pressed="false"><img data-src="assets/projects/cms/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>02 <b>Complaint Management</b><small>React / Node.js / MongoDB</small></span></button>
-            <button class="orbit-project" data-project="2" aria-pressed="false"><img data-src="assets/projects/ppms/shot-01-card.webp" alt="" width="800" height="500" decoding="async"><span>03 <b>Plantation Management</b><small>Laravel / Leaflet / MySQL</small></span></button>
+            <button type="button" class="orbit-project" data-project="0" aria-pressed="true"><img src="assets/projects/lte/shot-01-card.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span>01 <b>Tree Enumeration</b><small>Next.js / NestJS / PostGIS</small></span></button>
+            <button type="button" class="orbit-project" data-project="1" aria-pressed="false"><img src="assets/projects/cms/shot-01-card.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span>02 <b>Complaint Management</b><small>React / Node.js / MongoDB</small></span></button>
+            <button type="button" class="orbit-project" data-project="2" aria-pressed="false"><img src="assets/projects/ppms/shot-01-card.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span>03 <b>Plantation Management</b><small>Laravel / Leaflet / MySQL</small></span></button>
           </div>
-          <div class="explorer-navigation"><button id="explorer-prev" aria-label="Previous project">&larr;</button><span id="explorer-position">01 / 03</span><button id="explorer-next" aria-label="Next project">&rarr;</button><span class="explorer-drag-hint">Drag to explore</span></div>
+          <div class="explorer-navigation"><button type="button" id="explorer-prev" aria-label="Previous project">&larr;</button><span id="explorer-position">01 / 03</span><button type="button" id="explorer-next" aria-label="Next project">&rarr;</button><span class="explorer-drag-hint">Drag to explore</span></div>
         </div>
         <div class="explorer-detail" id="explorer-detail" aria-live="polite" aria-atomic="true">
           <span class="explorer-sector" id="explorer-sector">GIS / GOVERNMENT</span>
@@ -242,12 +239,12 @@
           <p class="explorer-question" id="explorer-question">How do you make plantation records useful on a map?</p>
           <p id="explorer-description">Interactive mapping, spatial queries and role-based access bring field records into one platform for tracking trees along roads, canals and forest boundaries.</p>
           <div class="explorer-stack" id="explorer-stack">Next.js · NestJS · PostgreSQL · PostGIS · Leaflet</div>
-          <a class="btn btn-primary" id="explorer-link" href="project.html?id=lte">Go inside this project &nearr;</a>
+          <a class="btn btn-primary" id="explorer-link" href="projects/lte/">Go inside this project &nearr;</a>
           <span class="explorer-evidence" id="explorer-evidence">2 video walkthroughs · 27 screenshots · 5 reports</span>
         </div>
       </div>
       <div class="explorer-footer"><span>Real interfaces. Real engineering. Your own pace.</span><a href="#projects">Browse all 9 projects &rarr;</a></div>
-      <noscript><p>Explore <a href="project.html?id=lte">Tree Enumeration</a>, <a href="project.html?id=cms">Complaint Management</a>, <a href="project.html?id=ppms">Plantation Management</a>.</p></noscript>
+      <noscript><p>Explore <a href="projects/lte/">Tree Enumeration</a>, <a href="projects/cms/">Complaint Management</a>, <a href="projects/ppms/">Plantation Management</a>.</p></noscript>
     </section>
 
     <div class="radar-div" aria-hidden="true"><div class="r"><i></i></div></div>
@@ -255,12 +252,12 @@
     <section id="about" class="wrap" data-reveal aria-label="About">
       <div class="sec-head"><span class="eyebrow">01 &middot; Identity</span><h2>Engineering that scales</h2></div>
       <div class="about-grid has-portrait">
-        <figure class="portrait hud-frame" aria-label="Portrait of Malik Sheraz Maqsood Ahmed">
+        <figure class="portrait hud-frame">
           <span class="corner-id">OPERATOR // LIVE</span>
           <div class="portrait-media">
             <picture>
-              <source data-srcset="assets/sheraz/professional.webp" type="image/webp">
-              <img data-src="assets/sheraz/professional.png" fetchpriority="low" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" decoding="async" width="520" height="693">
+              <source srcset="assets/sheraz/professional.webp" type="image/webp">
+              <img src="assets/sheraz/professional.png" loading="lazy" fetchpriority="low" data-gallery="portrait" data-full="assets/sheraz/professional.png" data-cap="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer" alt="Malik Sheraz Maqsood Ahmed — Principal Full-Stack &amp; GIS Engineer at work" decoding="async" width="520" height="693">
             </picture>
             <span class="p-reveal" aria-hidden="true"></span>
             <span class="p-spot" aria-hidden="true"></span>
@@ -277,26 +274,26 @@
         </figure>
         <div class="panel hud-frame">
           <span class="corner-id">DOSSIER // SHRZ-001</span>
-          <p class="muted" style="font-size:1.08rem; margin-bottom:16px;">
-            I'm a <b style="color:var(--fg)">Principal Full-Stack Engineer</b> who turns complex public-sector and enterprise
-            workflows into dependable software. I own systems end to end — <b style="color:var(--cy)">Laravel, React, Node.js, NestJS</b>
-            and <b style="color:var(--cy)">GIS platforms</b> — from data model and API to the deployment pipeline, across
+          <p class="muted about-lead gap">
+            I'm a <b class="text-fg">Principal Full-Stack Engineer</b> who turns complex public-sector and enterprise
+            workflows into dependable software. I own systems end to end — <b class="text-cy">Laravel, React, Node.js, NestJS</b>
+            and <b class="text-cy">GIS platforms</b> — from data model and API to the deployment pipeline, across
             government, healthcare and enterprise.
           </p>
-          <p class="muted" style="font-size:1.08rem;">
-            My backend range includes <b style="color:var(--cy)">Python FastAPI</b> services in production alongside PHP and Node.js.
-            Beyond the web I build Windows software in <b style="color:var(--fg)">C# (WinForms &amp; WPF)</b>, cross-platform apps in
-            Electron.js, Android apps with Firebase and <b style="color:var(--fg)">Arduino embedded systems</b> in C/C++ — so I can own
+          <p class="muted about-lead">
+            My backend range includes <b class="text-cy">Python FastAPI</b> services in production alongside PHP and Node.js.
+            Beyond the web I build Windows software in <b class="text-fg">C# (WinForms &amp; WPF)</b>, cross-platform apps in
+            Electron.js, Android apps with Firebase and <b class="text-fg">Arduino embedded systems</b> in C/C++ — so I can own
             the whole chain, from hardware signal to dashboard.
           </p>
         </div>
         <div class="panel hud-frame">
           <span class="corner-id">STATUS</span>
-          <div class="status-grid" style="font-family:var(--mono); font-size:13px; display:grid; gap:14px;">
+          <div class="status-grid">
             <div><span class="muted">ROLE</span><br><b class="text-cy">Asst. Director &middot; Computer Programming</b></div>
             <div><span class="muted">SECTOR</span><br><b>Gov &middot; Healthcare &middot; Enterprise SaaS</b></div>
             <div><span class="muted">BASE</span><br><b>Lahore, Pakistan</b> <span class="text-gold">&middot; Remote / Relocation ready</span></div>
-            <div><span class="muted">AVAILABILITY</span><br><b style="color:var(--green)">&#9679; Open to new missions</b></div>
+            <div><span class="muted">AVAILABILITY</span><br><b class="text-green">&#9679; Open to new missions</b></div>
           </div>
         </div>
       </div>
@@ -337,7 +334,7 @@
         </div>
       </div>
 
-      <div class="profile-grid" style="margin-top:18px;">
+      <div class="profile-grid spaced">
         <div class="panel hud-frame philo">
           <span class="corner-id">PHILOSOPHY</span>
           <div class="quote">"Software is only finished when <span class="text-cy">people rely on it</span>."</div>
@@ -349,7 +346,7 @@
         </div>
         <div class="panel hud-frame">
           <span class="corner-id">CORE MINDSET</span>
-          <div class="mindset-grid" data-stagger style="margin-top:6px;">
+          <div class="mindset-grid" data-stagger>
             <div class="mindset"><span class="bolt">&#9889;</span><span>Security &amp; RBAC by default</span></div>
             <div class="mindset"><span class="bolt">&#9889;</span><span>Spatial data done right</span></div>
             <div class="mindset"><span class="bolt">&#9889;</span><span>CI/CD on every project</span></div>
@@ -388,7 +385,7 @@
 
     <section id="stack" class="wrap" data-reveal aria-label="Technology arsenal">
       <div class="sec-head"><span class="eyebrow">Arsenal &middot; Official stack</span><h2>Tools I use in production</h2></div>
-      <p class="muted" style="margin-top:-34px; margin-bottom:34px; font-family:var(--mono); font-size:12px;">// Network layer to application layer &mdash; the full toolkit I build and ship with.</p>
+      <p class="muted sec-intro">// Network layer to application layer &mdash; the full toolkit I build and ship with.</p>
       <div class="command-deck-grid" data-stagger>
         <!-- TIER 1 -->
         <div class="command-column panel hud-frame">
@@ -470,7 +467,7 @@
           </div>
         </div>
       </div>
-      <div class="lab-strip" aria-label="Currently learning">
+      <div class="lab-strip" role="group" aria-label="Currently learning">
         <span class="lab-tag"><i class="lab-dot"></i> IN THE LAB &middot; CURRENTLY LEARNING</span>
         <div class="lab-tiles">
           <div class="logo-tile inv lab" title="Flask"><img src="assets/vendor/devicon/flask/flask-original.svg" alt="Flask logo" loading="lazy" width="40" height="40"><div class="tile-info"><span class="logo-name">Flask</span><span class="tile-count">Learning</span></div></div>
@@ -485,7 +482,7 @@
       <div class="rail" data-stagger>
         <div class="rail-line" aria-hidden="true"></div>
 
-        <article class="station now panel hud-frame">
+        <section class="station now panel hud-frame" id="exp-gis-lab">
           <span class="node" aria-hidden="true"></span>
           <div class="exp-head">
             <div>
@@ -511,9 +508,9 @@
               <figcaption>LiDAR drone fleet, biomass estimation &amp; satellite forest cover assessment — deployed for Punjab Forest Department at IUCN 2024.</figcaption>
             </figure>
             <div class="gallery-extra" hidden aria-hidden="true">
-              <img data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-services-academy-murree-training-team.jpg" data-cap="GIS &amp; forestry systems training at the Forest Services Academy, Murree — with course participants &amp; office staff" alt="Sheraz with participants and staff at the Forest Services Academy, Murree — Punjab Forest Department GIS training" width="1600" height="1200" loading="lazy" decoding="async">
-              <img data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-services-academy-murree-training-certificate.jpg" data-cap="Receiving the certificate of participation — GIS &amp; forestry systems training, Forest Services Academy, Murree" alt="Sheraz receiving a training certificate at the Forest Services Academy, Murree — Punjab Forest Department" width="1200" height="1600" loading="lazy" decoding="async">
-              <img data-gallery="fieldops" data-full="assets/sheraz/recieving_apprication_certificate_from_ex_cheif_conservator_of_forest  .jpeg" data-cap="Receiving an appreciation certificate from the ex-Chief Conservator of Forest — GIS Lab, Punjab Forest Department" alt="Sheraz receiving an appreciation certificate from the ex-Chief Conservator of Forest" width="1600" height="1200" loading="lazy" decoding="async">
+              <span data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-services-academy-murree-training-team.jpg" data-cap="GIS &amp; forestry systems training at the Forest Services Academy, Murree — with course participants &amp; office staff"></span>
+              <span data-gallery="fieldops" data-full="assets/sheraz/gislab-forest-services-academy-murree-training-certificate.jpg" data-cap="Receiving the certificate of participation — GIS &amp; forestry systems training, Forest Services Academy, Murree"></span>
+              <span data-gallery="fieldops" data-full="assets/sheraz/recieving_apprication_certificate_from_ex_cheif_conservator_of_forest  .jpeg" data-cap="Receiving an appreciation certificate from the ex-Chief Conservator of Forest — GIS Lab, Punjab Forest Department"></span>
             </div>
             <p>Lead engineer behind the GIS Lab&rsquo;s web platforms &mdash; architecting, building and deploying the GIS-enabled systems that run Punjab&rsquo;s forestry operations, in production with administrative and field staff across the department.</p>
             <ul>
@@ -536,7 +533,7 @@
               <figcaption>Receiving an appreciation certificate from the ex-Chief Conservator of Forest — field recognition connected to GIS Lab, Punjab Forest Department work.</figcaption>
             </figure>
 
-            <div class="live-sys" aria-label="Live deployed systems">
+            <div class="live-sys" role="group" aria-label="Live deployed systems">
               <div class="ls-title">// LIVE DEPLOYED SYSTEMS — CLICK TO VISIT</div>
               <div class="live-sys-grid">
                 <a class="sys-chip live-prod" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener"><i class="chip-dot"></i>Linear Tree Enumeration</a>
@@ -550,9 +547,9 @@
               </div>
             </div>
           </div>
-        </article>
+        </section>
 
-        <article class="station panel hud-frame">
+        <section class="station panel hud-frame" id="exp-carbonic">
           <span class="node" aria-hidden="true"></span>
           <div class="exp-head">
             <div><h3>Senior Laravel / PHP Developer</h3><div class="org">Carbonic IT Solutions &middot; Islamabad</div></div>
@@ -565,9 +562,9 @@
               <li>Ran delivery with the Product Manager in Jira; released to production through CI/CD over SSH.</li>
             </ul>
           </div>
-        </article>
+        </section>
 
-        <article class="station panel hud-frame">
+        <section class="station panel hud-frame" id="exp-cmh">
           <span class="node" aria-hidden="true"></span>
           <div class="exp-head">
             <div><h3>Mid &rarr; Senior Software Developer</h3><div class="org">CMH Lahore Medical College</div></div>
@@ -589,9 +586,9 @@
               <figcaption>Software development team with the Head of Department at CMH Lahore Medical College — building and maintaining the institution's interconnected portals.</figcaption>
             </figure>
             <div class="gallery-extra" hidden aria-hidden="true">
-              <img data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-software-team.jpg" data-cap="The CMH Lahore Medical College software development team" alt="Sheraz with the software development team at CMH Lahore Medical College" width="1599" height="1200" loading="lazy" decoding="async">
-              <img data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-developer-at-work.jpg" data-cap="Developing and maintaining institutional portals at CMH Lahore Medical College" alt="Sheraz developing web portals at his workstation, CMH Lahore Medical College" width="720" height="1280" loading="lazy" decoding="async">
-              <img data-gallery="cmh" data-full="assets/sheraz/two_senior_devs_in_one_frame_CMH.jpeg" data-cap="Two senior developers in one frame — CMH Lahore Medical College software team" alt="Sheraz with another senior developer at CMH Lahore Medical College" width="1600" height="1200" loading="lazy" decoding="async">
+              <span data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-software-team.jpg" data-cap="The CMH Lahore Medical College software development team"></span>
+              <span data-gallery="cmh" data-full="assets/sheraz/cmh-lahore-medical-college-developer-at-work.jpg" data-cap="Developing and maintaining institutional portals at CMH Lahore Medical College"></span>
+              <span data-gallery="cmh" data-full="assets/sheraz/two_senior_devs_in_one_frame_CMH.jpeg" data-cap="Two senior developers in one frame — CMH Lahore Medical College software team"></span>
             </div>
             <p>Owned <b>9 interconnected portals</b> that run the college &mdash; admissions, students, HR, employees, library, hostel, FCPS/HO induction and evaluation. <b>Promoted from Mid to Senior in 10 months.</b></p>
             <ul>
@@ -601,9 +598,9 @@
               <li>Integrated ZKTeco biometric attendance machines directly with the web apps.</li>
             </ul>
           </div>
-        </article>
+        </section>
 
-        <article class="station panel hud-frame">
+        <section class="station panel hud-frame" id="exp-stars">
           <span class="node" aria-hidden="true"></span>
           <div class="exp-head">
             <div><h3>Application Developer</h3><div class="org">Stars Developers &middot; Lahore</div></div>
@@ -612,9 +609,9 @@
           <div class="exp-body">
             <p>Started on Java and C# mobile and desktop apps, then moved into backend-driven <b>Laravel</b> web systems &mdash; the start of my web specialisation.</p>
           </div>
-        </article>
+        </section>
 
-        <article class="station panel hud-frame">
+        <section class="station panel hud-frame" id="exp-freelance">
           <span class="node" aria-hidden="true"></span>
           <div class="exp-head">
             <div><h3>Freelance — Desktop, Android &amp; Web</h3><div class="org">Independent</div></div>
@@ -623,10 +620,10 @@
           <div class="exp-body">
             <p>Delivered <b>point-of-sale, restaurant, institute-management and cross-platform note apps</b> for local and international clients &mdash; C# WinForms, Electron.js and Android/Firebase, growing into Laravel and Node.js cloud platforms.</p>
           </div>
-        </article>
+        </section>
       </div>
 
-      <div class="world-ops panel hud-frame" data-reveal>
+      <div class="world-ops panel hud-frame" id="exp-global" data-reveal>
         <span class="corner-id">GLOBAL OPS // 3 CONTINENTS</span>
         <div class="wo-head">
           <span class="eyebrow">Worldwide client missions</span>
@@ -663,112 +660,112 @@
 
     <section id="projects" class="wrap" data-reveal aria-label="Projects">
       <div class="sec-head"><span class="eyebrow">04 &middot; Deployed platforms</span><h2>Explore the work</h2></div>
-      <p class="muted" style="margin-top:-34px; margin-bottom:22px; font-family:var(--mono); font-size:12px;">// Open any system to view the video proof, screenshots and documentation.</p>
+      <p class="muted sec-intro tight">// Open any system to view the video proof, screenshots and documentation.</p>
       <div class="proj-filters" id="proj-filters" role="group" aria-label="Filter projects">
-        <button class="pf-chip on" data-filter="all" aria-pressed="true">All</button>
-        <button class="pf-chip" data-filter="gov" aria-pressed="false">Government</button>
-        <button class="pf-chip" data-filter="gis" aria-pressed="false">GIS</button>
-        <button class="pf-chip" data-filter="saas" aria-pressed="false">SaaS</button>
-        <button class="pf-chip" data-filter="ai" aria-pressed="false">AI</button>
+        <button type="button" class="pf-chip on" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="pf-chip" data-filter="gov" aria-pressed="false">Government</button>
+        <button type="button" class="pf-chip" data-filter="gis" aria-pressed="false">GIS</button>
+        <button type="button" class="pf-chip" data-filter="saas" aria-pressed="false">SaaS</button>
+        <button type="button" class="pf-chip" data-filter="ai" aria-pressed="false">AI</button>
       </div>
       <p class="project-result-count" id="project-result-count" role="status" aria-live="polite">Showing all 9 projects</p>
       <div class="proj-grid" data-stagger>
 
-        <article class="proj feat panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=lte">
-          <img class="proj-img" src="assets/projects/lte/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj feat panel hud-frame" data-cat="gov gis" data-href="projects/lte/">
+          <img class="proj-img" src="assets/projects/lte/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-01 // LTE</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
           <span class="tag">Gov Tech &middot; Next.js &middot; NestJS &middot; PostgreSQL</span>
-          <h3><a class="project-detail-link" href="project.html?id=lte">Linear Tree Enumeration System</a></h3>
+          <h3><a class="project-detail-link" href="projects/lte/">Linear Tree Enumeration System</a></h3>
           <p>A modern, GIS-driven platform to enumerate, track and analyze linear tree plantations along roads, canals and forest boundaries — high-performance spatial queries and interactive geospatial visualization over large datasets.</p>
-          <div class="meta"><span class="impact-pill">67% Forest Coverage</span><span class="stack">View project &middot; watch demo</span><a class="live-link" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener" aria-label="Open live deployment of Linear Tree Enumeration"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">67% Forest Coverage</span><span class="stack">View project &middot; watch demo</span><a class="live-link" href="https://punjabtreeenumeration.com" target="_blank" rel="noopener" aria-label="Live: open Linear Tree Enumeration (new tab)"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj half panel hud-frame" tabindex="0" data-cat="gov" data-href="project.html?id=cms">
-          <img class="proj-img" src="assets/projects/cms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj half panel hud-frame" data-cat="gov" data-href="projects/cms/">
+          <img class="proj-img" src="assets/projects/cms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-02</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=cms">Complaint Management</a></h3>
+          <h3><a class="project-detail-link" href="projects/cms/">Complaint Management</a></h3>
           <p>Multi-role routing for forest incidents with WhatsApp API alerts to Conservators &amp; DFOs.</p>
-          <div class="meta"><span class="impact-pill">WhatsApp API Alerts</span><span class="stack">React &middot; Node &middot; Mongo</span><a class="live-link" href="https://cms.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Complaint Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">WhatsApp API Alerts</span><span class="stack">React &middot; Node &middot; Mongo</span><a class="live-link" href="https://cms.gisforestry.com" target="_blank" rel="noopener" aria-label="Live: open Complaint Management System (new tab)"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj half panel hud-frame" tabindex="0" data-cat="gov" data-href="project.html?id=ams">
-          <img class="proj-img" src="assets/projects/ams/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj half panel hud-frame" data-cat="gov" data-href="projects/ams/">
+          <img class="proj-img" src="assets/projects/ams/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-03</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=ams">Asset Management</a></h3>
+          <h3><a class="project-detail-link" href="projects/ams/">Asset Management</a></h3>
           <p>IT/consumables tracking with QR generation, low-stock alerts and role-based assignment.</p>
-          <div class="meta"><span class="impact-pill">QR Asset Tracking</span><span class="stack">Laravel 11 &middot; MySQL</span><a class="live-link" href="https://ams.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Asset Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">QR Asset Tracking</span><span class="stack">Laravel 11 &middot; MySQL</span><a class="live-link" href="https://ams.gisforestry.com" target="_blank" rel="noopener" aria-label="Live: open Asset Management System (new tab)"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj wide panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=ppms">
-          <img class="proj-img" src="assets/projects/ppms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj wide panel hud-frame" data-cat="gov gis" data-href="projects/ppms/">
+          <img class="proj-img" src="assets/projects/ppms/shot-01-card.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-04</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=ppms">Pakistan Plantation Management</a></h3>
+          <h3><a class="project-detail-link" href="projects/ppms/">Pakistan Plantation Management</a></h3>
           <p>Nationwide GIS platform letting citizens and departments record plantation activity with GPS precision and photographic evidence to support environmental policy.</p>
-          <div class="meta"><span class="impact-pill">Nationwide GPS Data</span><span class="stack">GIS &middot; Public reporting</span><a class="live-link" href="https://ppms.gisforestry.com" target="_blank" rel="noopener" aria-label="Open live Pakistan Plantation Management System"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">Nationwide GPS Data</span><span class="stack">GIS &middot; Public reporting</span><a class="live-link" href="https://ppms.gisforestry.com" target="_blank" rel="noopener" aria-label="Live: open Pakistan Plantation Management System (new tab)"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj wide panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=gis-suite">
-          <img class="proj-img" src="assets/projects/gis-suite/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj wide panel hud-frame" data-cat="gov gis" data-href="projects/gis-suite/">
+          <img class="proj-img" src="assets/projects/gis-suite/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-05</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=gis-suite">GIS Spatial Monitoring Suite</a></h3>
+          <h3><a class="project-detail-link" href="projects/gis-suite/">GIS Spatial Monitoring Suite</a></h3>
           <p>Fire Management, Nursery Tracking and Forest Change Analysis — Leaflet mapping with QR markers.</p>
           <div class="meta"><span class="impact-pill">Leaflet + PostGIS</span><span class="stack">Leaflet &middot; PostGIS</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj half panel hud-frame" tabindex="0" data-cat="ai saas" data-href="project.html?id=jotly">
-          <img class="proj-img" src="assets/projects/jotly/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj half panel hud-frame" data-cat="ai saas" data-href="projects/jotly/">
+          <img class="proj-img" src="assets/projects/jotly/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-06</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=jotly">Jotly.ai</a></h3>
+          <h3><a class="project-detail-link" href="projects/jotly/">Jotly.ai</a></h3>
           <p>Full-stack AI app: image generation, voiceovers and AI chat.</p>
           <div class="meta"><span class="impact-pill">Multi-Modal AI SaaS</span><span class="stack">AI / SaaS &middot; Canada</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj half panel hud-frame" tabindex="0" data-cat="saas" data-href="project.html?id=sportseuropa">
-          <img class="proj-img" src="assets/projects/sportseuropa/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj half panel hud-frame" data-cat="saas" data-href="projects/sportseuropa/">
+          <img class="proj-img" src="assets/projects/sportseuropa/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-07</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=sportseuropa">Sportseuropa Suite</a></h3>
+          <h3><a class="project-detail-link" href="projects/sportseuropa/">Sportseuropa Suite</a></h3>
           <p>Team registration &amp; live scoring for Olympic-level games, judges and championships.</p>
           <div class="meta"><span class="impact-pill">Live Olympic Scoring</span><span class="stack">Sports Mgmt &middot; Italy</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj half panel hud-frame" tabindex="0" data-cat="saas" data-href="project.html?id=shopaholics">
-          <img class="proj-img" src="assets/projects/shopaholics/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj half panel hud-frame" data-cat="saas" data-href="projects/shopaholics/">
+          <img class="proj-img" src="assets/projects/shopaholics/preview.webp?v=media-20260928" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-08</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
-          <h3><a class="project-detail-link" href="project.html?id=shopaholics">Global Shopaholics &amp; Ship6</a></h3>
+          <h3><a class="project-detail-link" href="projects/shopaholics/">Global Shopaholics &amp; Ship6</a></h3>
           <p>International shipping, package forwarding and e-commerce logistics infrastructure.</p>
           <div class="meta"><span class="impact-pill">Global Shipping Logistics</span><span class="stack">Logistics SaaS</span><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
-        <article class="proj wide panel hud-frame" tabindex="0" data-cat="gov gis" data-href="project.html?id=gis-portal">
-          <img class="proj-img" src="assets/sheraz/gislab-forest-iucn-card.webp" alt="" loading="lazy" decoding="async" width="800" height="500" onerror="this.onerror=null;this.src='assets/projects/_placeholder.svg'">
+        <article class="proj wide panel hud-frame" data-cat="gov gis" data-href="projects/gis-portal/">
+          <img class="proj-img" src="assets/sheraz/gislab-forest-iucn-card.webp" alt="" loading="lazy" decoding="async" width="800" height="500">
           <span class="proj-shade" aria-hidden="true"></span>
           <span class="hex-id">SYS-09</span>
           <span class="live-prod-badge"><i class="badge-ping"></i> LIVE PROD</span>
           <div class="scanline-sweep" aria-hidden="true"></div>
           <span class="tag">Gov Tech &middot; Next.js &middot; React</span>
-          <h3><a class="project-detail-link" href="project.html?id=gis-portal">GIS Forestry Public Web Portal</a></h3>
+          <h3><a class="project-detail-link" href="projects/gis-portal/">GIS Forestry Public Web Portal</a></h3>
           <p>Public Next.js portal for the Punjab Forest, Wildlife &amp; Fisheries Department — forests, national parks &amp; zoos, drone echo-tech (multi-spectral, LiDAR &amp; thermal) and citizen e-services, with a custom admin panel.</p>
-          <div class="meta"><span class="impact-pill">Drone Tech &amp; Citizen E-Services</span><span class="stack">Next.js &middot; React &middot; Node</span><a class="live-link" href="https://gisforestry.com" target="_blank" rel="noopener" aria-label="Open live GIS Forestry public web portal"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
+          <div class="meta"><span class="impact-pill">Drone Tech &amp; Citizen E-Services</span><span class="stack">Next.js &middot; React &middot; Node</span><a class="live-link" href="https://gisforestry.com" target="_blank" rel="noopener" aria-label="Live: open GIS Forestry public web portal (new tab)"><i></i>LIVE</a><span class="go" aria-hidden="true">&#8599;</span></div>
         </article>
 
       </div>
@@ -793,7 +790,7 @@
     </section>
 
     <section id="contact" class="wrap" data-reveal aria-label="Contact">
-      <div class="sec-head" style="text-align:center;"><span class="eyebrow" style="justify-content:center;">06 &middot; Open channel</span><h2>Let&#39;s talk about your team</h2></div>
+      <div class="sec-head centered"><span class="eyebrow">06 &middot; Open channel</span><h2>Let&#39;s talk about your team</h2></div>
       <div class="terminal panel hud-frame">
         <span class="corner-id">SECURE LINK // AES-256</span>
         <div class="term-head">
@@ -807,10 +804,10 @@
           <div class="term-line"><span class="pr">$</span><span id="contact-type"></span></div>
         </div>
         <form class="comm-form" action="https://formsubmit.co/sherii55055@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New message from ARC portfolio">
+          <input type="hidden" name="_subject" value="New message from sheraz.is-a.dev">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+          <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="cf-row">
             <label class="cf-field"><span>NAME</span><input type="text" name="name" required autocomplete="name" placeholder="Your name"></label>
             <label class="cf-field"><span>EMAIL</span><input type="email" name="email" required autocomplete="email" placeholder="you@company.com"></label>
@@ -824,11 +821,11 @@
           <a href="mailto:sherii55055@gmail.com" class="btn btn-primary magnetic">&#9993; Send Email</a>
           <button type="button" class="btn btn-ghost magnetic" id="copy-email-btn" data-email="sherii55055@gmail.com">&#10697; <span id="copy-email-text">Copy Email</span></button>
           <a href="https://wa.me/+923481655055?text=Hi%20Sheraz,%20I'm%20reaching%20out%20regarding%20an%20engineering%20opportunity" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9089; WhatsApp</a>
-          <a href="Sheraz%20CV%20-%20Curriculum%20vitae%2025042026.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Resume</a>
+          <a href="assets/files/Malik-Sheraz-Maqsood-Ahmed-CV.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&darr; Resume</a>
           <a href="https://github.com/Sheraz-Maqsood" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9670; GitHub</a>
           <a href="https://www.linkedin.com/in/sheraz-maqsood-b991361a4/" target="_blank" rel="noopener" class="btn btn-ghost magnetic">&#9863; LinkedIn</a>
         </div>
-        <div class="contact-meta">LOCATION: Lahore, PK &middot; STATUS: <span class="text-gold">Available</span> &middot; MODE: Remote / Relocation</div>
+        <div class="contact-meta">LOCATION: Lahore, PK (UTC+5) &middot; STATUS: <span class="text-gold">Available</span> &middot; TYPE: Full-time or contract &middot; MODE: Remote / Relocation</div>
       </div>
     </section>
   </main>
@@ -837,45 +834,45 @@
     <div class="wrap">
       <span class="foot-brand"><img src="assets/brand/logo-mark-96.webp" alt="" width="26" height="26" loading="lazy">&copy; <span id="year"></span> Malik Sheraz Maqsood Ahmed</span>
       <span class="foot-social"><a href="https://github.com/Sheraz-Maqsood" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a> &middot; <a href="https://www.linkedin.com/in/sheraz-maqsood-b991361a4/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> &middot; <a href="mailto:sherii55055@gmail.com" aria-label="Email">Email</a></span>
-      <span>Compiled in Lahore with 0 errors, 3 warnings and 1 TODO from 2019 &middot; Works on my machine <i>and</i> in production <span style="color:var(--red)">&hearts;</span> &middot; <a href="#top">&uarr; git checkout top</a></span>
+      <span>Compiled in Lahore with 0 errors, 3 warnings and 1 TODO from 2019 &middot; Works on my machine <i>and</i> in production <span class="text-red">&hearts;</span> &middot; <a href="#top">&uarr; git checkout top</a></span>
     </div>
   </footer>
 
   <div class="assistant" id="assistant">
     <div class="assistant-bubble hidden" id="assistant-bubble" role="status" aria-live="polite">
-      <button class="close" id="assistant-close" aria-label="Dismiss assistant">&times;</button>
+      <button type="button" class="close" id="assistant-close" aria-label="Dismiss assistant">&times;</button>
       <div class="who">&#9672; ARC // AI Guide</div>
       <div id="assistant-text"></div>
     </div>
-    <button class="assistant-orb" id="assistant-orb" aria-label="Toggle AI assistant">
-      <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <button type="button" class="assistant-orb" id="assistant-orb" aria-label="Toggle AI assistant">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
     </button>
   </div>
 
-  <button class="sound-toggle" id="sound-toggle" aria-label="Toggle UI sound" aria-pressed="false">
+  <button type="button" class="sound-toggle" id="sound-toggle" aria-label="Toggle UI sound" aria-pressed="false">
     <svg class="off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
     <svg class="on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>
   </button>
 
-  <button class="back-top" id="back-top" aria-label="Back to top" title="Return to orbit">
+  <button type="button" class="back-top" id="back-top" aria-label="Back to top">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
   </button>
 
   <div class="first-hint" id="first-hint" role="status">
-    <button class="fh-x" id="first-hint-x" aria-label="Dismiss tip">&times;</button>
+    <button type="button" class="fh-x" id="first-hint-x" aria-label="Dismiss tip">&times;</button>
     <div class="fh-title">&#9672; PRO TIP</div>
     <div class="fh-body">Click <b>&#9834;</b> (bottom-left) for UI sound. Try the Konami code <b>&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr; B A</b> and the backtick <b>`</b> for a hidden terminal.</div>
   </div>
 
   <canvas id="matrix-rain" aria-hidden="true"></canvas>
-  <div class="console-eg" id="console-eg" aria-hidden="true">
+  <div class="console-eg" id="console-eg" role="dialog" aria-label="Hidden terminal" hidden>
     <div class="ch">&#9672; ARC ROOT TERMINAL — type "help"</div>
     <div class="cb" id="console-out"><div class="out">&rsaquo; Dark protocol engaged. Welcome, operator.</div></div>
-    <div class="cin"><span>$</span><input id="console-input" autocomplete="off" spellcheck="false" aria-label="Console input"></div>
+    <div class="cin"><span>$</span><input id="console-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal command"></div>
   </div>
 
-  <script defer src="assets/js/components.min.js?v=f354f32714"></script>
-  <script defer src="assets/js/main.min.js?v=bc9db761e0"></script>
-  <script defer src="assets/js/living-network.min.js?v=8bd273c05a"></script>
+  <script defer src="assets/js/components.min.js?v=0921fb0cc2"></script>
+  <script defer src="assets/js/main.min.js?v=e14de02414"></script>
+  <script defer src="assets/js/living-network.min.js?v=7f44ca0728"></script>
 </body>
 </html>

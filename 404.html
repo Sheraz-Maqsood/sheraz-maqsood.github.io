@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 — Signal Lost // Sheraz ARC OS</title>
+  <title>404 — Page not found · Malik Sheraz Maqsood Ahmed</title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#02040a">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -30,6 +32,7 @@
     p { color:var(--muted); font-family:"JetBrains Mono",monospace; font-size:13px; line-height:1.7; margin-bottom:30px; }
     p b { color:var(--cy); font-weight:400; }
     .btn { display:inline-flex; align-items:center; gap:9px; font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; padding:13px 26px; background:var(--cy); color:#02121a; font-weight:700; text-decoration:none; border-radius:3px; box-shadow:0 0 18px rgba(56,224,255,0.45); clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); transition:transform .25s, box-shadow .25s; }
+    .btn-alt { background:none; color:var(--cy); box-shadow:none; border:1px solid var(--line); margin-left:10px; }
     .btn:hover { transform:translateY(-2px); box-shadow:0 0 34px rgba(56,224,255,0.6); }
     .meta { margin-top:26px; font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:0.2em; color:#5b7e93; }
     .meta i { display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff5a6e; box-shadow:0 0 10px #ff5a6e; margin-right:8px; animation:blink 1.4s infinite; vertical-align:middle; }
@@ -37,13 +40,14 @@
   </style>
 </head>
 <body>
-  <div class="box">
-    <img class="logo" src="/assets/brand/logo-mark-160.webp" alt="Sheraz" width="110" height="110">
+  <main class="box">
+    <img class="logo" src="/assets/brand/logo-mark-160.webp" alt="" width="110" height="110">
     <div class="code"><span class="glitch">404</span></div>
-    <h1>Signal Lost</h1>
-    <p>The coordinates you requested don't exist in this sector.<br>Re-establishing uplink to <b>ARC OS</b> is recommended.</p>
-    <a class="btn" href="/">&#9672; Return to Base</a>
-    <div class="meta"><i></i>ERR_SECTOR_NOT_FOUND &middot; ARC OS v2.0</div>
-  </div>
+    <h1>Page not found</h1>
+    <p>The page you requested doesn't exist or has moved.<br>Project dossiers now live at <b>/projects/</b> — start from the portfolio.</p>
+    <a class="btn" href="/">&#9672; Back to the portfolio</a>
+    <a class="btn btn-alt" href="/#projects">All projects</a>
+    <div class="meta"><i></i>ERR_PAGE_NOT_FOUND &middot; sheraz.is-a.dev</div>
+  </main>
 </body>
 </html>
