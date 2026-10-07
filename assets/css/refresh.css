@@ -1824,7 +1824,8 @@ body[data-instant-entry] #boot { display: none; }
 }
 .hp-chip i { width: 7px; height: 7px; border-radius: 50%; background: #5dffa0; box-shadow: 0 0 8px rgba(93, 255, 160, 0.6); }
 .hp-chip-a { left: 2%; top: 30%; }
-.hp-chip-b { right: 0; bottom: 20%; flex-direction: column; align-items: flex-start; gap: 2px; }
+.hp-chip-b { right: 0; bottom: 20%; max-width: 300px; flex-direction: column; align-items: flex-start; gap: 2px; white-space: normal; }
+.hp-chip-b em { margin-bottom: 2px; color: var(--gold); font-style: normal; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
 .hp-chip-b b { font-family: inherit; font-size: 12px; font-weight: 600; color: var(--cy); letter-spacing: .04em; }
 .hp-chip-b span { font-size: 10.5px; color: var(--fg-muted, #9fb3c8); letter-spacing: .02em; }
 
@@ -1906,6 +1907,7 @@ body[data-instant-entry] #boot { display: none; }
 .hp-figure .hp-chip-b { right: -16%; bottom: 22%; }
 @media (min-width: 1200px) and (max-width: 1479px) { .hp-figure .hp-chip-b { right: -6%; } }
 .hp-figure .hp-chip-b { bottom: 8%; }  /* sits on the faded lower body, clear of name tapes and patches */
+@media (max-width: 980px) { .hp-figure .hp-chip-b { right: 0; } }
 
 /* ========================================================
    BRAND — SM monogram logo (header, boot screen, footer)
