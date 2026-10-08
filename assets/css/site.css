@@ -963,6 +963,7 @@ button, input, textarea { max-width: 100%; }
 .hero-status { font-size: 10px; line-height: 1.7; letter-spacing: .11em; padding: 8px 13px; background: #5dffa006; }
 .hero-status .pulse { flex-shrink: 0; }
 .roles { font-size: 13px; min-height: 42px; line-height: 1.7; margin-bottom: 16px; letter-spacing: .055em; }
+.roles i { color: var(--cy); font-style: normal; padding-inline: .28em; }
 .hero-sub { font-size: 1.14rem; line-height: 1.8; margin-bottom: 25px; }
 .hero-cta { gap: 12px; margin-bottom: 30px; }
 .hero-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding-top: 23px; }
@@ -2330,7 +2331,11 @@ body[data-instant-entry] #boot { display: none; }
   white-space: nowrap;
 }
 .hp-chip i { width: 7px; height: 7px; border-radius: 50%; background: #5dffa0; box-shadow: 0 0 8px rgba(93, 255, 160, 0.6); }
-.hp-chip-a { left: 2%; top: 30%; }
+.hp-chip-a { left: 2%; top: 30%; align-items: flex-start; }
+.hp-chip-a > span { display: grid; gap: 3px; }
+.hp-chip-a strong { display: block; font: inherit; font-weight: 400; }
+.hp-chip-a b { color: var(--fg); font-size: 1.18em; }
+.hp-chip-a small { display: block; color: var(--cy); font-size: 8px; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
 .hp-chip-b { right: 0; bottom: 20%; max-width: 300px; flex-direction: column; align-items: flex-start; gap: 2px; white-space: normal; }
 .hp-chip-b em { margin-bottom: 2px; color: var(--gold); font-style: normal; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
 .hp-chip-b b { font-family: inherit; font-size: 12px; font-weight: 600; color: var(--cy); letter-spacing: .04em; }
@@ -2388,11 +2393,14 @@ body[data-instant-entry] #boot { display: none; }
   left: 62%; top: 30%; width: 120%;
   background: radial-gradient(circle at 50% 45%, rgba(56, 224, 255, 0.13) 0%, rgba(56, 224, 255, 0.04) 40%, transparent 66%);
 }
-.hp-figure .hp-chip-a { left: -18%; top: 20%; }
+.hp-figure .hp-chip-a { left: -24%; top: 20%; }
 .hp-figure .hp-chip-b { right: -16%; }
 @media (min-width: 1200px) and (max-width: 1479px) { .hp-figure .hp-chip-b { right: -6%; } }
 .hp-figure .hp-chip-b { bottom: 8%; }  /* sits on the faded lower body, clear of name tapes and patches */
-@media (max-width: 980px) { .hp-figure .hp-chip-b { right: 0; } }
+@media (max-width: 980px) {
+  .hp-figure .hp-chip-a { left: 0; top: 15%; }
+  .hp-figure .hp-chip-b { right: 0; }
+}
 
 /* ========================================================
    BRAND — SM monogram logo (header, boot screen, footer)

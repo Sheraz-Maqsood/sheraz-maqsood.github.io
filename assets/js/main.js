@@ -256,7 +256,7 @@
   function initTyper() {
     var el = $("#role-type");
     if (!el) return;
-    var roles = ["Principal Full-Stack & GIS Engineer", "Government GIS Platform Builder", "Laravel · NestJS · FastAPI", "React · Next.js Engineer", "CI/CD & Linux Production Ops", "C# Desktop & Embedded Systems"];
+    var roles = ["Principal Full-Stack Developer", "Server & Cloud Expert", "DevOps & GIS Engineer", "Laravel · NestJS · FastAPI", "React · Next.js Engineer", "CI/CD & Linux Production Ops"];
     if (reduceMotion) { el.textContent = roles[0]; return; }
     var r = 0, c = 0, del = false;
     (function tick() {
@@ -888,7 +888,7 @@
     }
     var cmds = {
       help: function () { print("Commands: <span class='out'>about · skills · projects · contact · matrix · clear · whoami</span>"); },
-      about: function () { print("<span class='out'>Malik Sheraz Maqsood Ahmed — Principal Full-Stack & GIS Engineer.</span>"); },
+      about: function () { print("<span class='out'>Malik Sheraz Maqsood Ahmed — Principal Full-Stack Developer, Server & Cloud Expert, DevOps & GIS Engineer.</span>"); },
       skills: function () { print("<span class='out'>Laravel · NestJS · React · Next.js · Node · PostgreSQL/PostGIS · AWS · CI/CD</span>"); },
       projects: function () { print("<span class='out'>LTE · Complaint Mgmt · Asset Mgmt · PPMS · GIS Suite · Jotly.ai</span>"); },
       contact: function () { print("<span class='out'>sherii55055@gmail.com · wa.me/+923481655055</span>"); },
